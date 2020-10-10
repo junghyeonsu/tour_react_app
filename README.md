@@ -14,7 +14,7 @@
  * yarn.lock<br>
 <br>
  
- *** 1. tour_react_app에서 npm install
- *** 2. client 폴더에서 npm install
- *** 3. server 폴더에서 npm install
- *** 4. tour_react_app에서 yarn dev 로 시작
+ ***1. tour_react_app에서 npm install<br>
+ ***2. client 폴더에서 npm install<br>
+ ***3. server 폴더에서 npm install<br>
+ ***4. tour_react_app에서 yarn dev 로 시작<br>
