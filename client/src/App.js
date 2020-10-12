@@ -16,7 +16,9 @@ class App extends Component{
     return (
       <Router>
         <Switch>
+          {/*   /로 이동하면 Main 컴포넌트를 띄움   */}
           <Route exact path="/" component={Main} />
+          {/*   /mission로 이동하면 Mission 컴포넌트를 띄움   */}
           <Route exact path="/mission" component={Mission} />
         </Switch>
       </Router>
