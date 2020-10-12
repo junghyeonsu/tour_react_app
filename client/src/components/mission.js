@@ -24,19 +24,19 @@ class mission extends Component {
                     <p id ="hash-tag">#대전여행 #미션여행</p>
                     <div id="SNS-container">
                     <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                        <img id = "instagram-img" class = "sns_image" src={require('../images/instagram.jpeg')} alt = "instagram" /> 
+                        <img id = "instagram-img" className = "sns_image" src={require('../images/instagram.jpeg')} alt = "instagram" /> 
                     </a>
                     <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                        <img id="facebook-img" class = "sns_image" src={require('../images/facebook.jpeg')} alt = "facebook" />
+                        <img id="facebook-img" className = "sns_image" src={require('../images/facebook.jpeg')} alt = "facebook" />
                     </a>
                     <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer">
-                        <img id="twitter-img" class = "sns_image" src={require('../images/twitter.png')} alt = "twitter" />
+                        <img id="twitter-img" className = "sns_image" src={require('../images/twitter.png')} alt = "twitter" />
                     </a>
                     </div>
                 </div>
                 <div id="button_container">
-                <button id="content_nextBtn" class="btn">다음 스테이지</button>
-                <button id="content_closeBtn" class="btn">그만 하기</button>
+                <button id="content_nextBtn" className="btn">다음 스테이지</button>
+                <button id="content_closeBtn" className="btn">그만 하기</button>
                 </div>
                     <div id="next_stage"></div>
                 </div>
