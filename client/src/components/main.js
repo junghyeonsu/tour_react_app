@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './main.css';
+import TourIntro from './tourIntro';
 
 class main extends Component{
   render(){
@@ -36,9 +37,7 @@ class main extends Component{
         </div>
 
         {/* <!-- 관광지 소개 --> */}
-        <div>
-
-        </div>
+        <TourIntro />
 
       </div>
     );
