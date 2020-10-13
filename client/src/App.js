@@ -3,6 +3,7 @@ import './App.css';
 
 import Main from './components/main';
 import Mission from './components/mission';
+import Admin from './components/admin';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -15,11 +16,16 @@ class App extends Component{
   render(){
     return (
       <Router>
+        
+
         <Switch>
           {/*   /로 이동하면 Main 컴포넌트를 띄움   */}
           <Route exact path="/" component={Main} />
           {/*   /mission로 이동하면 Mission 컴포넌트를 띄움   */}
           <Route exact path="/mission" component={Mission} />
+          {/* 어드민 홈페이지 테스트 */}
+          <Route exact path="/admin" component={Admin} />
+
         </Switch>
       </Router>
     );
