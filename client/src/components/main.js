@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
 import './main.css';
 import TourIntro from './tourIntro';
+import { Link } from 'react-router-dom';
 
 class main extends Component{
+
+  // 중간에 "클릭" 버튼 눌렀을 때 /api/insert 로 라우팅해줘서 MongoDB와 연결
+  onClickButton = async e => {
+    const response = await fetch('/api/insert', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // body: JSON.stringify({ post: this.state.post }),
+    });
+
+    const body = await response.text();
+
+    // this.setState({responseToPost: body});
+  }
+
   render(){
     return (
       <div>
@@ -36,9 +53,14 @@ class main extends Component{
             <button id="mission_button" className="submit_button">확인</button>
         </div>
 
+        {/* 몽고 DB 테스트 하는 곳 */}
+        <div className="container">
+           <Link to="/api/insert" onClick={this.onClickButton}> 테스트 </Link>
+        </div>
+
         {/* <!-- 관광지 소개 --> */}
         <TourIntro />
-
+      
       </div>
     );
   }
