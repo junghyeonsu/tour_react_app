@@ -3,8 +3,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
-const stageModel = require("./stage");
-const userModel = require("./user");
+const Book = require("./book");
+const UserModel = require("./user");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -31,7 +31,7 @@ connectDB();
 
 addUser = function (database, id, cb) {
   console.log("addUser 호출");
-  var user = new userModel({
+  var user = new UserModel({
     id: id,
     stage: [],
     quiz: [],
@@ -45,6 +45,22 @@ addUser = function (database, id, cb) {
     cb(null, user);
   });
 };
+
+var router = require("./routes")(app, Book);
+
+// API 라우팅 !!!
+app.post("/api/insert", (req, res) => {
+  var book = new Book({
+    name: "NodeJS Tutorial",
+    author: "velopert",
+  });
+
+  book.save(function (err, book) {
+    if (err) return console.error(err);
+  });
+
+  res.send("hi");
+});
 
 app.get("/:stage/:quiz", function (req, res) {
   var user = req.cookies["user"];
@@ -68,7 +84,9 @@ app.get("/:stage/:quiz", function (req, res) {
     }
   }
 });
-
+app.post('/answer/stage',function(req, res){
+  res.send('hello');
+})
 var server = app.listen(port, function () {
   console.log("Express server has started on port " + port);
 });
