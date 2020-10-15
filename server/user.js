@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var userSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
   id: String,
   stageClear: Array,
   stageVisit:Array,
@@ -8,4 +8,4 @@ var userSchema = new mongoose.Schema({
   prevGame: Number,
 });
 
-module.exports =  mongoose.model("users", userSchema);
+module.exports =  mongoose.model("users", UserSchema);

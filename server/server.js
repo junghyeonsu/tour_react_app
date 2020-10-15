@@ -3,8 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
-const stageModel = require("./stage");
-const userModel = require("./user");
+const UserModel = require("./user");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -31,7 +30,7 @@ connectDB();
 
 addUser = function (database, id, cb) {
   console.log("addUser 호출");
-  var user = new userModel({
+  var user = new UserModel({
     id: id,
     stageClear: [false,false,false,false],
     stageVisit: [false,false,false,false],
@@ -135,6 +134,21 @@ app.get("/:stage/:quiz/", function (req, res) {
     }
   }
 });
+app.post('/:Stage/:Quiz',function(req, res){
+  console.log(req.params)
+  var stage;
+  var quiz;
+
+  if(req.params.Stage === 'Stage3' && req.params.Quiz === 'Quiz4'){
+    stage = 'hi';
+    quiz = 'E'
+  }
+  else{
+    stage = 'hello';
+    quiz = 'A'
+  }
+  res.send({quiz : quiz,stage:stage});
+})
 
 
 var server = app.listen(port, function () {
