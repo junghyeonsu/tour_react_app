@@ -2,8 +2,10 @@ var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
   id: String,
-  stage: Array,
+  stageClear: Array,
+  stageVisit:Array,
   quiz: Array,
+  prevGame: Number,
 });
 
 module.exports =  mongoose.model("users", userSchema);
