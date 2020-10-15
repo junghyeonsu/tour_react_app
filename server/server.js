@@ -85,7 +85,7 @@ app.get("/:stage/:quiz", function (req, res) {
   }
 });
 app.post('/answer/stage',function(req, res){
-  res.send('hello');
+  res.send({quiz : 'hello',stage:'D'});
 })
 var server = app.listen(port, function () {
   console.log("Express server has started on port " + port);
