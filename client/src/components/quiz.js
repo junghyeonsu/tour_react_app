@@ -11,7 +11,7 @@ class Quiz extends Component{
                     <img id="content_image" src={require('../images/abcd-01-1.jpg')} alt="이미지" />
                 </div>
                 </div>
-                <div id="content_quiz" class="container">
+                <div id="content_quiz" className="container">
                     A 구역의 몇 번째 최종답의 힌트는 이것입니다.
                 </div>
                 <TourIntro />
