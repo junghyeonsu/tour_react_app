@@ -33,7 +33,8 @@ addUser = function (database, id, cb) {
   console.log("addUser 호출");
   var user = new userModel({
     id: id,
-    stage: [false,false,false,false],
+    stageClear: [false,false,false,false],
+    stageVisit: [false,false,false,false],
     quiz: [1,2,3,4],
     prevGame:0,
   });
