@@ -3,7 +3,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
-const UserModel = require("./user");
+const stageModel = require("./stage");
+const userModel = require("./user");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -30,7 +31,7 @@ connectDB();
 
 addUser = function (database, id, cb) {
   console.log("addUser 호출");
-  var user = new UserModel({
+  var user = new userModel({
     id: id,
     stageClear: [false,false,false,false],
     stageVisit: [false,false,false,false],
