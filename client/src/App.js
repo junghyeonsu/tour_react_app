@@ -29,6 +29,8 @@ class App extends Component{
 
           {/*   /quiz로 이동하면 Mission 컴포넌트를 띄움   */}
           <Route exact path="/quiz" component={Quiz} />
+
+          <Route exact path="/:Stage/:Quiz" component={Main} />
         </Switch>
       </Router>
     );
