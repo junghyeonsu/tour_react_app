@@ -4,6 +4,7 @@ import './App.css';
 import Main from './components/main';
 import Mission from './components/mission';
 import Admin from './components/admin';
+import Quiz from './components/quiz';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -26,6 +27,8 @@ class App extends Component{
           {/* 어드민 홈페이지 테스트 */}
           <Route exact path="/admin" component={Admin} />
 
+          {/*   /quiz로 이동하면 Mission 컴포넌트를 띄움   */}
+          <Route exact path="/quiz" component={Quiz} />
         </Switch>
       </Router>
     );
