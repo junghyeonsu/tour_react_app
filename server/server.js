@@ -84,8 +84,20 @@ app.get("/:stage/:quiz", function (req, res) {
     }
   }
 });
-app.post('/answer/stage',function(req, res){
-  res.send('hello');
+app.post('/:Stage/:Quiz',function(req, res){
+  console.log(req.params)
+  var stage;
+  var quiz;
+
+  if(req.params.Stage === 'Stage3' && req.params.Quiz === 'Quiz4'){
+    stage = 'hi';
+    quiz = 'E'
+  }
+  else{
+    stage = 'hello';
+    quiz = 'A'
+  }
+  res.send({quiz : quiz,stage:stage});
 })
 var server = app.listen(port, function () {
   console.log("Express server has started on port " + port);
