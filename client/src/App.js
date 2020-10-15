@@ -3,7 +3,7 @@ import './App.css';
 
 import Main from './components/main';
 import Mission from './components/mission';
-
+import Quiz from './components/quiz';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // 버튼 클릭 시 라우팅 해주고 싶으면
@@ -20,6 +20,8 @@ class App extends Component{
           <Route exact path="/" component={Main} />
           {/*   /mission로 이동하면 Mission 컴포넌트를 띄움   */}
           <Route exact path="/mission" component={Mission} />
+          {/*   /quiz로 이동하면 Mission 컴포넌트를 띄움   */}
+          <Route exact path="/quiz" component={Quiz} />
         </Switch>
       </Router>
     );
