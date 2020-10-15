@@ -60,7 +60,6 @@ class main extends Component{
     }
 
   }
-
   render(){
     return (
       <div>

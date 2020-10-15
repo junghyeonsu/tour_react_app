@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
-const Book = require("./book");
 const UserModel = require("./user");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -46,22 +45,6 @@ addUser = function (database, id, cb) {
   });
 };
 
-var router = require("./routes")(app, Book);
-
-// API 라우팅 !!!
-app.post("/api/insert", (req, res) => {
-  var book = new Book({
-    name: "NodeJS Tutorial",
-    author: "velopert",
-  });
-
-  book.save(function (err, book) {
-    if (err) return console.error(err);
-  });
-
-  res.send("hi");
-});
-
 app.get("/:stage/:quiz", function (req, res) {
   var user = req.cookies["user"];
 
@@ -99,6 +82,7 @@ app.post('/:Stage/:Quiz',function(req, res){
   }
   res.send({quiz : quiz,stage:stage});
 })
+
 var server = app.listen(port, function () {
   console.log("Express server has started on port " + port);
 });
