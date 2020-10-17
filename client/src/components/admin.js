@@ -1,31 +1,36 @@
 import React, { Component } from 'react';
 import './admin.css';
-import Password from './password';
-import AdminMain from './adminMain';
+import { Link } from 'react-router-dom';
+import OtpInput from 'react-otp-input';
 
 class Admin extends Component {
 
-    state = { 
-        authority : false,
+    state = { otp: '' };
+
+    handleChange = otp => {
+        this.setState({ otp });
+        console.log(otp);
     };
 
-    changeAutority = () => {
-        this.setState({ authority : true });
-        alert("changeAutority : true");
-    }
-
     render() {
-
-        const {authority} = this.state;
-
         return(
-            <div>
-                {
-                authority ? 
-                <AdminMain /> :
-                <Password changeAutority={this.changeAutority} />
-                }
-                {/* <AdminMain /> */}
+            <div lassName="app">
+
+  
+                <div className="otp_area">
+                    <div className="otp_text">
+                        비밀번호를 입력해주세요
+                    </div>
+                    <div className="otp_input">
+                        <OtpInput
+                        value={this.state.otp}
+                        onChange={this.handleChange}
+                        numInputs={6}
+                        />
+                    </div>
+                </div>
+
+
             </div>
         );
     }

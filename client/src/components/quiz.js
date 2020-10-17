@@ -3,6 +3,7 @@ import TourIntro from './tourIntro';
 
 class Quiz extends Component{
     render(){
+        console.log(this.props.quiz)
         return(
             <div>
                 <div id="content">

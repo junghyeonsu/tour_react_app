@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './main.css';
 import TourIntro from './tourIntro';
 import { Link } from 'react-router-dom';
+import Game from './Game';
 
 class main extends Component{
   state = {
@@ -25,10 +26,11 @@ class main extends Component{
       quizAnswer : body.quiz,
       stageAnswer : body.stage,
     })
+    console.log(document.getElementById('correctAnswer').value);
   }
 
   QuizSuccess = (e) => {
-    if(this.state.quizAnswer !== this.state.input){
+    if(document.getElementById('correctAnswer').value !== this.state.input){
       alert('틀렸습니다!');
       e.preventDefault();
       
@@ -48,7 +50,7 @@ class main extends Component{
       document.getElementById('aa').disabled = true;
       var timer = setInterval(function(){
         time--;
-        if(time == 0){
+        if(time === 0){
           clearInterval(timer);
           document.getElementById('aa').disabled = false;
         }
@@ -60,12 +62,14 @@ class main extends Component{
     }
 
   }
+ 
   render(){
+    
     return (
       <div>
             {/* <!-- 컨텐츠 부분 --> */}
         <div id="content"> </div>
-
+        
         {/* <!-- 컨텐츠 이미지 --> */}
         <div id="content_image_container">
             <img id="content_image" src={require('../images/abcd-01-1.jpg')} alt="이미지" />
@@ -73,14 +77,14 @@ class main extends Component{
 
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
-            {/* <!-- 퀴즈 내는 곳 --> */}
+            
             <div id="content_quiz" className="container">
-                quiz
+            <div> <Game /></div>
             </div>
 
             {/* <p>퀴즈의 정답을 입력해주세요</p> */}
             <input className="submit_input" type="text"  onChange={(e) => {this.setState({input:e.target.value})}}/>
-            <Link to='/quiz' onClick={this.QuizSuccess}><button id="quiz_button" className="submit_button">확인</button></Link>
+            <Link to='/quiz' onClick={this.QuizSuccess} quiz = {this.state.quizAnswer}><button id="quiz_button" className="submit_button">확인</button></Link>
         </div> 
 
         <hr />
@@ -99,6 +103,7 @@ class main extends Component{
       
       </div>
     );
+    
   }
 }
 
