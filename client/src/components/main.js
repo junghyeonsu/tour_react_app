@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './main.css';
-import TourIntro from './tourIntro';
 import { Link } from 'react-router-dom';
 import Game from './Game';
+import ExplainModal from './Modal';
 
 class main extends Component{
   state = {
@@ -10,6 +10,7 @@ class main extends Component{
     input : '',
     FinalInput :  '',
     stageAnswer : '',
+    
   }
 
   async componentDidMount(){
@@ -64,7 +65,7 @@ class main extends Component{
   }
  
   render(){
-    
+
     return (
       <div>
             {/* <!-- 컨텐츠 부분 --> */}
@@ -72,9 +73,11 @@ class main extends Component{
         
         {/* <!-- 컨텐츠 이미지 --> */}
         <div id="content_image_container">
-            <img id="content_image" src={require('../images/abcd-01-1.jpg')} alt="이미지" />
+            <img id="content_image" src={require('../images/abcd-01-1.jpg')} alt="이미지"/>
         </div>
-
+        <div>
+          <ExplainModal />
+        </div>
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
             
@@ -84,7 +87,7 @@ class main extends Component{
 
             {/* <p>퀴즈의 정답을 입력해주세요</p> */}
             <input className="submit_input" type="text"  onChange={(e) => {this.setState({input:e.target.value})}}/>
-            <Link to='/quiz' onClick={this.QuizSuccess} quiz = {this.state.quizAnswer}><button id="quiz_button" className="submit_button">확인</button></Link>
+            <Link to='/quiz' onClick={this.QuizSuccess}><button id="quiz_button" className="submit_button">확인</button></Link>
         </div> 
 
         <hr />
@@ -96,14 +99,8 @@ class main extends Component{
             <input className="submit_input" type="text" id="aa" onChange={(e) => {this.setState({Finalinput:e.target.value})}} />
             <Link to='/mission' onClick={this.StageSuccess}><button id="mission_button" className="submit_button">제출</button></Link>
         </div>
-
-  
-        {/* <!-- 관광지 소개 --> */}
-        <TourIntro />
-      
       </div>
     );
-    
   }
 }
 
