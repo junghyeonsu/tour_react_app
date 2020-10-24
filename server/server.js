@@ -14,6 +14,7 @@ app.use(cookieParser());
 
 var database;
 
+// database와 연결하는 코드 (현재는 local로 설정되어있다.)
 function connectDB() {
   var databaseUrl = process.env.MONGODB_URI || `mongodb://localhost:27017/node-react-starter`;
   mongoose.connect(databaseUrl);
@@ -29,6 +30,7 @@ function connectDB() {
 }
 connectDB();
 
+// user cookie가 없는 경우 user를 데이터베이스에 추가하는 함수
 addUser = function (database, id, cb) {
   console.log("addUser 호출");
   var user = new userModel({
@@ -48,23 +50,52 @@ addUser = function (database, id, cb) {
   });
 };
 
+getUserStageVisitInfo = function(database,id,cb){
+  userModel.findOne({id:id},function(err,user){
+    if(err) console.log(err);
+    // console.log(user);
+  })
+}
+// 스테이지의 정보를 받아서 해당 스테이지에 해당하는 카운트 증가하는 함수
 updateStageInfo = function(database, stageInfo, cb){
-  console.log("updateStageInfo",stageInfo);
-  stageModel.find({name: stageInfo},function(err, stage){
+  stageModel.findOne({name: stageInfo},function(err, stage){
     if(err) console.log(err);
     console.log(stage)
-    console.log(typeof(stage[0].count));
-    stage[0].count++;
-    stage[0].save(function (err) {
+    stage.count++;
+    stage.save(function (err) {
       if (err) {
         cb(err, null);
         return;
       }
       cb(null, stage);
     });
-  })
+  });
 }
 
+getQuizHintAndAnswer = function(database, stageInfo, quizInfo, cb){
+  stageModel.findOne({name: stageInfo}, function(err,stage){
+    if(err) console.error(err);
+    quizIdx = Number(quizInfo[4]);
+    var hint = stage['hint'][quizIdx-1];
+    var answer = stage['answer'];
+    cb(null,{"hint":hint,"answer":answer});
+  });
+}
+//데이터베이스에서 적은 사람들이 존재하는 Stage를 반환하는 함수
+getLessPeopleStage = function(database,stageInfo,cb){
+  stageModel.find({ }, function(err,stage){
+    if(err) console.error(err);
+    var idx = -1;
+    var minValue = Number.MAX_VALUE;
+    for(var i = 0;i<stage.length;i++){
+      if(stage[i].count<minValue){
+        minValue = stage[i].count;
+        idx = i;
+      }
+    }
+    cb(null,stage[idx].name)
+  });
+}
 app.get("/api/setStageInfo",function(req,res){
   if(database){
     stageModel.insertMany({
@@ -95,62 +126,95 @@ app.get("/api/setStageInfo",function(req,res){
   }
 });
 
+// app.get("/:stage/test",function(req,res){
+//   var visited = req.cookies["visited"];
+//   console.log(visited)
+//   console.log(visited["stage1"]);
+//   var stageInfo = req.params.stage;
+//   visited[stageInfo] = true;
+//   res.cookie("visited",visited,{maxAge: 999999, httpOnly: true });
+//   res.send(visited);
+// });
+
 app.get("/:stage/:quiz/", function (req, res) {
   var user = req.cookies["user"];
   var stageInfo = req.params.stage;
-  console.log(stageInfo);
-  console.log(req.params.quiz);
-  if (user) {
-    console.log(user);
-    updateStageInfo(database,stageInfo,function (err, result) {
-      if (err) {
-        throw err;
-      }
-      if (result) {
-        console.log(`${stageInfo} Count 증가`);
-      }
+  var quizInfo = req.params.quiz;
+  // console.log(stageInfo);
+  // console.log(req.params.quiz);
+  
+  if (user) {   //이미 유저쿠키가 존재하는 경우
+    var visited = req.cookies["visited"];
+    getUserStageVisitInfo(database,user,function(err,result){
+      if (err) throw err;
+      if (result) ;
     });
-    return res.send("Cookie has setted");
-  } else {
-    var uuid = uuidv4();
-    if (database) {
-      addUser(database, uuid, function (err, result) {
-        if (err) {
-          throw err;
-        }
-        if (result) {
-          console.log("유저 추가 성공");
-        }
-      });
-      res.cookie("user", uuid, { maxAge: 999999, httpOnly: true });
+
+    if(!visited[stageInfo]){
+      visited[stageInfo] = true;
+      console.log(visited[stageInfo])
+      res.cookie("visited",visited,{maxAge: 86400000, httpOnly: true });
+      //stage의 카운트를 증가시켜주는 함수를 호출한다.
       updateStageInfo(database,stageInfo,function (err, result) {
-        if (err) {
-          throw err;
-        }
-        if (result) {
-          console.log(`${stageInfo} Count 증가`);
-        }
-      })
-      return res.send("Cookie Setting");
+        if (err) throw err;
+        if (result) console.log(`${stageInfo} Count 증가`);
+      });
+    }
+    // res.send("Cookie has setted");
+  }    
+  else {  // 유저 쿠키가 존재하지않았던 상황. 유저 쿠키를 생성한다.
+    var uuid = uuidv4();
+    var visited = {"stage1":false,"stage2":false,"stage3":false,"stage4":false};
+    if (database) {
+      // 데이터베이스에 유저의 정보를 추가해주는 부분
+      addUser(database, uuid, function (err, result) {
+        if (err) throw err;
+        if (result) console.log("유저 추가 성공");
+      });
+      // 쿠키 생성
+      res.cookie("user", uuid, { maxAge: 86400000, httpOnly: true });
+      visited[stageInfo] = true;
+      res.cookie("visited",visited,{ maxAge: 86400000, httpOnly: true });
+
+      //stage의 카운트를 증가시켜주는 함수를 호출한다.
+      updateStageInfo(database,stageInfo,function (err, result) {
+        if (err) throw err;
+        if (result) console.log(`${stageInfo} Count 증가`);
+      });
+      // res.send("Cookie Setting");
     }
   }
+  getQuizHintAndAnswer(database,stageInfo,quizInfo,function (err, result) {
+    if (err) throw err;
+    if (result) res.send(result);
+  });
 });
+
+app.get('/mission',function(req,res){
+  var stageInfo = "stage1";
+  getLessPeopleStage(database,stageInfo,function (err, result) {
+    
+    if (err) throw err;
+    if (result) res.send(`다음 목적지는 ${result}입니다.`);
+  });
+
+})
 app.post('/:Stage/:Quiz',function(req, res){
   console.log(req.params)
   var stage;
   var quiz;
 
-  if(req.params.Stage === 'Stage3' && req.params.Quiz === 'Quiz4'){
-    stage = 'hi';
-    quiz = 'E'
-  }
-  else{
-    stage = 'hello';
-    quiz = 'A'
-  }
+  // if(req.params.Stage === 'Stage3' && req.params.Quiz === 'Quiz4'){
+  //   stage = 'hi';
+  //   quiz = 'E'
+  // }
+  // else{
+  //   stage = 'hello';
+  //   quiz = 'A'
+  // }
+  
   res.send({quiz : quiz,stage:stage});
 })
-
 
 var server = app.listen(port, function () {
   console.log("Express server has started on port " + port);
