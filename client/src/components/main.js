@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './main.css';
-import TourIntro from './tourIntro';
+import TourIntroHeader from './tourIntroHeader';
 import { Link } from 'react-router-dom';
 
 class main extends Component{
@@ -11,21 +11,21 @@ class main extends Component{
     stageAnswer : '',
   }
 
-  async componentDidMount(){
-    const response = await fetch(`${this.props.match.url}`,{
-      method : 'POST',
-      headers : {
-        'Content-Type': 'application/json',
-      }
-    })
+  // async componentDidMount(){
+  //   const response = await fetch(`${this.props.match.url}`,{
+  //     method : 'POST',
+  //     headers : {
+  //       'Content-Type': 'application/json',
+  //     }
+  //   })
 
-    const body = await response.json();
-    console.log(body)
-    this.setState({
-      quizAnswer : body.quiz,
-      stageAnswer : body.stage,
-    })
-  }
+  //   const body = await response.json();
+  //   console.log(body)
+  //   this.setState({
+  //     quizAnswer : body.quiz,
+  //     stageAnswer : body.stage,
+  //   })
+  // }
 
   QuizSuccess = (e) => {
     if(this.state.quizAnswer !== this.state.input){
@@ -48,7 +48,7 @@ class main extends Component{
       document.getElementById('aa').disabled = true;
       var timer = setInterval(function(){
         time--;
-        if(time == 0){
+        if(time === 0){
           clearInterval(timer);
           document.getElementById('aa').disabled = false;
         }
@@ -63,7 +63,10 @@ class main extends Component{
   render(){
     return (
       <div>
-            {/* <!-- 컨텐츠 부분 --> */}
+
+        {/* <!-- 관광지 소개 --> */}
+        <TourIntroHeader />
+        {/* <!-- 컨텐츠 부분 --> */}
         <div id="content"> </div>
 
         {/* <!-- 컨텐츠 이미지 --> */}
@@ -92,10 +95,6 @@ class main extends Component{
             <input className="submit_input" type="text" id="aa" onChange={(e) => {this.setState({Finalinput:e.target.value})}} />
             <Link to='/mission' onClick={this.StageSuccess}><button id="mission_button" className="submit_button">제출</button></Link>
         </div>
-
-  
-        {/* <!-- 관광지 소개 --> */}
-        <TourIntro />
       
       </div>
     );
