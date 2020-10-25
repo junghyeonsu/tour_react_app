@@ -4,7 +4,7 @@ var userSchema = new mongoose.Schema({
   id: String,
   stageClear: Array,
   stageVisit:Array,
-  quiz: Array,
+  gameIndex: Array,
   prevGame: Number,
 });
 
