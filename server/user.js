@@ -2,8 +2,18 @@ var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
   id: String,
-  stageClear: Object,
-  stageVisit:Object,
+  stageClear: {
+    type:Map,
+    of:Boolean
+  },
+  stageVisit:{
+    type:Map,
+    of:Boolean
+  },
+  // testSetting:{
+  //   type:Map,
+  //   of:Boolean
+  // },
   gameIndex: Array,
   prevGame: Number,
 });

@@ -16,8 +16,7 @@ var database;
 
 // database와 연결하는 코드 (현재는 local로 설정되어있다.)
 function connectDB() {
-  var databaseUrl =
-    process.env.MONGODB_URI || `mongodb://localhost:27017/node-react-starter`;
+  var databaseUrl = process.env.MONGODB_URI || `mongodb://localhost:27017/node-react-starter`;
   mongoose.connect(databaseUrl);
   database = mongoose.connection;
   database.on(
@@ -35,26 +34,34 @@ connectDB();
 addUser = function (database, id, cb) {
   console.log("addUser 호출");
   //stage 정보를 받아서 json형식으로 저장하는 것이 어떨까?
-  var user = new userModel({
-    id: id,
-    stageClear: [false, false, false, false],
-    stageVisit:{
-      stage1: false,
-      stage2: false,
-      stage3: false,
-      stage4: false,
-    },
-    gameIndex: [1, 2, 3, 4],
-    prevGame: 0,
-  });
-  user.save(function (err) {
-    if (err) {
-      cb(err, null);
-      return;
+  stageModel.find({}).exec()
+  .then((stage)=>{
+    var keys = []
+    var stageClearMap = new Map();
+    for(var i =0;i<stage.length;i++){
+      keys.push(stage[i].name);
     }
-    console.log("사용자 데이터 추가");
-    cb(null, user);
-  });
+    for(var i = 0;i<keys.length;i++){
+      stageClearMap.set(keys[i],false);
+    }
+    var user = new userModel({
+      id: id,
+      stageClear: stageClearMap,
+      stageVisit: stageClearMap,
+      gameIndex: [1, 2, 3, 4],
+      prevGame: 0,
+    });
+    user.save(function (err) {
+      if (err) {
+        cb(err, null);
+        return;
+      }
+      console.log("사용자 데이터 추가");
+      cb(null, user);
+    });
+  }).catch((err)=>{
+    console.error(err);
+  })
 };
 
 // 스테이지의 정보를 받아서 해당 스테이지에 해당하는 카운트 증가하는 함수
@@ -73,12 +80,12 @@ updateStageInfo = function (database, stageInfo, cb) {
   });
 };
 
+//스테이지의 정답을 맞추었을때 호출할 예정
 setClearStage = function (database,stageInfo, id, cb) {
   userModel.findOne({ id: id }, function (err, user) {
     if (err) console.log(err);
-    var result = Array.from(user.stageClear);
-    result[2] = true;
-    user.stageClear = result;
+    user.stageClear.set(stageInfo,true);
+    // user.testSetting.set(stageInfo,true);
     user.save(function (err) {
       if (err) {
         cb(err, null);
@@ -88,21 +95,6 @@ setClearStage = function (database,stageInfo, id, cb) {
     });
   });
 };
-
-// getQuizHintAndAnswer = function (database, stageInfo, quizInfo, cb) {
-//   stageModel
-//     .findOne({ name: stageInfo })
-//     .exec()
-//     .then((stage) => {
-//       quizIdx = Number(quizInfo[4]);
-//       var hint = stage["hint"][quizIdx - 1];
-//       var answer = stage["answer"];
-//       cb(null, { hint: hint, answer: answer });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
 
 getHintAndAnswerAndGameIndex = function (database, stageInfo, quizInfo,userInfo, cb) {
   stageModel.findOne({ name: stageInfo }).exec()
