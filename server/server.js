@@ -57,12 +57,6 @@ addUser = function (database, id, cb) {
   });
 };
 
-getUserStageVisitInfo = function (database, id, cb) {
-  userModel.findOne({ id: id }, function (err, user) {
-    if (err) console.log(err);
-    // console.log(user);
-  });
-};
 // 스테이지의 정보를 받아서 해당 스테이지에 해당하는 카운트 증가하는 함수
 updateStageInfo = function (database, stageInfo, cb) {
   stageModel.findOne({ name: stageInfo }, function (err, stage) {
@@ -95,23 +89,37 @@ setClearStage = function (database,stageInfo, id, cb) {
   });
 };
 
-getQuizHintAndAnswer = function (database, stageInfo, quizInfo, cb) {
-  stageModel
-    .findOne({ name: stageInfo })
-    .exec()
+// getQuizHintAndAnswer = function (database, stageInfo, quizInfo, cb) {
+//   stageModel
+//     .findOne({ name: stageInfo })
+//     .exec()
+//     .then((stage) => {
+//       quizIdx = Number(quizInfo[4]);
+//       var hint = stage["hint"][quizIdx - 1];
+//       var answer = stage["answer"];
+//       cb(null, { hint: hint, answer: answer });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+
+getHintAndAnswerAndGameIndex = function (database, stageInfo, quizInfo,userInfo, cb) {
+  stageModel.findOne({ name: stageInfo }).exec()
     .then((stage) => {
       quizIdx = Number(quizInfo[4]);
       var hint = stage["hint"][quizIdx - 1];
       var answer = stage["answer"];
-      cb(null, { hint: hint, answer: answer });
+      userModel.findOne({id:userInfo}).exec()
+      .then((user)=>{
+        cb(null,{gameIndex:user.gameIndex,hint: hint, answer: answer})
+      })
     })
     .catch((err) => {
       console.log(err);
     });
 };
-
 //데이터베이스에서 적은 사람들이 존재하는 Stage를 반환하는 함수
-//TODO  이미 방문한 곳 제외해야한
 getLessPeopleStage = function (database, stageInfo,visited, cb) {
   stageModel.find({}).exec()
     .then((stage) => {
@@ -169,19 +177,15 @@ app.get("/api/setStageInfo", function (req, res) {
 });
 
 app.get("/:stage/:quiz/", function (req, res) {
-  var user = req.cookies["user"];
+  var userInfo = req.cookies["user"];
   var stageInfo = req.params.stage;
   var quizInfo = req.params.quiz;
   // console.log(stageInfo);
   // console.log(req.params.quiz);
 
-  if (user) {
+  if (userInfo) {
     //이미 유저쿠키가 존재하는 경우
     var visited = req.cookies["visited"];
-    getUserStageVisitInfo(database, user, function (err, result) {
-      if (err) throw err;
-      if (result);
-    });
 
     if (!visited[stageInfo]) {
       visited[stageInfo] = true;
@@ -197,6 +201,7 @@ app.get("/:stage/:quiz/", function (req, res) {
   } else {
     // 유저 쿠키가 존재하지않았던 상황. 유저 쿠키를 생성한다.
     var uuid = uuidv4();
+    userInfo = uuid;
     var visited = {
       stage1: false,
       stage2: false,
@@ -222,8 +227,8 @@ app.get("/:stage/:quiz/", function (req, res) {
       // res.send("Cookie Setting");
     }
   }
-  getQuizHintAndAnswer(database, stageInfo, quizInfo, function (err, result) {
-    if (err) throw err;
+  getHintAndAnswerAndGameIndex(database, stageInfo, quizInfo,userInfo, function (err, result) {
+    if (err) throw err;    
     if (result) res.send(result);
   });
 });
@@ -244,22 +249,9 @@ app.get("/mission", function (req, res) {
   });
 });
 
-app.post("/:Stage/:Quiz", function (req, res) {
-  console.log(req.params);
-  var stage;
-  var quiz;
+app.get("/quiz",function(req,res){
 
-  // if(req.params.Stage === 'Stage3' && req.params.Quiz === 'Quiz4'){
-  //   stage = 'hi';
-  //   quiz = 'E'
-  // }
-  // else{
-  //   stage = 'hello';
-  //   quiz = 'A'
-  // }
-
-  res.send({ quiz: quiz, stage: stage });
-});
+})
 
 app.listen(port, function () {
   console.log("Express server has started on port " + port);
