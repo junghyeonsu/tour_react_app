@@ -34,10 +34,16 @@ connectDB();
 // user cookie가 없는 경우 user를 데이터베이스에 추가하는 함수
 addUser = function (database, id, cb) {
   console.log("addUser 호출");
+  //stage 정보를 받아서 json형식으로 저장하는 것이 어떨까?
   var user = new userModel({
     id: id,
     stageClear: [false, false, false, false],
-    stageVisit: [false, false, false, false],
+    stageVisit:{
+      stage1: false,
+      stage2: false,
+      stage3: false,
+      stage4: false,
+    },
     gameIndex: [1, 2, 3, 4],
     prevGame: 0,
   });
@@ -72,18 +78,23 @@ updateStageInfo = function (database, stageInfo, cb) {
     });
   });
 };
-setClearStage = function (database, id, cb) {
-  userModel
-    .findOne({ id: id })
-    .exec()
-    .then((user) => {
-      console.log(user["clearStage"]);
-      user["clearStage"];
-    })
-    .catch((err) => {
-      console.log(err);
+
+setClearStage = function (database,stageInfo, id, cb) {
+  userModel.findOne({ id: id }, function (err, user) {
+    if (err) console.log(err);
+    var result = Array.from(user.stageClear);
+    result[2] = true;
+    user.stageClear = result;
+    user.save(function (err) {
+      if (err) {
+        cb(err, null);
+        return;
+      }
+      cb(null, user);
     });
+  });
 };
+
 getQuizHintAndAnswer = function (database, stageInfo, quizInfo, cb) {
   stageModel
     .findOne({ name: stageInfo })
@@ -101,20 +112,6 @@ getQuizHintAndAnswer = function (database, stageInfo, quizInfo, cb) {
 
 //데이터베이스에서 적은 사람들이 존재하는 Stage를 반환하는 함수
 //TODO  이미 방문한 곳 제외해야한
-// getLessPeopleStage = function(database,stageInfo,cb){
-//   stageModel.find({ }, function(err,stage){
-//     if(err) console.error(err);
-//     var idx = -1;
-//     var minValue = Number.MAX_VALUE;
-//     for(var i = 0;i<stage.length;i++){
-//       if(stage[i].count<minValue){
-//         minValue = stage[i].count;
-//         idx = i;
-//       }
-//     }
-//     cb(null,stage[idx].name)
-//   });
-// }
 getLessPeopleStage = function (database, stageInfo,visited, cb) {
   stageModel.find({}).exec()
     .then((stage) => {
@@ -236,7 +233,11 @@ app.get("/mission", function (req, res) {
   var stageInfo = "stage1"; //수정 필요
   var visited = req.cookies["visited"];
   var user = req.cookies["user"];
-
+  console.log(user);
+  setClearStage(database,stageInfo,user,function (err, result) {
+    if (err) throw err;
+    if (result) console.log(result);
+  })
   getLessPeopleStage(database, stageInfo,visited, function (err, result) {
     if (err) throw err;
     if (result) res.send(result);
@@ -260,6 +261,6 @@ app.post("/:Stage/:Quiz", function (req, res) {
   res.send({ quiz: quiz, stage: stage });
 });
 
-var server = app.listen(port, function () {
+app.listen(port, function () {
   console.log("Express server has started on port " + port);
 });

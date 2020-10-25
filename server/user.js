@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
   id: String,
-  stageClear: Array,
-  stageVisit:Array,
+  stageClear: Object,
+  stageVisit:Object,
   gameIndex: Array,
   prevGame: Number,
 });
