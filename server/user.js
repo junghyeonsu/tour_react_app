@@ -10,12 +10,15 @@ var userSchema = new mongoose.Schema({
     type:Map,
     of:Boolean
   },
-  // testSetting:{
+  // gameClear:{
   //   type:Map,
   //   of:Boolean
   // },
-  gameIndex: Array,
-  prevGame: Number,
+  // gameList:{
+  //   type:Map,
+  //   of:Boolean
+  // },
+  gameList:Array
 });
 
 module.exports =  mongoose.model("users", userSchema);

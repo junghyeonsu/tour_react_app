@@ -10,6 +10,7 @@ var stageSchema = new Schema({
   //   of:String
   // },
   answer:String,
+  mission:Array,
 });
 
 module.exports = mongoose.model('stage', stageSchema);
