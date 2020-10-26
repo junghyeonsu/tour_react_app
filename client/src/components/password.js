@@ -6,7 +6,7 @@ class Password extends Component {
 
     state = { 
         input: '',
-        password : '123456',
+        password : '1234',
         authority : false,
     };
 
@@ -48,7 +48,7 @@ class Password extends Component {
                         <OtpInput
                         value={this.state.input}
                         onChange={this.handleChange}
-                        numInputs={6}
+                        numInputs={4}
                         isInputNum={true}
                         shouldAutoFocus={true}
                         />
