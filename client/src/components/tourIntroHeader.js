@@ -25,7 +25,7 @@ class tourIntroHeader extends Component {
               "http://tong.visitkorea.or.kr/cms/resource/67/1585667_image2_1.jpg",
               "http://tong.visitkorea.or.kr/cms/resource/68/1585668_image2_1.jpg",
               "http://tong.visitkorea.or.kr/cms/resource/69/1585669_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/69/1585669_image3_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/70/1585670_image2_1.jpg",
             ],
             explain : "만년교부근에서부터 엑스포과학공원까지 9.7km에 이르는 갑춘둔치는 사색과 놀이가 가능한 열림공간이다. 봄이면 초록으로 깨어나는 잔디로 치장된 이곳은 대전시민의 사랑받는 명소이다. 아침이면 운동을 위해 찾아오는 주변아파트촌 사람들의 가벼운 발걸음이, 오후가되면 연인인듯한 이들의 한가로운 산보가 끊이지 않는 것이 갑천의 풍경이다. 체육복으로 갈아입고 본격적으로 축구를 하거나 플랜카드를 걸고 단합대회를 하는 장소로서 갑천은 인기이다."
           },
@@ -33,11 +33,8 @@ class tourIntroHeader extends Component {
             title : "국립대전숲체원",
             addr : "대전광역시 유성구 성북로154번길 748",
             image : [
-              "http://tong.visitkorea.or.kr/cms/resource/02/2631102_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/76/2636876_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/77/2636877_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/68/2661768_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/70/2661770_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/98/2675698_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/99/2675699_image2_1.jpg",
             ],
             explain : "중부권 대표 산림복지시설 국립대전숲체원은 국민 누구나 자유롭게 숲을 통해 몸과 마음의 건강을 증진할 수 있도록 다양한 숲체험 및 산림교육 프로그램을 제공하고 있다. 전국에서 유일하게 엘리베이터로 숲을 진입하는 데크로드가 있으며, 누구나 자유롭게 숲을 체험할 수 있도록 다양한 코스의 숲길과 세미나실, 숙박·식사를 함께 즐길 수 있는 공간이 마련되어 있다."
           },
@@ -45,85 +42,63 @@ class tourIntroHeader extends Component {
             title : "대청호",
             addr : "대전광역시 동구 천개동로 41",
             image : [
-              "http://tong.visitkorea.or.kr/cms/resource/02/2631102_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/76/2636876_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/77/2636877_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/68/2661768_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/70/2661770_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/84/2605584_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/86/2605586_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/89/2605589_image2_1.jpg",
             ],
             explain : "대전광역시와 충청북도 청주시·옥천군·보은군에 걸쳐 있는 인공호수. 1975년에 착공하여 1980년에 공사가 완료되었다. 대전, 청주지역의 식수는 물론, 생활용수 및 공업용수를 공급하는 생명의 젖줄이다. 저수면적 72.8㎢, 호수길이80km, 저수량 15억t으로, 한국에서 3번째 규모의 호수이다. 호수 위로 해발고도 200∼300m의 야산과 수목이 펼쳐져 드라이브 코스로 잘 알려져 있다. 철새와 텃새가 많이 날아들어 여름에는 상류에서 백로를 쉽게 볼 수 있다\n. 전망대에 오르면 주변 경관이 한눈에 내려다보이며, 1998년에 개관한 물홍보관은 입체 영상관과 수족관 등을 갖추고 있다. 주위에 잔디광장이 있다. 주변에 금강유원지·장계관광지(대청비치랜드)·문의문화재단지 등이 있어 연계 관광이 가능하다. 찾아가려면 경부고속도로를 타고 가다가 신탄진 인터체인지로 나와 신탄진 4거리에서 대청댐 방면으로 가면 된다. 호수를 한 바퀴 돌아보려면 승용차로 3시간 정도 걸린다."
           },
           {
-            title : "대흥동 문화예술의거리",
-            addr : "대전광역시 중구 대흥동",
+            title : "대전오월드",
+            addr : "대전광역시 중구 사정공원로 70",
             image : [
-              "http://tong.visitkorea.or.kr/cms/resource/02/2631102_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/76/2636876_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/77/2636877_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/68/2661768_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/70/2661770_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/58/2370158_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/59/2370159_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/60/2370160_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/61/2370161_image2_1.jpg",
             ],
-            explain : "대전 중구 대흥동 일대는 대전의 원도심이다. 세련된 도시 이미지가 느껴지는 건물과 카페가 있는가 하면, 1970~80년대를 떠올리게 하는 손때 묻은 풍경이 공존한다. 대흥동을 멋스럽게 꾸미는 것은 낡고 허름해 보이는 건물과 외벽에 그려진 빈티지한 그림이다. 벽을 뚫고 나오는 자동차, 산호다방 건물의 옷걸이에 걸린 티셔츠, 산호여인숙 골목의 티셔츠, 골목길 전기계량기에 그려진 그림이 아날로그적 풍경을 연출한다. 이밖에 오래된 골목과 화방, 소극장, 갤러리도 눈에 띈다."
+            explain : "대전도시공사는 대전 중구 사정동 기존의 대전동물원과 놀이동산(조이랜드) 인근에 400억 원을 들여 10만 m²의 플라워랜드를 조성해 2009년 5월 1일 대전오월드를 개장했다. 오월드는 크게 각종 꽃을 볼 수 있는 플라워랜드와 동물원인 주랜드, 각종 놀이기구가 위치한 조이랜드 등으로 구성되어있다. 주요 공간으로는 아메리카검정곰·사자, 벵갈호랑이, 코끼리, 기린, 얼룩말, 타조 등 130종 600여 수의 동물을 전시하고 있는 동물 전시공간, 후룸라이드·자이언트드롭·수퍼바이킹 등 놀이기구 17개 기종이 설치되어 있는 놀이시설 공간, 슬로프 폭 36.5mｘ115.7m 규모의 사계절 썰매장, 아프리카사파리, 마운틴사파리, 조각공원, 5.5km에 이르는 산림욕장, 잔디광장, 다목적광장, 팔각정, 사계절정원, 무궁화원, 장미원, 미로원, 허브원, 레인보우스테이지, 야외공연장 등이 있다. 또한 진입광장 및 축제의 거리를 지나면 나오는 3000m² 규모의 대형 연못도 하나의 볼거리이다. 플라워랜드에는 100종 15만 그루의 나무와 85종 20만 본의 사계절 꽃이 20개의 테마별로 조성돼 1년 내내 수목과 꽃을 볼 수 있다. 줄장미, 사계장미, 피스 등 여러 종의 장미를 조성한 장미원과 로즈마리, 재스민, 민트, 라벤다 등의 향기에 흠뻑 빠질 수 있는 허브원, 소나무, 매화, 자귀나무 등 한국 전래수종을 심은 전통정원과 소나무와 사철나무로 미로를 조성해 놓은 미로원은 색다른 재미를 준다."
           },
           {
-            title : "도산서원",
-            addr : "대전광역시 서구 남선로 8",
+            title : "상소동 산림욕장",
+            addr : "대전 동구 상소동 산 1-1",
             image : [
-              "http://tong.visitkorea.or.kr/cms/resource/02/2631102_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/76/2636876_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/77/2636877_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/68/2661768_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/70/2661770_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/38/2661838_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/40/2661840_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/41/2661841_image2_1.jpg",
             ],
-            explain : "만회 권득기와 그의 아들 탄옹 권시를 추모하기 위해 세운 서원이다. 권득기는 41세 때 문과에 급제하여 예조좌랑을 지냈으며, 정세가 어지러워지자 벼슬을 버리고 도학을 공부하였다고 한다. 권시도 학문이 뛰어나 대군사부·한성부좌윤 등에 임명되었으나, 벼슬을 버리고 고향인 이곳에서 학문에 힘썼다. 이 서원은 조선 숙종 19년(1693)에 유림들이 뜻을 모아 세운 것으로，숙종 37년(1711)에 나라에서 내린 현판을 받아 사액서원이 되었다. 사당 3칸·묘문 3칸·강당 4칸·서재 3칸·남재 4칸·전사청 3칸 등 모두 23칸 규모를 가진 서원이었다고 하는데, 흥선대원군의 서원 철폐령으로 철거되었다. 그 뒤 1921년 단을 만들고 제사를 지냈으며, 1968년·1973년 두 차례에 걸쳐 안동 권씨 문중에서 복원하였다. ‘도산’이라는 이름도 이곳에 머무르면서 도학을 연마하였기 때문에 붙인 것이다."
+            explain : "상소동산림욕장은 만인산과 식장산 자락 중간지점(대전역에서 금산방향-17번 국도-으로 약10km 지점, 남대전IC에서 약 5km)에 위치해 있으며 가는 길에는 버즘나무 가로수 터널이 아름다움을 더해주고 있다. 자연체험과 휴양을 할 수 있는 각종 시설이 조성되어 있고, 특히 수많은 돌탑이 조성되어 있어 볼거리를 제공하고 있다. 가족이나 연인 등 각계각층에서 가족의 건강이나 여러 가지 염원을 담은 돌탑을 쌓을 수 있는 공간이 있어 뜻깊은 기회를 제공하여 주기도 하고, 봄부터 가을까지 수많은 야생화를 감상할 수 있으며 가벼운 마음으로 찾아와 산책과 등산과 휴양을 즐길 수 있는 곳이다."
           },
           {
             title : "유림공원",
             addr : "대전광역시 유성구 어은로 27",
             image : [
-              "http://tong.visitkorea.or.kr/cms/resource/02/2631102_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/76/2636876_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/77/2636877_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/68/2661768_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/70/2661770_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/58/2674958_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/59/2674959_image2_1.jpg",
             ],
             explain : "유림공원은 가을에 국화 꽃 축제가 유명하며 반려견과 함께 다닐 수 있어 산책을 하거나 가벼운 나들이, 피크닉을 즐기고 싶은 분들께 인기있는 공원입니다. 한반도를 닮은 작은 정원인 반도지에서는 예쁜 물레방아와 연꽃, 시원한 그늘이 있는 정자도 볼 수 있습니다."
           },
           {
-            title : "유성 족욕체험장",
-            addr : "대전광역시 유성구 봉명동",
+            title : "식장산(식장산 문화공원)",
+            addr : "대전광역시 동구 세천동 산43-5",
             image : [
-              "http://tong.visitkorea.or.kr/cms/resource/02/2631102_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/76/2636876_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/77/2636877_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/68/2661768_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/70/2661770_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/99/2661799_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/03/2661803_image2_1.JPG",
+              "http://tong.visitkorea.or.kr/cms/resource/04/2661804_image2_1.JPG",
             ],
-            explain : "대전 유성온천지구 내 유성족욕체험장은 섭씨 40도의 천연 온천수가 공급되는 노천족욕장이다. 2만 778㎡ 규모의 4개 족욕장에서 동시에 200명이 족욕을 즐길 수 있다. 이 족욕체험장은 대전을 방문한 관광객들이 가벼운 마음으로 온천을 즐길 수 있도록 마련해 무료로 이용할 수 있다. 대전 유성구에서 수질 관리와 청결에 신경을 써 마음 놓고 족욕을 즐길 수 있는 곳이다. 족욕을 하기 전에 발을 깨끗이 씻는 장소가 따로 마련되어 있다.발과 다리를 뜨거운 물에 담그는 족욕은 혈액순환에 좋고, 스트레스와 통증을 완화하는 효과가 있어 남녀노소 누구에게나 좋은 목욕법이다. 이곳은 특히 어르신들이 즐겨 찾는다. 유성구 온천로의 유성온천공원 인근 계룡 스파텔 앞에 있다. 아침 7시부터 밤 11시까지 연중무휴로 운영한다."
+            explain : "식장산(623.6m)은 대전광역시 동구와 옥천군 군북면, 군서면 등 세 지역에 걸쳐있는 산이다. 대전광역시의 최고봉으로 충남의 최고봉 서대산(904m), 옥천의 최고봉 대성산(705m) 등 인접지역의 명산들과 어깨를 견주며 동구의 남동부를 수놓고 있는 산이다. 대전광역시가 지정한 482만㎡ 규모의 자연생태보전림을 품고 있는 이 산은 78과 187 속 224종 45변종의 식물과 노루, 다람쥐, 살쾡이, 너구리, 박쥐 등 포유류 45종, 조류 100여종, 파충류, 양서류 등이 서식하고 있는 생태의 보고다. 식장산 문화공원은 세천공원부터 식장산 해돋이 전망대로 이어지는 생태공원으로 대천 최고의 야경 감상 명소로 꼽히던 식장산 정상부에 문화공원을 조성하였다. 특히 문화공원 내에 지은 전통누각이 운치를 더하고 있으며, 대전 전경을 한번에 조망할 수 있는 전망대도 위치해 있다. 누각과 전망대에서 바라보는 대전의 풍경을 감상하기 위해 남녀노소 많은 시민들이 발걸음을 하고 있다."
           },
           {
-            title : "대동하늘공원",
-            addr : "대전광역시 동구 동대전로110번길 182",
+            title : "장태산자연휴양림",
+            addr : "대전광역시 서구 장안로 461",
             image : [
-              "http://tong.visitkorea.or.kr/cms/resource/02/2631102_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/76/2636876_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/77/2636877_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/68/2661768_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/70/2661770_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/49/1585649_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/50/1585650_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/51/1585651_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/52/1585652_image2_1.jpg",
+              "http://tong.visitkorea.or.kr/cms/resource/53/1585653_image2_1.jpg"
             ],
-            explain : "동구 8경에 선정된 대동하늘공원은 2009년 12월 무지개 프로젝트사업의 일환으로 조성되었다. 대표적 상징물인 풍차가 설치되어 있다. 해발고도 약 127m에 위치하여 풍차 앞에서 정면을 바라보면 대전을 한눈에 담을 수 있는 시원한 풍광 및 훌륭한 야경을 감상할 수 있다. 공원에 벤치와 정자가 설치돼 있어 도심의 혼잡에서 벗어나 한가로이 휴식을 취할 수 있다. 하늘공원으로 이어지는 길에 형성된 벽화마을과 테마 카페촌은 최근 대전의 핫한 명소로 떠오르고 있다."
-          },
-          {
-            title : "스카이로드",
-            addr : "대전광역시 중구 중앙로164번길 17",
-            image : [
-              "http://tong.visitkorea.or.kr/cms/resource/02/2631102_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/76/2636876_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/77/2636877_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/68/2661768_image2_1.jpg",
-              "http://tong.visitkorea.or.kr/cms/resource/70/2661770_image2_1.jpg",
-            ],
-            explain : "대전 스카이로드는 길이 214미터, 너비 13.3미터, 높이 20미터 규모의 초대형 LED 영상아케이드 구조물로 대전스카이로드가 조성된 으능정이거리는 은행나무 정자가 있는 마을에서 유래되었으며 대전역 앞 중앙로를 중심으로 형성된 대전의 명동으로 주변에 백화점, 지하상가, 갤러리 등이 밀집되어 있어 젊은층이 많이 찾는 쇼핑과 문화의 중심지이다."
+            explain : "구역면적은 815,855㎡, 1일 수용인원은 6,000명인 자연휴양으로 1970년대부터 조성된 국내 유일의 메타세쿼이아 숲이 울창하게 형성되어 있어 이국적인 경관과 더불어 가족단위 산림욕을 즐기는 이용객이 즐겨 찾는 휴양림으로유명하다. 장태산 자연휴양림은 전국 최초로 민간인이 조성·운영하여 왔으나, 2002년 2월 대전광역시에서 인수한 후 새롭게 개축하여 2006년 4월 25일부터 개방하게 되었다.자연 상태의 잡목 숲을 배경으로 평지에 고유 수종인 밤나무, 잣나무, 은행나무 등 유실수, 소나무, 두충 등을 계획적으로 조림했고, 미국에서 들여온 메타세쿼이아, 독일 가문비나무 등 외래 수종을 배열하여 독특하게 조성했다. 산 입구 용태울저수지를 지나면서 휴양림이 펼쳐지고 산 정상의 형제바위 위에 있는 전망대에서 낙조를 바라볼 수 있으며 장군봉, 행상바위 등 기암괴석이 보인다.장태산의 천혜의 자연경관과 잘 어우러진 장태산 휴양림은 1991년부터 조성하기 시작해서 지금은 거의 그 기틀을 갖추었으며 현재까지도 활발한 개발을 하고 있다. 그림 같은 호수, 기암괴석 등 주변 경관이 절경이며 질서 있게 조성된 나무들이 많고 길 또한 잘 다듬어져 있어서 산책하기에 좋은 곳이다. 장태산은 대전의 서남쪽에 자리 잡고 있는데, 형제바위 위에 있는 전망대에서 바라보는 붉은 낙조는 산아래 용태울 저수지와 어우러져 가히 형용할 수 없는 장관을 이루어 보는 이들의 감탄을 자아내게 한다. 특히 장태산 일대의 울창한 침엽수와 활엽수림 17만여 평은 바쁜 도시생활로 심신이 피로해진 우리에게 활력을 불어넣어 줄 뿐만 아니라 인공으로 조성된 일만여 주가 넘는 메타세쿼이아나무는 이국적인 풍치를 보여줌과 동시에 자못 올곧은 자태가 우리의 마음을 바로잡아주는 느낌이 들 정도다. 장태산은 지금은 휴양지로 개발되어 많은 발전이 이루어졌지만, 예전에는 아주 깊은 산골이었다. 우선 휴양림에 들어서면 노산이은상의 '나무마을'이라는 시가삼림욕장에 들어선 사람들의 마음을 안온하게 잡아 둔다."
           },
           {
             title : "한밭수목원",
@@ -139,16 +114,38 @@ class tourIntroHeader extends Component {
           },
         ],
         randomNumber : 0,
+        randomImageNumber : 0,
     }
 
     componentDidMount = async () => {
       await this.setState({ 
         randomNumber : Math.floor(Math.random() * this.state.tourList.length),
       });
+      await this.setState({
+        randomImageNumber : this.randomSelectNumber(this.state.tourList[this.state.randomNumber].image.length),
+      });
     }
 
+    randomSelectNumber = (max) => {
+      var arr = [];
+      var i = 0;
+      while (i < max) {
+        var n = Math.floor(Math.random() * max);
+        if(this.notSame(arr, n)){
+          arr.push(n);
+          i++;
+        }
+      }
+      return arr;
+    }
+    
+    notSame = (arr ,n) => {
+      return arr.every((e) => n !== e);
+    }
+
+      
     render() {
-        const {tourList, randomNumber, randomImage} = this.state;
+        const {tourList, randomNumber, randomImageNumber} = this.state;
         return (
             <div id="content_tour" className="container">
               <div className="title">
@@ -158,7 +155,10 @@ class tourIntroHeader extends Component {
                 {tourList[randomNumber].addr}
               </div>
               <div className="image">
-                { <img src={tourList[randomNumber].image[0] } alt="image" /> }
+                { <img src={tourList[randomNumber].image[randomImageNumber[0]] } alt="image" /> }
+              </div>
+              <div className="image">
+                { <img src={tourList[randomNumber].image[randomImageNumber[1]] } alt="image" /> }
               </div>
               <div className="explain">
                 {tourList[randomNumber].explain}
