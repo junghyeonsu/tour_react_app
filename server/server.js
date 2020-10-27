@@ -2,9 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const request = require('request');
 const { v4: uuidv4 } = require("uuid");
-const stageModel = require("./stage");
-const userModel = require("./user");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -12,6 +11,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+const stageModel = require("./stage");
+const userModel = require("./user");
+const tourApiModel = require('./tourApi');
 var database;
 
 // database와 연결하는 코드 (현재는 local로 설정되어있다.)

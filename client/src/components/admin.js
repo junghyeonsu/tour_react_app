@@ -11,7 +11,6 @@ class Admin extends Component {
 
     changeAutority = () => {
         this.setState({ authority : true });
-        alert("changeAutority : true");
     }
 
     render() {
@@ -25,7 +24,6 @@ class Admin extends Component {
                 <AdminMain /> :
                 <Password changeAutority={this.changeAutority} />
                 }
-                {/* <AdminMain /> */}
             </div>
         );
     }

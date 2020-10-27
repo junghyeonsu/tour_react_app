@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import './adminMain.css';
+
 import {
     BarChart,
     Bar,
     XAxis,
     YAxis,
-    CartesianGrid,
+    // CartesianGrid,
     Tooltip,
     Legend,
   } from "recharts";
@@ -37,25 +38,28 @@ class AdminMain extends Component {
 
     render() {
         return (
-            <div className="div_test">
-            관리자 페이지
-            <BarChart
-              width={500}
-              height={400}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <XAxis dataKey="stage" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="traffic" fill="#82ca9d" />
-            </BarChart>
+          <div>
+              <div className="div_test">
+              관리자 페이지
+              <BarChart
+                width={500}
+                height={400}
+                data={data}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <XAxis dataKey="stage" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="traffic" fill="#82ca9d" />
+              </BarChart>
+            </div>
+
           </div>
         );
     }
