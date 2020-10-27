@@ -40,6 +40,8 @@ addUser = function (database, id, cb) {
     var keys = []
     var stageClearMap = new Map();
     // var gameMap = new Map();
+    var gameList = [];
+    
     var gameNumber = 10;
     for(var i =0;i<stage.length;i++){
       keys.push(stage[i].name);
@@ -47,15 +49,16 @@ addUser = function (database, id, cb) {
     for(var i = 0;i<keys.length;i++){
       stageClearMap.set(keys[i],false);
     }
-    // for(var i = 0;i<gameNumber;i++){
-    //   gameMap.set(String(i),false);
-    // }
+    for(var i = 0;i<gameNumber;i++){
+      gameList.push(i+1);
+    }
     var user = new userModel({
       id: id,
       stageClear: stageClearMap,
       stageVisit: stageClearMap,  //수정? 필요한가?
       // gameClear: gameMap,
-      gameList:[1,2,3,4,5]
+      gameList:gameList,
+      clearGame:[]
     });
     user.save(function (err) {
       if (err) {
@@ -85,7 +88,23 @@ updateStageInfo = function (database, stageInfo, cb) {
     });
   });
 };
-
+updateClearGame = function(database,userInfo,gameIndex,cb){
+  userModel.findOne({ id: userInfo }).exec()
+  .then((user)=>{
+    if(user.clearGame.indexOf(gameIndex) == -1){
+      user.clearGame.push(gameIndex);
+    }
+    user.save(function (err) {
+      if (err) {
+        cb(err, null);
+        return;
+      }
+      cb(null, user);
+    });
+  }).catch((err)=>{
+    console.log(err);
+  })
+}
 //스테이지의 정답을 맞추었을때 호출할 예정
 setClearStage = function (database,stageInfo, id, cb) {
   userModel.findOne({ id: id }, function (err, user) {
@@ -102,59 +121,25 @@ setClearStage = function (database,stageInfo, id, cb) {
   });
 };
 
-getHintAndAnswerAndGameIndex = function (database, stageInfo, quizInfo,userInfo, cb) {
+getHintAndAnswerAndGameList = function (database, stageInfo, quizInfo,userInfo, cb) {
   stageModel.findOne({ name: stageInfo }).exec()
     .then((stage) => {
       quizIdx = Number(quizInfo[4]);
       var hint = stage["hint"][quizIdx - 1];
       var answer = stage["answer"];
       userModel.findOne({id:userInfo}).exec()
-      // .then((user)=>{
-      //   var gameList = user.gameList;
-      //   var gameClear = user.gameClear;    
-      //   var haveGame = false;
-      //   for(var i=0;i<gameList.size;i++){
-      //     var keyIdx = String(i);
-      //     //gameList에서도 false, gameClear에서도 false라면 현재 사용가능한 게임임
-      //     if(!gameList.get(keyIdx) && !gameClear.get(keyIdx)){
-      //       user.gameList.set(keyIdx,true);
-      //       haveGame = true;
-      //       cb(null,{gameIndex:keyIdx,hint: hint, answer: answer});
-      //     }
-      //   }
-      //   if(haveGame){
-      //     var findKeyIdx = -1;
-      //     for(var i=0;i<gameList.size;i++){
-      //       var keyIdx = String(i);
-      //       //못 깬 게임중에 다시 추출
-      //       if(!gameClear.get(keyIdx)){
-      //         user.gameList.set(keyIdx,true);
-      //         if(findKeyIdx == -1) findKeyIdx = Number(keyIdx);
-      //       }
-      //     }
-      //     if(findKeyIdx != -1){
-      //       cb(null,{gameIndex:findKeyIdx,hint: hint, answer: answer});
-      //     }else{
-      //       cb(null,"모든 게임을 클리어 하셨습니다.");  
-      //     }
-      //   }
-      //   return user.save();
-      // }).then(function(){
-      //   console.log("success");
-      // }).catch((err) => {
-      //   console.log(err);
-      // });
-      // 여기서 랜덤으로 안뽑아준다면?
       .then((user)=>{  //gameIndex는 array
-        cb(null,{gameIndex:user.gameList,hint: hint, answer: answer})
+        cb(null,{gameList:user.gameList,clearGame:user.clearGame,hint: hint, answer: answer});
       })
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
 //데이터베이스에서 적은 사람들이 존재하는 Stage를 반환하는 함수
-getLessPeopleStageAndHint = function (database, stageInfo,visited, cb) {
+// 그리고 추가적으로 현재 스테이지의 Mission도 추가적으로 전송함
+getLessPeopleStageAndMission = function (database, stageInfo,visited, cb) {
   stageModel.find({}).exec()
     .then((stage) => {
       var idx = -1;
@@ -186,6 +171,23 @@ getLessPeopleStageAndHint = function (database, stageInfo,visited, cb) {
     });
 };
 
+getStageInfomation = function(database,cb){
+  stageModel.find({}).exec()
+  .then((stage)=>{
+    var stageInfos = [];
+    for(i=0;i<stage.length;i++){
+      var stageInfo = {
+        stage:stage[i].name,
+        traffic:stage[i].count
+      };
+      stageInfos.push(stageInfo);
+    }
+    console.log(stageInfos);
+    cb(null,stageInfos);
+  }).catch((err)=>{
+    console.log(err);
+  })
+}
 //나중에 Stage정보를 추가하거나 변경할 때 사용할 것임(Post) 
 app.get("/api/setStageInfo", function (req, res) {
   /*
@@ -236,6 +238,13 @@ app.get("/api/setStageInfo", function (req, res) {
   }
 });
 
+app.get("/api/getStageInfo",function(req,res){
+  getStageInfomation(database,function (err, result) {
+    if (err) throw err;
+    if (result) res.send(result);
+  });
+});
+
 app.get("/:stage/:quiz/", function (req, res) {
   var userInfo = req.cookies["user"];
   var stageInfo = req.params.stage;
@@ -262,6 +271,8 @@ app.get("/:stage/:quiz/", function (req, res) {
     // 유저 쿠키가 존재하지않았던 상황. 유저 쿠키를 생성한다.
     var uuid = uuidv4();
     userInfo = uuid;
+    
+    //TODO : stage이름이 유동적일 수 있도록 수정해야함
     var visited = {
       stage1: false,
       stage2: false,
@@ -287,7 +298,7 @@ app.get("/:stage/:quiz/", function (req, res) {
       // res.send("Cookie Setting");
     }
   }
-  getHintAndAnswerAndGameIndex(database, stageInfo, quizInfo,userInfo, function (err, result) {
+  getHintAndAnswerAndGameList(database, stageInfo, quizInfo,userInfo, function (err, result) {
     if (err) throw err;    
     if (result) {
       res.send(result);
@@ -306,7 +317,7 @@ app.get("/mission", function (req, res) {
     if (err) throw err;
     if (result) console.log(result);
   })
-  getLessPeopleStageAndHint(database, stageInfo,visited, function (err, result) {
+  getLessPeopleStageAndMission(database, stageInfo,visited, function (err, result) {
     if (err) throw err;
     if (result) res.send(result);
   });
@@ -318,7 +329,12 @@ app.get("/admin",function (req, res){
 
 //게임을 하고나서 어떤 게임을 했는지를 받아야 한다.
 app.get("/quiz",function (req, res){
-  
+  var userInfo = req.cookies["user"];
+  var gameIndex = 4;  //수정 필요함
+  updateClearGame(database,userInfo,gameIndex,function (err, result) {
+    if (err) throw err;
+    if (result) res.send(result);
+  });
 })
 
 app.listen(port, function () {

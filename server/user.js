@@ -18,7 +18,8 @@ var userSchema = new mongoose.Schema({
   //   type:Map,
   //   of:Boolean
   // },
-  gameList:Array
+  gameList:[Number],
+  clearGame:[Number]
 });
 
 module.exports =  mongoose.model("users", userSchema);
