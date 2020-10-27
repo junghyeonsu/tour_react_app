@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './main.css';
+import TourIntroHeader from './tourIntroHeader';
 import { Link } from 'react-router-dom';
 import Game from './Game';
 import ExplainModal from './Modal';
@@ -13,13 +14,21 @@ class main extends Component{
     
   }
 
-  async componentDidMount(){
-    const response = await fetch(`${this.props.match.url}`,{
-      method : 'POST',
-      headers : {
-        'Content-Type': 'application/json',
-      }
-    })
+  // async componentDidMount(){
+  //   const response = await fetch(`${this.props.match.url}`,{
+  //     method : 'POST',
+  //     headers : {
+  //       'Content-Type': 'application/json',
+  //     }
+  //   })
+
+  //   const body = await response.json();
+  //   console.log(body)
+  //   this.setState({
+  //     quizAnswer : body.quiz,
+  //     stageAnswer : body.stage,
+  //   })
+  // }
 
     const body = await response.json();
     console.log(body)
@@ -68,7 +77,10 @@ class main extends Component{
 
     return (
       <div>
-            {/* <!-- 컨텐츠 부분 --> */}
+
+        {/* <!-- 관광지 소개 --> */}
+        <TourIntroHeader />
+        {/* <!-- 컨텐츠 부분 --> */}
         <div id="content"> </div>
         
         {/* <!-- 컨텐츠 이미지 --> */}

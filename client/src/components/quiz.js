@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import TourIntro from './tourIntro';
+import TourIntroHeader from './tourIntroHeader';
 
 class Quiz extends Component{
     render(){
@@ -15,7 +15,7 @@ class Quiz extends Component{
                 <div id="content_quiz" className="container">
                     A 구역의 몇 번째 최종답의 힌트는 이것입니다.
                 </div>
-                <TourIntro />
+                <TourIntroHeader />
             </div>
         )
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './mission.css';
-import TourIntro from './tourIntro';
+import TourIntroHeader from './tourIntroHeader';
 
 class mission extends Component {
     render() {
@@ -42,7 +42,7 @@ class mission extends Component {
                     <div id="next_stage"></div>
                 </div>
 
-                <TourIntro />
+                <TourIntroHeader />
 
         </div>
         )

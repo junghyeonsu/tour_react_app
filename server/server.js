@@ -2,9 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const request = require('request');
 const { v4: uuidv4 } = require("uuid");
-const stageModel = require("./stage");
-const userModel = require("./user");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -12,6 +11,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+const stageModel = require("./stage");
+const userModel = require("./user");
+const tourApiModel = require('./tourApi');
 var database;
 
 function connectDB() {
@@ -150,6 +152,50 @@ app.post('/:Stage/:Quiz',function(req, res){
   }
   res.send({quiz : quiz,stage:stage});
 })
+
+
+//  app.get('/getTourInfo',  async function(req, res) {
+//   const API_KEY = "ZUVv9KZjrOTRkajJmdoLvx%2FWA0xmsENPZ6hvmKdQ7JJKTeK72s%2BznGrnFM5LYba8bjgFLBE7wdtqPNIYZl%2Fk2w%3D%3D";
+//   const API_URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=${API_KEY}&contentTypeId=12&areaCode=3&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&overviewYN=Y&arrange=A&numOfRows=12&pageNo=1&_type=json`;
+//   // contentid 
+//   var title = [];
+//   var addr = [];
+//   var image1 = [];
+//   var image2 = [];
+//   var explain = [];
+
+//   await request({
+//     url: API_URL,
+//     method: 'GET'
+//   }, async function (error, response, body) {
+//     JSON.parse(body).response.body.items.item.map(data => {
+//       var API_EXPLAIN_URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=${API_KEY}&contentTypeId=12&contentId=${data.contentid}&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y&_type=json`;
+//       title.concat(data.title);
+//       addr.concat(data.addr1);
+//       image1.concat(data.image1);
+//       image2.concat(data.image2);
+//       explain.concat(data.explain);
+//        request({
+//         url: API_EXPLAIN_URL,
+//         method: 'GET'
+//         }, function (error, response, body) {
+//           console.log(JSON.parse(body).response.body.items.item.overview);
+//       });
+//     })
+//   });
+
+  // if(database){
+  //   tourApiModel.insertMany({
+  //     title : 
+  //   });
+  // }
+
+  // title: String,
+  // image1: String,
+  // image2: String,
+  // explain : String,
+
+// });
 
 
 var server = app.listen(port, function () {
