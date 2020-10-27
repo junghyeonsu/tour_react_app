@@ -11,6 +11,7 @@ class main extends Component{
     input : '',
     FinalInput :  '',
     stageAnswer : '',
+    
   }
 
   async componentDidMount(){
