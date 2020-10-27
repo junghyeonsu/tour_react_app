@@ -3,9 +3,14 @@ var Schema = mongoose.Schema;
 
 var stageSchema = new Schema({
   name:String,
-  count: Number,
+  count:Number,
   hint:Array,
+  // hint:{
+  //   type:Map,
+  //   of:String
+  // },
   answer:String,
+  mission:Array,
 });
 
 module.exports = mongoose.model('stage', stageSchema);

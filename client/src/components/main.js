@@ -13,6 +13,7 @@ class main extends Component{
     stageAnswer : '',
     area : '',
     hint : '',
+
   }
 
   async componentDidMount(){

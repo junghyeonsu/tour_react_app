@@ -2,10 +2,24 @@ var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
   id: String,
-  stageClear: Array,
-  stageVisit:Array,
-  quiz: Array,
-  prevGame: Number,
+  stageClear: {
+    type:Map,
+    of:Boolean
+  },
+  stageVisit:{
+    type:Map,
+    of:Boolean
+  },
+  // gameClear:{
+  //   type:Map,
+  //   of:Boolean
+  // },
+  // gameList:{
+  //   type:Map,
+  //   of:Boolean
+  // },
+  gameList:[Number],
+  clearGame:[Number]
 });
 
 module.exports =  mongoose.model("users", userSchema);
