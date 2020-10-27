@@ -3,7 +3,7 @@ import TourIntroHeader from './tourIntroHeader';
 
 class Quiz extends Component{
     render(){
-        console.log(this.props.quiz)
+        console.log(this.props.location.state)
         return(
             <div>
                 <div id="content">
@@ -13,7 +13,7 @@ class Quiz extends Component{
                 </div>
                 </div>
                 <div id="content_quiz" className="container">
-                    A 구역의 몇 번째 최종답의 힌트는 이것입니다.
+                    {this.props.location.state.area} 구역의 힌트는 {this.props.location.state.hint}입니다.
                 </div>
                 <TourIntroHeader />
             </div>
