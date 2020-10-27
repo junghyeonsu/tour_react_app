@@ -6,7 +6,7 @@ import AdminMain from './adminMain';
 class Admin extends Component {
 
     state = { 
-        authority : false,
+        authority : true,
     };
 
     changeAutority = () => {
