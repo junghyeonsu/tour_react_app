@@ -11,24 +11,15 @@ class main extends Component{
     input : '',
     FinalInput :  '',
     stageAnswer : '',
-    
   }
 
-  // async componentDidMount(){
-  //   const response = await fetch(`${this.props.match.url}`,{
-  //     method : 'POST',
-  //     headers : {
-  //       'Content-Type': 'application/json',
-  //     }
-  //   })
-
-  //   const body = await response.json();
-  //   console.log(body)
-  //   this.setState({
-  //     quizAnswer : body.quiz,
-  //     stageAnswer : body.stage,
-  //   })
-  // }
+  async componentDidMount(){
+    const response = await fetch(`${this.props.match.url}`,{
+      method : 'POST',
+      headers : {
+        'Content-Type': 'application/json',
+      }
+    })
 
     const body = await response.json();
     console.log(body)
