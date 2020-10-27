@@ -6,7 +6,7 @@ class Password extends Component {
 
     state = { 
         input: '',
-        password : '123456',
+        password : '1234',
         authority : false,
     };
 
@@ -15,11 +15,14 @@ class Password extends Component {
         // password state에 넣어줌
     }
 
-    onClickCheckButton = () => {
+    onClickCheckButton = (e) => {
         if(this.state.input === this.state.password) {
             this.props.changeAutority();
         } else {
-            alert("실패");
+            alert("비밀번호가 틀렸습니다.");
+            this.setState({
+                input :'',
+            });
         }
     }
 
@@ -34,6 +37,7 @@ class Password extends Component {
     };
 
     render() {
+
         return(
             <div onKeyPress={this.onEnterKeyPress} className="app">
                 <div className="otp_area">
@@ -44,7 +48,9 @@ class Password extends Component {
                         <OtpInput
                         value={this.state.input}
                         onChange={this.handleChange}
-                        numInputs={6}
+                        numInputs={4}
+                        isInputNum={true}
+                        shouldAutoFocus={true}
                         />
                     </div>
                     <button onClick={this.onClickCheckButton}>확인</button>

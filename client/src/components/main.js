@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './main.css';
+import TourIntroHeader from './tourIntroHeader';
 import { Link } from 'react-router-dom';
 import Game from './Game';
 import ExplainModal from './Modal';
@@ -10,25 +11,28 @@ class main extends Component{
     input : '',
     FinalInput :  '',
     stageAnswer : '',
-    
+    area : '',
+    hint : '',
   }
 
   async componentDidMount(){
     const response = await fetch(`${this.props.match.url}`,{
-      method : 'POST',
+      method : 'GET',
       headers : {
         'Content-Type': 'application/json',
       }
     })
-
+    
     const body = await response.json();
-    console.log(body)
     this.setState({
-      quizAnswer : body.quiz,
-      stageAnswer : body.stage,
-    })
+      stageAnswer:body.answer,
+      area : body.hint.split(' ')[0],
+      hint : body.hint.split(' ')[1]
+    });
+
     console.log(document.getElementById('correctAnswer').value);
   }
+
 
   QuizSuccess = (e) => {
     if(document.getElementById('correctAnswer').value !== this.state.input){
@@ -36,8 +40,9 @@ class main extends Component{
       e.preventDefault();
       
     }
-    if(this.state.quizAnswer === this.state.input){
-      alert('맞았습니다.')
+    else if(this.state.quizAnswer === this.state.input){
+      alert('맞았습니다.');
+    
     }
     
   }
@@ -68,7 +73,10 @@ class main extends Component{
 
     return (
       <div>
-            {/* <!-- 컨텐츠 부분 --> */}
+
+        {/* <!-- 관광지 소개 --> */}
+        <TourIntroHeader />
+        {/* <!-- 컨텐츠 부분 --> */}
         <div id="content"> </div>
         
         {/* <!-- 컨텐츠 이미지 --> */}
@@ -87,7 +95,16 @@ class main extends Component{
 
             {/* <p>퀴즈의 정답을 입력해주세요</p> */}
             <input className="submit_input" type="text"  onChange={(e) => {this.setState({input:e.target.value})}}/>
-            <Link to='/quiz' onClick={this.QuizSuccess}><button id="quiz_button" className="submit_button">확인</button></Link>
+            <form >
+            <Link to={{
+              pathname: '/quiz',
+              state:{
+                area : this.state.area,
+                hint : this.state.hint,
+                GameIndex : 2,
+              }
+            }} onClick={this.QuizSuccess}><button id="quiz_button" name="a"className="submit_button">확인</button></Link>
+            </form>
         </div> 
 
         <hr />
