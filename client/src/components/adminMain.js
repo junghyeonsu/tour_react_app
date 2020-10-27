@@ -34,14 +34,13 @@ const data = [
 class AdminMain extends Component {
   
   componentDidMount = () => {
-
     // 트래픽 데이터들 받아오기
   }
   
   render() {
         return (
-          <div>
-              {/* <div className="div_test">
+          <div className="admin_container">
+              <div className="div_test">
               관리자 페이지
               <BarChart
                 width={500}
@@ -60,11 +59,26 @@ class AdminMain extends Component {
                 <Legend />
                 <Bar dataKey="traffic" fill="#82ca9d" />
               </BarChart>
-            </div> */}
+            </div>
 
-              <div>
-                <Game title="게임을 맞춰보세요" image='Game1.png' text="이거는 도대체 무슨 게임일까요?" />
+              <div className="present_game_list">
+                현재 게임 보여주는 곳
               </div>
+
+              <div className="game_Add_Container">
+                <div>
+                  게임 추가 입력 창
+                </div>
+                <form>
+                  제목 <input type="text" /><br />
+                  이미지 <input type="text" /><br />
+                  동영상 <input type="text" /><br />
+                  글 <input type="text" /><br />
+                  정답 <input type="text" /><br />
+                  <button>추가</button>
+                </form>
+              </div>
+
           </div>
         );
     }
