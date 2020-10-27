@@ -1,0 +1,44 @@
+/* 테스트를 위해서 만들어놓은 div 박스의 css */
+.container {
+    padding: 5%;
+    margin: 1%;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+}
+
+/* content image를 담고있는 컨테이너 div */
+#content_image_container {
+    display: flex;
+}
+
+/* content image */
+#content_image {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#explain{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.submit_button {
+    display: block;
+    margin: 10px auto;
+    border-style: none;
+    background-color: black;
+    color: white;
+    width: 80px;
+    height: 40px;
+}
+
+.submit_input {
+    margin: 10px auto;
+    width: 80%;
+    height: 40px;
+} 
