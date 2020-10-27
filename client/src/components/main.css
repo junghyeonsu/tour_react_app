@@ -20,7 +20,6 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-
 #explain{
     width: 70%;
     margin-left: auto;
@@ -43,3 +42,8 @@ body {
     width: 80%;
     height: 40px;
 } 
+
+img{
+    width : 70%;
+    height : 50%;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import Intro from './components/Intro';
 import Main from './components/main';
 import Mission from './components/mission';
 import Admin from './components/admin';
@@ -21,7 +21,7 @@ class App extends Component{
 
         <Switch>
           {/*   /로 이동하면 Main 컴포넌트를 띄움   */}
-          <Route exact path="/" component={Main} />
+          <Route exact path="/" component={Intro} />
           {/*   /mission로 이동하면 Mission 컴포넌트를 띄움   */}
           <Route exact path="/mission" component={Mission} />
           {/* 어드민 홈페이지 테스트 */}
