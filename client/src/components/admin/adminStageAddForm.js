@@ -19,6 +19,7 @@ class AdminStageAddForm extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ 
+            /* server에서 받을 때는 req.body.stageName 이런식으로 접근가능 */
             stageName : name,
             stageHint : hint,
             stageMission : mission,

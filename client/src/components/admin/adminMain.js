@@ -4,6 +4,7 @@ import './adminMain.css';
 import AdminGameAddForm from './adminGameAddForm';
 import AdminTrafficView from './adminTrafficView';
 import AdminStageAddForm from './adminStageAddForm';
+import AdminGameList from './adminGameList';
 
 class AdminMain extends Component {
   render() {
@@ -14,7 +15,8 @@ class AdminMain extends Component {
         </div>
         <div className="form_container">
           <div className="present_game_list">
-            현재 게임 보여주는 곳
+            게임 리스트
+            <AdminGameList />
           </div>
 
           <div className="game_Add_Container">
