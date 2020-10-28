@@ -3,7 +3,7 @@ import './App.css';
 import Intro from './components/Intro';
 import Main from './components/main';
 import Mission from './components/mission';
-import Admin from './components/admin';
+import Admin from './components/admin/admin';
 import Quiz from './components/quiz';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';

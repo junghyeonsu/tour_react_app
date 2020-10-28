@@ -3,9 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { Provider } from 'mobx-react';
+import gameStore from './store/store';
+
+const gamestore = new gameStore();
+
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={gamestore}>
       <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
