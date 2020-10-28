@@ -19,7 +19,7 @@ app.use('/image', express.static('./upload'));
 
 const stageModel = require("./stage");
 const userModel = require("./user");
-const imgDataModel = require("./imgData")
+const gameModel = require("./game")
 const tourApiModel = require('./tourApi');
 var database;
 
@@ -265,24 +265,27 @@ app.get("/api/getStageInfo",function(req,res){
   });
 });
 
+app.use('/image', express.static('./upload'));
 app.post('/api/uploadGame',upload.single('image'),function(req,res){
+  var title = req.body.title;  
   var image = '/image/' + req.file.filename;
-  var name = req.body.name;  
-  var fileObj = req.files.myFile; // multer 모듈 덕분에​ req.files가 사용 가능합니다.  ​
-  var orgFileName = fileObj.originalname; // 원본 파일명을 저장한다.(originalname은 fileObj의 속성)​​
-  var saveFileName = fileObj.name; // 저장된 파일명​
+  var video = req.body.video; //youtube link로 보내줘야함
+  var text = req.body.text;
+  var answer = req.body.answer;
 
-  var img = new imgDataModel({ "name": name, "orgFileName": orgFileName, "saveFileName": saveFileName });
-  img.save(function (err) {
+  var game = new gameModel({ "title": title, "image": image, "video": video,"text":text,"answer":answer });
+  game.save(function (err) {
     if (err) {
-      console.log("이미지를 저장하지 못했습니다.")
+      console.log("게임을 저장하지 못했습니다.")
       return;
     }
-    res.send("이미지 저장 성공");
-    
+    res.send("게임 저장 성공");
   });
 });
 
+app.post('/api/deleteGame',function(req,res){
+
+});
 app.get("/:stage/:quiz/", function (req, res) {
   var userInfo = req.cookies["user"];
   var stageInfo = req.params.stage;
