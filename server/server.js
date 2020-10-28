@@ -1,8 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const multer = require("multer");
+const upload = multer({dest: './upload'})
+
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const request = require('request');
+
 const fs = require('fs');
 const { v4: uuidv4 } = require("uuid");
 const app = express();
@@ -11,9 +15,11 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use('/image', express.static('./upload'));
 
 const stageModel = require("./stage");
 const userModel = require("./user");
+const imgDataModel = require("./imgData")
 const tourApiModel = require('./tourApi');
 var database;
 
@@ -172,6 +178,19 @@ getLessPeopleStageAndMission = function (database, stageInfo,visited, cb) {
     });
 };
 
+//게임을 하고나서 어떤 게임을 했는지를 받아야 한다.
+app.post("/quiztest",function (req, res){
+  console.log(1);
+  var userInfo = req.cookies["user"];
+  var gameIndex = req.body;
+  console.log(gameIndex)  //수정 필요함
+  res.send(req.body)
+  // updateClearGame(database,userInfo,gameIndex,function (err, result) {
+  //   if (err) throw err;
+  //   if (result) res.send(result);
+  // });
+})
+
 getStageInfomation = function(database,cb){
   stageModel.find({}).exec()
   .then((stage)=>{
@@ -243,6 +262,24 @@ app.get("/api/getStageInfo",function(req,res){
   getStageInfomation(database,function (err, result) {
     if (err) throw err;
     if (result) res.send(result);
+  });
+});
+
+app.post('/api/uploadGame',upload.single('image'),function(req,res){
+  var image = '/image/' + req.file.filename;
+  var name = req.body.name;  
+  var fileObj = req.files.myFile; // multer 모듈 덕분에​ req.files가 사용 가능합니다.  ​
+  var orgFileName = fileObj.originalname; // 원본 파일명을 저장한다.(originalname은 fileObj의 속성)​​
+  var saveFileName = fileObj.name; // 저장된 파일명​
+
+  var img = new imgDataModel({ "name": name, "orgFileName": orgFileName, "saveFileName": saveFileName });
+  img.save(function (err) {
+    if (err) {
+      console.log("이미지를 저장하지 못했습니다.")
+      return;
+    }
+    res.send("이미지 저장 성공");
+    
   });
 });
 
@@ -323,15 +360,11 @@ app.get("/mission", function (req, res) {
     if (result) res.send(result);
   });
 });
-//admin홈페이지에 들어갈 때 현재 count를 보여주기 위한 것
-app.get("/admin",function (req, res){
-  
-})
 
 //게임을 하고나서 어떤 게임을 했는지를 받아야 한다.
-app.get("/quiz",function (req, res){
+app.post("/quiz",function (req, res){
   var userInfo = req.cookies["user"];
-  var gameIndex = 4;  //수정 필요함
+  var gameIndex = req.body.gameIndex;  //수정 필요함
   updateClearGame(database,userInfo,gameIndex,function (err, result) {
     if (err) throw err;
     if (result) res.send(result);
