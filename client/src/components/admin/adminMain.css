@@ -1,11 +1,17 @@
 .admin_container {
     display: flex;
+    flex-direction: column;
 }
 
-.game_Add_Container {
-    margin: auto;
+.traffic_container {
+    flex: 1;
+    margin: 50px auto 0 auto;
 }
 
-.present_game_list {
-    margin: auto;
+.form_container {
+    flex: 1;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
