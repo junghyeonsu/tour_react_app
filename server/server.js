@@ -327,6 +327,7 @@ app.post('/api/deleteGameInfo',function(req,res){
 app.post('/api/deleteStageInfo',function(req,res){
 
 });
+
 app.get("/:stage/:quiz/", function (req, res) {
   var userInfo = req.cookies["user"];
   var stageInfo = req.params.stage;

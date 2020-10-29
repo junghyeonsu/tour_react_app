@@ -10,6 +10,7 @@ class AdminGameAddForm extends Component {
       video : "",
       text : "",
       answer : "",
+      srcImage : "",
     }
 
     onClickInsertButton = async e => {
@@ -22,13 +23,11 @@ class AdminGameAddForm extends Component {
       formData.append('video', video);
       formData.append('text', text);
       formData.append('answer', answer);
-
       const config = {
         headers : {
           'content-type':'multipart/form-data'
         }
       }
-
       return post(url, formData, config)
       // const response = await fetch('/api/insert', {
       //   method: 'POST',
