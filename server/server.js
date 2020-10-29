@@ -1,7 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
-const upload = multer({dest: './upload'})
+var storage = multer.diskStorage({
+  destination:function(req,file,cb){
+    cb(null,'upload')
+  },
+  filename:function(req,file,cb){
+    cb(null,file.originalname);
+  }
+})
+const upload = multer({storage: storage})
 
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -15,12 +23,10 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/image', express.static('./upload'));
 
 const stageModel = require("./stage");
 const userModel = require("./user");
 const gameModel = require("./game")
-const tourApiModel = require('./tourApi');
 var database;
 
 // database와 연결하는 코드 (현재는 local로 설정되어있다.)
@@ -57,7 +63,7 @@ addUser = function (database, id, cb) {
       stageClearMap.set(keys[i],false);
     }
     for(var i = 0;i<gameNumber;i++){
-      gameList.push(i+1);
+      gameList.push(i);
     }
     var user = new userModel({
       id: id,
@@ -144,7 +150,7 @@ getHintAndAnswerAndGameList = function (database, stageInfo, quizInfo,userInfo, 
     });
 };
 
-//데이터베이스에서 적은 사람들이 존재하는 Stage를 반환하는 함수
+// 데이터베이스에서 적은 사람들이 존재하는 Stage를 반환하는 함수
 // 그리고 추가적으로 현재 스테이지의 Mission도 추가적으로 전송함
 getLessPeopleStageAndMission = function (database, stageInfo,visited, cb) {
   stageModel.find({}).exec()
@@ -154,8 +160,10 @@ getLessPeopleStageAndMission = function (database, stageInfo,visited, cb) {
       var candidate = [];
       var mission = [];
       for (var i = 0; i < stage.length;i++) {
-        if (!visited[stage[i].name])
+        if (!visited[stage[i].name]){
           candidate.push(stage[i]);
+          stage[i].count--;
+        }
         if(stage[i].name == stageInfo){
           mission = stage[i].mission;
         }
@@ -178,19 +186,6 @@ getLessPeopleStageAndMission = function (database, stageInfo,visited, cb) {
     });
 };
 
-//게임을 하고나서 어떤 게임을 했는지를 받아야 한다.
-app.post("/quiztest",function (req, res){
-  console.log(1);
-  var userInfo = req.cookies["user"];
-  var gameIndex = req.body;
-  console.log(gameIndex)  //수정 필요함
-  res.send(req.body)
-  // updateClearGame(database,userInfo,gameIndex,function (err, result) {
-  //   if (err) throw err;
-  //   if (result) res.send(result);
-  // });
-})
-
 getStageInfomation = function(database,cb){
   stageModel.find({}).exec()
   .then((stage)=>{
@@ -208,13 +203,51 @@ getStageInfomation = function(database,cb){
     console.log(err);
   })
 }
+
+getGame = function(database, gameIndex,cb){
+  gameModel.find({ }).exec()
+  .then((games)=>{
+    var i = gameIndex;
+    cb(null,{title:games[i].title,text:games[i].text,image:games[i].image,video:games[i].video,answer:games[i].answer,})
+  }).catch((err)=>{
+    console.log(err);
+  })
+}
+
+getGameListAndStageList = function(database,cb){
+  gameModel.find({ }).exec()
+  .then((games)=>{
+    var result = {};
+    result["gameList"] = games;
+    stageModel.find({}).exec()
+    .then((stage)=>{
+      result["stageList"] = stage;
+      cb(null,result);
+    })
+  }).catch((err)=>{
+    console.log(err);
+  })
+}
+//게임을 하고나서 어떤 게임을 했는지를 받아야 한다.
+app.post("/quiztest",function (req, res){
+  console.log(1);
+  var userInfo = req.cookies["user"];
+  var gameIndex = req.body;
+  console.log(gameIndex)  //수정 필요함
+  res.send(req.body)
+  // updateClearGame(database,userInfo,gameIndex,function (err, result) {
+  //   if (err) throw err;
+  //   if (result) res.send(result);
+  // });
+})
+
 //나중에 Stage정보를 추가하거나 변경할 때 사용할 것임(Post) 
-app.get("/api/setStageInfo", function (req, res) {
-  /*
-  var stageName;
-  var stageHint;
-  var stageMission;
-  var stageAnswer;
+app.post("/api/setStageInfo", function (req, res) {
+  var stageName = req.body.stageName;
+  var stageHint = req.body.stageHint.split(',');
+  var stageMission = req.body.stageMission.split(',');
+  var stageAnswer = req.body.stageAnswer;
+  
   var newStage = new stageModel({
     name: stageName,
     count: 0,
@@ -226,36 +259,37 @@ app.get("/api/setStageInfo", function (req, res) {
     if (err) {
       console.error(err);
     }
-  });*/
-  if (database) {
-    stageModel.insertMany([{
-      name: "stage1",
-      count: 0,
-      hint: ["stage1 hint1", "stage1 hint2", "stage1 hint3", "stage1 hint4"],
-      mission: ["stage1 Mission1", "stage1 Mission2", "stage1 Mission3"],
-      answer: "Happy",
-    },{
-      name: "stage2",
-      count: 0,
-      hint: ["stage2 hint1", "stage2 hint2", "stage2 hint3", "stage2 hint4"],
-      mission: ["stage2 Mission1", "stage2 Mission2", "stage2 Mission3"],
-      answer: "Hello",
-    },{
-      name: "stage3",
-      count: 0,
-      hint: ["stage3 hint1", "stage3 hint2", "stage3 hint3", "stage3 hint4"],
-      mission: ["stage3 Mission1", "stage3 Mission2", "stage3 Mission3"],
-      answer: "Hint",
-    },{
-      name: "stage4",
-      count: 0,
-      hint: ["stage4 hint1", "stage4 hint2", "stage4 hint3", "stage4 hint4"],
-      mission: ["stage4 Mission1", "stage4 Mission2", "stage4 Mission3"],
-      answer: "Hi",
-    }
-  ]);
-    res.send("Set Stage Information");
-  }
+  });
+  console.log("success add stage");
+  // if (database) {
+  //   stageModel.insertMany([{
+  //     name: "stage1",
+  //     count: 0,
+  //     hint: ["stage1 hint1", "stage1 hint2", "stage1 hint3", "stage1 hint4"],
+  //     mission: ["stage1 Mission1", "stage1 Mission2", "stage1 Mission3"],
+  //     answer: "Happy",
+  //   },{
+  //     name: "stage2",
+  //     count: 0,
+  //     hint: ["stage2 hint1", "stage2 hint2", "stage2 hint3", "stage2 hint4"],
+  //     mission: ["stage2 Mission1", "stage2 Mission2", "stage2 Mission3"],
+  //     answer: "Hello",
+  //   },{
+  //     name: "stage3",
+  //     count: 0,
+  //     hint: ["stage3 hint1", "stage3 hint2", "stage3 hint3", "stage3 hint4"],
+  //     mission: ["stage3 Mission1", "stage3 Mission2", "stage3 Mission3"],
+  //     answer: "Hint",
+  //   },{
+  //     name: "stage4",
+  //     count: 0,
+  //     hint: ["stage4 hint1", "stage4 hint2", "stage4 hint3", "stage4 hint4"],
+  //     mission: ["stage4 Mission1", "stage4 Mission2", "stage4 Mission3"],
+  //     answer: "Hi",
+  //   }
+  // ]);
+  //   res.send("Set Stage Information");
+  // }
 });
 
 app.get("/api/getStageInfo",function(req,res){
@@ -265,25 +299,32 @@ app.get("/api/getStageInfo",function(req,res){
   });
 });
 
-app.use('/image', express.static('./upload'));
-app.post('/api/uploadGame',upload.single('image'),function(req,res){
+app.use('/api/getImage', express.static(__dirname+'/upload'));
+app.post('/api/setGameInfo',upload.single('image'),function(req,res){
   var title = req.body.title;  
-  var image = '/image/' + req.file.filename;
+  console.log(req.file);
+  var image = '/api/getImage/' + req.file.filename;
+  
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
   var answer = req.body.answer;
-
   var game = new gameModel({ "title": title, "image": image, "video": video,"text":text,"answer":answer });
   game.save(function (err) {
     if (err) {
       console.log("게임을 저장하지 못했습니다.")
       return;
     }
-    res.send("게임 저장 성공");
   });
+  console.log("success add game")
+});
+app.post('/api/getGameInfo',function(req,res){
+
+})
+app.post('/api/deleteGameInfo',function(req,res){
+
 });
 
-app.post('/api/deleteGame',function(req,res){
+app.post('/api/deleteStageInfo',function(req,res){
 
 });
 app.get("/:stage/:quiz/", function (req, res) {
@@ -372,13 +413,23 @@ app.post("/quiz",function (req, res){
     if (err) throw err;
     if (result) res.send(result);
   });
+});
+
+app.get("/game",function(req,res){
+  var gameIndex = 0;  
+  getGame(database,gameIndex,function (err, result) {
+    if (err) throw err;
+    if (result) res.send(result);
+  });
+})
+
+app.get("/admin",function(req,res){
+  getGameListAndStageList(database,function (err, result) {
+    if (err) throw err;
+    if (result) res.send(result);
+  });
 })
 
 app.listen(port, function () {
   console.log("Express server has started on port " + port);
 });
-
-app.post("/api/insert", function(req, res) {
-  console.log("입력하신 타이틀은 " + req.body.title + "입니다.");
-  res.send("정상 작동");
-})

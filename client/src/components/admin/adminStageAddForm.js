@@ -31,19 +31,19 @@ class AdminStageAddForm extends Component {
     
     onChangeName = (e) => {
       this.setState({
-        title : e.target.value
+        name : e.target.value
       })
     }
 
     onChangeHint = (e) => {
       this.setState({
-        image : e.target.value
+       hint : e.target.value
       })
     }
 
     onChangeMission = (e) => {
       this.setState({
-        video : e.target.value
+        mission : e.target.value
       })
     }
 
