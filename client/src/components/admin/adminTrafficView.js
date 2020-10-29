@@ -26,9 +26,9 @@ class AdminTrafficView extends Component {
     getTrafficApi = async () => {
         const res = await axios.get("/api/getStageInfo");
         res.data.map(obj => {  
-        this.setState({
-            data : this.state.data.concat(obj)
-        });
+            this.setState({
+                data : this.state.data.concat(obj)
+            });
         })
     }
 
@@ -41,9 +41,9 @@ class AdminTrafficView extends Component {
                     height={400}
                     data={data}
                     margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
+                        top: 5,
+                        right: 30,
+                        left: 20,
                         bottom: 5,
                     }}
                 >

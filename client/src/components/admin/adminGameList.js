@@ -1,26 +1,30 @@
 import React, {Component} from 'react';
 import { 
-    Grid, List, ListItem, ListItemAvatar, ListItemText, Avatar, ListItemSecondaryAction, IconButton
+   Button, Grid, List, ListItem, ListItemAvatar,ListItemIcon, ListItemText, Avatar, ListItemSecondaryAction, IconButton
  } from '@material-ui/core';
 import {
     Delete, SportsEsports
 } from '@material-ui/icons'
-
+import './adminGameList.css';
 
 const gameList = [
     {
+        number : 1,
         title : "game1",
         answer : "game1's answer"
     },
     {
+        number : 2,
         title : "game2",
         answer : "game2's answer"
     },
     {
+        number : 3,
         title : "game3",
         answer : "game3's answer"
     },
     {
+        number : 4,
         title : "game4",
         answer : "game4's answer"
     },
@@ -33,41 +37,40 @@ class AdminGameList extends Component {
         // 게임 LIST 받아오기 API
     }
 
-    // generate = (list ,element) => {
-    //     return list.map((value) =>
-    //       React.cloneElement(element, {
-    //         key: value,
-    //       }),
-    //     );
-    // }
+    onClickDeleteButton = (e) => {
+        console.log(e.target.id);
+    }
 
     render(){
         return(
-            <>  
-            <Grid item xs={12} md={6}>
-                <List>
-                    {/* {gameList.map(game => {
-                        React.cloneElement(
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar>
-                                    <SportsEsports />
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={game.title}
-                            />
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete">
-                                    <Delete />
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>                        
-                        );
-                    })} */}
-                </List>
-            </Grid>
-            </>
+            <div className="root">
+                <Grid>
+                    <List>
+                        {gameList.map(game => {
+                            return (
+                            <ListItem>
+
+                                <ListItemAvatar>
+                                    <Avatar>
+                                        <SportsEsports />
+                                    </Avatar>
+                                </ListItemAvatar>
+
+                                <ListItemText 
+                                    primary={game.title} 
+                                    secondary={game.answer}    
+                                />
+                                
+                                <button id={game.number} onClick={this.onClickDeleteButton}>
+                                    삭제
+                                </button>
+
+                            </ListItem>
+                            );                                         
+                        })}
+                    </List>    
+                </Grid>  
+            </div>
         );
     }
 }
