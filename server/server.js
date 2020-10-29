@@ -377,3 +377,8 @@ app.post("/quiz",function (req, res){
 app.listen(port, function () {
   console.log("Express server has started on port " + port);
 });
+
+app.post("/api/insert", function(req, res) {
+  console.log("입력하신 타이틀은 " + req.body.title + "입니다.");
+  res.send("정상 작동");
+})
