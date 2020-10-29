@@ -16,7 +16,7 @@ class main extends Component{
 
   }
 
-  componentDidMount = async () => {
+  async componentDidMount(){
     const response = await fetch(`${this.props.match.url}`,{
       method : 'GET',
       headers : {
@@ -48,25 +48,27 @@ class main extends Component{
     
   }
 
-    StageSuccess = (e) => {
-      
-      var time = 10;
-      if(this.state.stageAnswer !== this.state.Finalinput){
-        alert('틀렸습니다!');
-        e.preventDefault();
-        document.getElementById('aa').disabled = true;
-        var timer = setInterval(function(){
-          time--;
-          if(time === 0){
-            clearInterval(timer);
-            document.getElementById('aa').disabled = false;
-          }
-        },1000);
-      }
-      else{
-        alert('맞았습니다.')
-      }
+  StageSuccess = (e) => {
+    
+    var time = 10;
+    if(this.state.stageAnswer !== this.state.Finalinput){
+      alert('틀렸습니다!');
+      e.preventDefault();
+      document.getElementById('aa').disabled = true;
+      var timer = setInterval(function(){
+        time--;
+        if(time === 0){
+          clearInterval(timer);
+          document.getElementById('aa').disabled = false;
+        }
+      },1000);
     }
+    
+    else{
+      alert('맞았습니다.')
+    }
+
+  }
  
   render(){
 
