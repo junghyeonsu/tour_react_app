@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import TourIntroHeader from './tourIntroHeader';
 
 class Quiz extends Component{
+    // 헤으응....
     render(){
         console.log(this.props.location.state)
         return(
