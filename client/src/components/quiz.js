@@ -14,7 +14,7 @@ class Quiz extends Component{
                 </div>
                 </div>
                 <div id="content_quiz" className="container">
-                    {this.props.location.state.area} 구역의 힌트는 {this.props.location.state.hint}입니다.
+                    {this.props.location.data.area} 구역의 힌트는 {this.props.location.data.hint}입니다.
                 </div>
                 <TourIntroHeader />
             </div>

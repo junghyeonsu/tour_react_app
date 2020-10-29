@@ -3,9 +3,29 @@ import './mission.css';
 import TourIntroHeader from './tourIntroHeader';
 
 class mission extends Component {
+    state={
+        stage : this.props.location.data
+    }
+
+    // componentDidMount(){
+    //     const response =  fetch(`/mission`,{
+    //       method : 'post',
+    //       headers : {
+    //         'Content-Type': 'application/json',
+    //       }
+    //     })
+        
+    //     const body = response.json()
+    //     console.log("미션 컴포넌트", body);
+        
+    //   }
+
     render() {
         return (
             <div>
+                <div>
+                    
+                </div>
                 <div id="content">
                 {/* <!-- 컨텐츠 이미지 --> */}
                 <div id="content_image_container">
@@ -14,13 +34,13 @@ class mission extends Component {
                 {/* <!-- 스테이지 정답 확인 이미지 + message --> */}
                 <div id="success_container">
                 <h1>축하합니다!</h1>
-                <h2>스테이지를 해결하셨습니다.</h2>
+                <h2>{String(this.props.location.data['area'])}를 해결하셨습니다.</h2>
                 <img id="success_image" src={require('../images/Daejeon.jpg')} alt="대전광역시청" />
                 <p><i>1995년 대전이 직할시로 승격한 해입니다.</i></p>
                 </div>
                 {/* <!-- 퀴즈 --> */}
                 <div id="mission_container">
-                    <h1>미션은 꿈돌이랑 사진을 찍어서 SNS에 올리기 입니다.</h1> 
+                    <h1>미션은 {String(this.props.location.data['mission'])} 입니다.</h1> 
                     <p>주의사항 : SNS에 올릴 때 해쉬태그를 추가해주세요.</p>
                     <p id ="hash-tag">#대전여행 #미션여행</p>
                     <div id="SNS-container">
@@ -36,6 +56,7 @@ class mission extends Component {
                     </div>
                 </div>
                 <div id="button_container">
+                <h2>{String(this.props.location.data['stage'])}</h2> 
                 <button id="content_nextBtn" className="btn">다음 스테이지</button>
                 <button id="content_closeBtn" className="btn">그만 하기</button>
                 </div>

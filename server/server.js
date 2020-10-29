@@ -177,9 +177,9 @@ getLessPeopleStageAndMission = function (database, stageInfo,visited, cb) {
         }
       }
       if(candidate.length == 0){
-        cb(null,`미션은 ${mission[0]}입니다. 더 이상 방문할 곳이 없습니다.`);
+        cb(null,{mission: mission[0], stage:"더 이상 방문할 곳이 없습니다."});
       }else{
-        cb(null, `미션은 ${mission[0]}입니다. 다음 목적지는 ${candidate[idx].name}입니다.`);
+        cb(null, {mission: mission[0], stage:`다음 방문지는 ${candidate[idx].name}입니다.`});
       }
     })
     .catch((err) => {
@@ -392,11 +392,11 @@ app.get("/:stage/:quiz/", function (req, res) {
 });
 
 //미션화면에서 가져다가 사용할 것임(다음 스테이지와 )
-app.get("/mission", function (req, res) {
-  var stageInfo = "stage1"; //수정 필요 현재의 stage정보 필요
+app.post('/mission',function(req,res){
+  const stageInfo =req.body.stage;
+  console.log(stageInfo);
   var visited = req.cookies["visited"];
   var user = req.cookies["user"];
-  console.log(user);
   setClearStage(database,stageInfo,user,function (err, result) {
     if (err) throw err;
     if (result) console.log(result);
@@ -406,11 +406,10 @@ app.get("/mission", function (req, res) {
     if (result) res.send(result);
   });
 });
-
 //게임을 하고나서 어떤 게임을 했는지를 받아야 한다.
 app.post("/quiz",function (req, res){
   var userInfo = req.cookies["user"];
-  var gameIndex = req.body.gameIndex;  //수정 필요함
+  var gameIndex = req.body.GameIndex;  //수정 필요함
   updateClearGame(database,userInfo,gameIndex,function (err, result) {
     if (err) throw err;
     if (result) res.send(result);

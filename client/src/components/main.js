@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import './main.css';
 import TourIntroHeader from './tourIntroHeader';
 import { Link } from 'react-router-dom';
-import Game from './Game';
+import Game from './Game2';
 import ExplainModal from './Modal';
+import {post,get} from 'axios';
+
+
 
 class main extends Component{
   state = {
@@ -13,7 +16,7 @@ class main extends Component{
     stageAnswer : '',
     area : '',
     hint : '',
-
+    List : [],
   }
 
   async componentDidMount(){
@@ -23,29 +26,72 @@ class main extends Component{
         'Content-Type': 'application/json',
       }
     })
-    
     const body = await response.json();
+    console.log(body);
+    var List2 = body.gameList;
+    for(var i = 0; i<body.clearGame.length;i++){
+      const idx = List2.indexOf(body.clearGame[i]) 
+      if (idx > -1) List2.splice(idx, 1)
+    }
+    for(var i = 0; i<List2.length;i++){
+      this.state.List.push(List2[i]);
+    }
     this.setState({
       stageAnswer:body.answer,
-      area : body.hint.split(' ')[0],
-      hint : body.hint.split(' ')[1]
+      area : this.props.match.url.split('/')[1], //
+      hint : body.hint,
     });
-
-    console.log(document.getElementById('correctAnswer').value);
   }
 
 
+  handleFormSubmit = async () => {
+     this.goStage()
+    .then((response) => {
+      var data = response.data;
+      data['area'] = this.state.area;
+      this.props.history.push({
+        pathname: '/mission', 
+        data :  data}); 
+    });
+  }
+
+  handleFormSubmit2 = async () => {
+    this.goStage2()
+   .then((response) => {
+     this.props.history.push({
+      pathname: '/quiz', 
+      data : { area : this.state.area, hint:this.state.hint }
+      }); 
+   });
+ }
+
+  goStage(){
+    const url = '/mission';
+    var params = {
+      stage : this.state.area
+    }
+    return post(url, params)
+  }
+
+  goStage2(){
+    const url = '/quiz';
+    var params = {
+      GameIndex : Number(document.getElementById('correctAnswer').value) - 1
+    }
+    return post(url, params)
+  }
+
   QuizSuccess = (e) => {
     if(document.getElementById('correctAnswer').value !== this.state.input){
+      console.log(document.getElementById('correctAnswer').value)
       alert('틀렸습니다!');
       e.preventDefault();
       
     }
-    else if(this.state.quizAnswer === this.state.input){
+    else if(document.getElementById('correctAnswer').value === this.state.input){
       alert('맞았습니다.');
-    
+      this.handleFormSubmit2();
     }
-    
   }
 
   StageSuccess = (e) => {
@@ -55,23 +101,27 @@ class main extends Component{
       alert('틀렸습니다!');
       e.preventDefault();
       document.getElementById('aa').disabled = true;
+      document.getElementById('mission_button').disabled = true;
       var timer = setInterval(function(){
         time--;
         if(time === 0){
           clearInterval(timer);
           document.getElementById('aa').disabled = false;
+          document.getElementById('mission_button').disabled = false;
         }
       },1000);
     }
     
     else{
-      alert('맞았습니다.')
+      
+      alert('맞았습니다.');
+      this.handleFormSubmit();
     }
 
   }
  
   render(){
-
+    console.log(this.state)
     return (
       <div>
 
@@ -91,21 +141,13 @@ class main extends Component{
         <div id="content_answer" className="container">
             
             <div id="content_quiz" className="container">
-            <div> <Game /></div>
+            <div> {this.state.List.length == 0 ? '게임을 로딩중입니다' : <Game List = {this.state.List}/>}</div>
             </div>
 
             {/* <p>퀴즈의 정답을 입력해주세요</p> */}
             <input className="submit_input" type="text"  onChange={(e) => {this.setState({input:e.target.value})}}/>
-            <form >
-            <Link to={{
-              pathname: '/quiz',
-              state:{
-                area : this.state.area,
-                hint : this.state.hint,
-                GameIndex : 2,
-              }
-            }} onClick={this.QuizSuccess}><button id="quiz_button" name="a"className="submit_button">확인</button></Link>
-            </form>
+            <button id="quiz_button" name="a"className="submit_button"onClick={this.QuizSuccess}>확인</button>
+           
         </div> 
 
         <hr />
@@ -115,7 +157,9 @@ class main extends Component{
             <strong>QR코드를 찾아 문제를 해결하고 힌트를 모아, 4자리 비밀번호를 찾으세요. 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
             <br />
             <input className="submit_input" type="text" id="aa" onChange={(e) => {this.setState({Finalinput:e.target.value})}} />
-            <Link to='/mission' onClick={this.StageSuccess}><button id="mission_button" className="submit_button">제출</button></Link>
+            <button id="mission_button" className="submit_button" onClick={this.StageSuccess}>제출</button>
+            
+                
         </div>
       </div>
     );
