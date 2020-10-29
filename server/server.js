@@ -213,6 +213,7 @@ getGame = function(database, gameIndex,cb){
     console.log(err);
   })
 }
+
 getGameListAndStageList = function(database,cb){
   gameModel.find({ }).exec()
   .then((games)=>{
