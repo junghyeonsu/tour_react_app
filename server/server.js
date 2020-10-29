@@ -86,6 +86,7 @@ addUser = function (database, id, cb) {
   })
 };
 
+//test
 // 스테이지의 정보를 받아서 해당 스테이지에 해당하는 카운트 증가하는 함수
 updateStageInfo = function (database, stageInfo, cb) {
   stageModel.findOne({ name: stageInfo }, function (err, stage) {
