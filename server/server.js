@@ -150,7 +150,7 @@ getHintAndAnswerAndGameList = function (database, stageInfo, quizInfo,userInfo, 
     });
 };
 
-//데이터베이스에서 적은 사람들이 존재하는 Stage를 반환하는 함수
+// 데이터베이스에서 적은 사람들이 존재하는 Stage를 반환하는 함수
 // 그리고 추가적으로 현재 스테이지의 Mission도 추가적으로 전송함
 getLessPeopleStageAndMission = function (database, stageInfo,visited, cb) {
   stageModel.find({}).exec()
@@ -160,8 +160,10 @@ getLessPeopleStageAndMission = function (database, stageInfo,visited, cb) {
       var candidate = [];
       var mission = [];
       for (var i = 0; i < stage.length;i++) {
-        if (!visited[stage[i].name])
+        if (!visited[stage[i].name]){
           candidate.push(stage[i]);
+          stage[i].count--;
+        }
         if(stage[i].name == stageInfo){
           mission = stage[i].mission;
         }
@@ -207,6 +209,20 @@ getGame = function(database, gameIndex,cb){
   .then((games)=>{
     var i = gameIndex;
     cb(null,{title:games[i].title,text:games[i].text,image:games[i].image,video:games[i].video,answer:games[i].answer,})
+  }).catch((err)=>{
+    console.log(err);
+  })
+}
+getGameListAndStageList = function(database,cb){
+  gameModel.find({ }).exec()
+  .then((games)=>{
+    var result = {};
+    result["gameList"] = games;
+    stageModel.find({}).exec()
+    .then((stage)=>{
+      result["stageList"] = stage;
+      cb(null,result);
+    })
   }).catch((err)=>{
     console.log(err);
   })
@@ -307,6 +323,9 @@ app.post('/api/deleteGameInfo',function(req,res){
 
 });
 
+app.post('/api/deleteStageInfo',function(req,res){
+
+});
 app.get("/:stage/:quiz/", function (req, res) {
   var userInfo = req.cookies["user"];
   var stageInfo = req.params.stage;
@@ -398,6 +417,13 @@ app.post("/quiz",function (req, res){
 app.get("/game",function(req,res){
   var gameIndex = 0;  
   getGame(database,gameIndex,function (err, result) {
+    if (err) throw err;
+    if (result) res.send(result);
+  });
+})
+
+app.get("/admin",function(req,res){
+  getGameListAndStageList(database,function (err, result) {
     if (err) throw err;
     if (result) res.send(result);
   });
