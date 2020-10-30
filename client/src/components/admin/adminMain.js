@@ -14,10 +14,6 @@ class AdminMain extends Component {
           <AdminTrafficView />
         </div>
         <div className="form_container">
-          <div className="present_game_list">
-            게임 리스트
-            <AdminGameList />
-          </div>
 
           <div className="game_Add_Container">
             <AdminGameAddForm />
@@ -27,6 +23,9 @@ class AdminMain extends Component {
             <AdminStageAddForm />
           </div>
         </div>
+          <div className="present_game_list">
+            <AdminGameList />
+          </div>
       </div>
     );
   }

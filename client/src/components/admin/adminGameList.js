@@ -1,75 +1,86 @@
 import React, {Component} from 'react';
-import { 
-   Button, Grid, List, ListItem, ListItemAvatar,ListItemIcon, ListItemText, Avatar, ListItemSecondaryAction, IconButton
- } from '@material-ui/core';
-import {
-    Delete, SportsEsports
-} from '@material-ui/icons'
+import {Button, Grid, List, ListItem, ListItemAvatar,ListItemIcon, ListItemText, Avatar, ListItemSecondaryAction, IconButton} from '@material-ui/core';
+import { Delete, SportsEsports } from '@material-ui/icons'
 import './adminGameList.css';
-
-const gameList = [
-    {
-        number : 1,
-        title : "game1",
-        answer : "game1's answer"
-    },
-    {
-        number : 2,
-        title : "game2",
-        answer : "game2's answer"
-    },
-    {
-        number : 3,
-        title : "game3",
-        answer : "game3's answer"
-    },
-    {
-        number : 4,
-        title : "game4",
-        answer : "game4's answer"
-    },
-]
-
+import axios from 'axios';
+import AdminGameModal from './adminGameModal';
 
 class AdminGameList extends Component {
+
+    state = {
+        gameList : [],
+        stageList : [],
+        currentGame : {},
+        currentStage : {},
+        visible: false,
+    }
     
-    componentDidMount = () => {
-        // 게임 LIST 받아오기 API
+    outModal = () => {
+        this.setState({
+            visible: false
+        })
     }
 
-    onClickDeleteButton = (e) => {
-        console.log(e.target.id);
+    componentDidMount = () => {
+        // 트래픽 데이터들 받아오기
+        this.getApi();
+    }
+
+    /* 사용자 트래픽 받아오는 함수 */
+    getApi = async () => {
+        const res = await axios.get("/admin");
+        console.log(res.data.gameList);
+        console.log(res.data.stageList);
+        this.setState({
+            gameList : res.data.gameList,
+            stageList : res.data.stageList
+        });
+    }
+
+    onClickItem = (e) => {
+        console.log(this.state.gameList[e.target.id]);
+        this.setState({
+            visible : true,
+            currentGame : this.state.gameList[e.target.id]
+        })
     }
 
     render(){
+        const { gameList, stageList, visible, currentGame } = this.state; 
         return(
             <div className="root">
-                <Grid>
-                    <List>
-                        {gameList.map(game => {
+                { visible ? <AdminGameModal currentGame={currentGame} outModal={this.outModal} /> : "" }
+                <div className="game">
+                    게임 리스트
+                        {gameList.map((game, index) => {
                             return (
-                            <ListItem>
-
+                            <div onClick={this.onClickItem} id={index} key={game._id} className="list_item">
+                                {game._id}
+                            </div>
+                            );                                         
+                        })}
+                </div>
+                <div className="stage">
+                    스테이지 리스트 (관광지)
+                        {stageList.map((stage, index) => {
+                            return (
+                            <div className="list_item" key={stage._id}>
                                 <ListItemAvatar>
                                     <Avatar>
                                         <SportsEsports />
                                     </Avatar>
                                 </ListItemAvatar>
-
-                                <ListItemText 
-                                    primary={game.title} 
-                                    secondary={game.answer}    
-                                />
+                                <div>
+                                    {stage.title}
+                                </div>
                                 
-                                <button id={game.number} onClick={this.onClickDeleteButton}>
+                                <button id={stage.number} onClick={this.onClickDeleteButton}>
                                     삭제
                                 </button>
-
-                            </ListItem>
+                            </div>
                             );                                         
                         })}
-                    </List>    
-                </Grid>  
+                </div>
             </div>
         );
     }

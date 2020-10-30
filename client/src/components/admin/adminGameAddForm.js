@@ -29,21 +29,6 @@ class AdminGameAddForm extends Component {
         }
       }
       return post(url, formData, config)
-      // const response = await fetch('/api/insert', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ 
-      //     /* server에서 받을 때는 req.body.title 이런식으로 접근가능 */
-      //     title: title,
-      //     image: image,
-      //     video: video,
-      //     text: text,
-      //     answer: answer
-      //   }),
-      // });
-      // console.log(await response.text());
     }
     
     onChangeTitle = (e) => {
