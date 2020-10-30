@@ -76,7 +76,7 @@ class main extends Component{
   goStage2(){
     const url = '/quiz';
     var params = {
-      GameIndex : Number(document.getElementById('correctAnswer').value) - 1
+      GameIndex : Number(document.getElementById('correctAnswer').value)
     }
     return post(url, params)
   }
@@ -130,10 +130,6 @@ class main extends Component{
         {/* <!-- 컨텐츠 부분 --> */}
         <div id="content"> </div>
         
-        {/* <!-- 컨텐츠 이미지 --> */}
-        <div id="content_image_container">
-            <img id="content_image" src={require('../images/abcd-01-1.jpg')} alt="이미지"/>
-        </div>
         <div>
           <ExplainModal />
         </div>
