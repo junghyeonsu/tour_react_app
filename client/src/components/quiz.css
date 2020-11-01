@@ -18,16 +18,16 @@ body {
 } */
 
 /* content image를 담고있는 컨테이너 div */
-#content_image_container {
+/* #content_image_container {
     display: flex;
 }
 
-/* content image */
+/* content image 
 #content_image {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-}
+} */
 
 /* success image를 담고있는 컨테이너 div */
 #success_container {
