@@ -28,6 +28,11 @@ class main extends Component{
     })
     const body = await response.json();
     console.log(body);
+    if(!body.intro){
+      this.props.history.push({
+        pathname: '/intro', 
+        data:{stage : this.props.match.url.split('/')[1],quiz : this.props.match.url.split('/')[2]}}); 
+    }
     var List2 = body.gameList;
     for(var i = 0; i<body.clearGame.length;i++){
       const idx = List2.indexOf(body.clearGame[i]) 
