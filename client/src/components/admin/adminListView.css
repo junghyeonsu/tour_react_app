@@ -1,15 +1,13 @@
-.root {
-    display: flex;
+.game {
+    width: 400px;
     text-align: center;
     margin-bottom: 50px;
 }
 
-.game {
-    width: 400px;
-}
-
 .stage {
     width: 400px;
+    text-align: center;
+    margin-bottom: 50px;
 }
 
 .list_item {

@@ -5,6 +5,7 @@ import AdminGameAddForm from './adminGameAddForm';
 import AdminTrafficView from './adminTrafficView';
 import AdminStageAddForm from './adminStageAddForm';
 import AdminGameList from './adminGameList';
+import AdminStageList from './adminStageList';
 
 class AdminMain extends Component {
   render() {
@@ -24,7 +25,12 @@ class AdminMain extends Component {
           </div>
         </div>
           <div className="present_game_list">
-            <AdminGameList />
+            <div>
+              <AdminGameList />
+            </div>
+            <div>
+              <AdminStageList />
+            </div>
           </div>
       </div>
     );
