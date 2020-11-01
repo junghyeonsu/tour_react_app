@@ -3,6 +3,8 @@
     padding: 5%;
     margin: 1%;
     text-align: center;
+    overflow: auto;
+    border: 1px solid black;
 }
 
 body {
@@ -13,7 +15,14 @@ body {
 #content_image_container {
     display: flex;
 }
-
+#stage_answer{
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: white;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
 /* content image */
 #content_image {
     width: 100%;

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import './VideoTest.css';
 
 class YouTubeVideo extends React.PureComponent {
   static propTypes = {
@@ -48,10 +48,13 @@ class YouTubeVideo extends React.PureComponent {
 
   
   render = () => {
+    
     const { id } = this.props;
     return (
       <div>
+        <div className='Video'>
         <div id={`youtube-player-${id}`} />
+        </div>
         <p>
         {this.props.startTime === 0 ? Object.entries(this.props.seek).map(([key,value]) => {
             return(
