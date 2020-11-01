@@ -1,0 +1,23 @@
+.game {
+    width: 400px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.stage {
+    width: 400px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.list_item {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.list_item:hover {
+    background-color: darkgray;
+}

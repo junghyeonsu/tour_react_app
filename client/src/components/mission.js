@@ -1,28 +1,46 @@
 import React, { Component } from 'react';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import './mission.css';
 import TourIntroHeader from './tourIntroHeader';
 
 class mission extends Component {
+    state={
+        stage : this.props.location.data,
+    }
+
+    // componentDidMount(){
+    //     const response =  fetch(`/mission`,{
+    //       method : 'post',
+    //       headers : {
+    //         'Content-Type': 'application/json',
+    //       }
+    //     })
+        
+    //     const body = response.json()
+    //     console.log("미션 컴포넌트", body);
+        
+    //   }
+    copyHashtag = (e) => {
+        alert('해쉬태그가 복사 되었습니다.');
+    }
     render() {
         return (
             <div>
                 <div id="content">
-                {/* <!-- 컨텐츠 이미지 --> */}
-                <div id="content_image_container">
-                    <img id="content_image" src={require('../images/abcd-01-1.jpg')} alt="이미지" />
-                </div>
                 {/* <!-- 스테이지 정답 확인 이미지 + message --> */}
                 <div id="success_container">
                 <h1>축하합니다!</h1>
-                <h2>스테이지를 해결하셨습니다.</h2>
+                <h2>{String(this.props.location.data['area'])}를 해결하셨습니다.</h2>
                 <img id="success_image" src={require('../images/Daejeon.jpg')} alt="대전광역시청" />
                 <p><i>1995년 대전이 직할시로 승격한 해입니다.</i></p>
                 </div>
                 {/* <!-- 퀴즈 --> */}
                 <div id="mission_container">
-                    <h1>미션은 꿈돌이랑 사진을 찍어서 SNS에 올리기 입니다.</h1> 
+                    <h1>미션은 {String(this.props.location.data['mission'])} 입니다.</h1> 
                     <p>주의사항 : SNS에 올릴 때 해쉬태그를 추가해주세요.</p>
-                    <p id ="hash-tag">#대전여행 #미션여행</p>
+                    <CopyToClipboard text={"#대전여행 #미션여행"} onCopy={this.copyHashtag}>
+                    <span>#대전여행 #미션여행</span>
+                    </CopyToClipboard>
                     <div id="SNS-container">
                     <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
                         <img id = "instagram-img" className = "sns_image" src={require('../images/instagram.jpeg')} alt = "instagram" /> 
@@ -36,6 +54,7 @@ class mission extends Component {
                     </div>
                 </div>
                 <div id="button_container">
+                <h2>{String(this.props.location.data['stage'])}</h2> 
                 <button id="content_nextBtn" className="btn">다음 스테이지</button>
                 <button id="content_closeBtn" className="btn">그만 하기</button>
                 </div>

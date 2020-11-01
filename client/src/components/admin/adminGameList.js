@@ -1,81 +1,66 @@
 import React, {Component} from 'react';
-import { 
-   Button, Grid, List, ListItem, ListItemAvatar,ListItemIcon, ListItemText, Avatar, ListItemSecondaryAction, IconButton
- } from '@material-ui/core';
-import {
-    Delete, SportsEsports
-} from '@material-ui/icons'
-import './adminGameList.css';
-
-const gameList = [
-    {
-        number : 1,
-        title : "game1",
-        answer : "game1's answer"
-    },
-    {
-        number : 2,
-        title : "game2",
-        answer : "game2's answer"
-    },
-    {
-        number : 3,
-        title : "game3",
-        answer : "game3's answer"
-    },
-    {
-        number : 4,
-        title : "game4",
-        answer : "game4's answer"
-    },
-]
-
+import './adminListView.css';
+import axios from 'axios';
+import AdminGameModal from './adminGameModal';
 
 class AdminGameList extends Component {
+
+    state = {
+        gameList : [],
+        currentGame : {},
+        gameModalVisible: false,
+    }
     
-    componentDidMount = () => {
-        // 게임 LIST 받아오기 API
+    outGameModal = () => {
+        this.setState({
+            gameModalVisible: false,
+        })
     }
 
-    onClickDeleteButton = (e) => {
-        console.log(e.target.id);
+    componentDidMount = () => {
+        // 트래픽 데이터들 받아오기
+        this.getApi();
     }
+
+    /* 사용자 트래픽 받아오는 함수 */
+    getApi = async () => {
+        const res = await axios.get("/api/getGameList");
+        console.log(res.data.gameList);
+        this.setState({
+            gameList : res.data.gameList,
+            gameModalVisible: false,
+        });
+    }
+
+    onClickGame = (e) => {
+        console.log(this.state.gameList[e.target.id]);
+        this.setState({
+            gameModalVisible : true,
+            currentGame : this.state.gameList[e.target.id]
+        })
+    }
+
 
     render(){
+        const { gameList, gameModalVisible, currentGame } = this.state; 
         return(
-            <div className="root">
-                <Grid>
-                    <List>
-                        {gameList.map(game => {
+            <div>
+                { gameModalVisible ? <AdminGameModal currentGame={currentGame} getApi={this.getApi} outModal={this.outGameModal} /> : "" }
+                <div className="game">
+                    <h2>
+                        게임 리스트
+                    </h2>
+                        {gameList.map((game, index) => {
                             return (
-                            <ListItem>
-
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <SportsEsports />
-                                    </Avatar>
-                                </ListItemAvatar>
-
-                                <ListItemText 
-                                    primary={game.title} 
-                                    secondary={game.answer}    
-                                />
-                                
-                                <button id={game.number} onClick={this.onClickDeleteButton}>
-                                    삭제
-                                </button>
-
-                            </ListItem>
+                            <div onClick={this.onClickGame} id={index} key={game._id} className="list_item">
+                                {game._id}
+                            </div>
                             );                                         
                         })}
-                    </List>    
-                </Grid>  
+                </div>
             </div>
         );
     }
 }
-
-// primary={game.title}
-// secondary={game.answer}
 
 export default AdminGameList;

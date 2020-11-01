@@ -6,10 +6,6 @@ var userSchema = new mongoose.Schema({
     type:Map,
     of:Boolean
   },
-  stageVisit:{
-    type:Map,
-    of:Boolean
-  },
   // gameClear:{
   //   type:Map,
   //   of:Boolean

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import './adminStageAddForm.css';
+import { inject, observer } from 'mobx-react';
 
+@inject('stageStore')
+@observer
 class AdminStageAddForm extends Component {
 
     state = {
@@ -25,8 +28,9 @@ class AdminStageAddForm extends Component {
             stageMission : mission,
             stageAnswer : answer
            }),
-        });
-        console.log(await response.text());
+        }).then(
+          window.location.reload()
+        );
       }
     
     onChangeName = (e) => {
@@ -56,9 +60,9 @@ class AdminStageAddForm extends Component {
     render(){
         return(
             <div>
-                <div>
+                <h2>
                 스테이지 추가 입력 창
-                </div>
+                </h2>
                 <form onSubmit={this.onClickInsertButton}>
                     스테이지 이름 <input type="text" onChange={this.onChangeName} /><br />
                     스테이지 힌트 <input type="text" onChange={this.onChangeHint} /><br />
