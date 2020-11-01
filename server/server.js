@@ -238,21 +238,29 @@ getGame = function (database, gameIndex, cb) {
     });
 };
 
-getGameListAndStageList = function (database, cb) {
+getGameList= function (database, cb) {
   gameModel.find({}).exec()
     .then((games) => {
       var result = {};
       result["gameList"] = games;
-      stageModel.find({}).exec()
-        .then((stage) => {
-          result["stageList"] = stage;
-          cb(null, result);
-        });
+      cb(null, result);
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
+getStageList = function(database,cb){
+  stageModel.find({}).exec()
+   .then((stage) => {
+    var result = {};
+    result["stageList"] = stage;
+     cb(null, result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
 
 deleteGame = function (database,id, cb) {
   gameModel.findOneAndDelete({_id:id}).exec()
@@ -268,12 +276,6 @@ deleteStage = function (database,id, cb) {
     });
 };
 
-app.get("/api/getList", function (req, res) {
-  getGameListAndStageList(database, function (err, result) {
-    if (err) throw err;
-    if (result) res.send(result);
-  });
-});
 //나중에 Stage정보를 추가하거나 변경할 때 사용할 것임(Post)
 app.post("/api/setStageInfo", function (req, res) {
   var stageName = req.body.stageName;
@@ -362,6 +364,19 @@ app.post("/api/deleteStage", function (req, res) {
   deleteStage(database,id, function (err, result) {
     if (err) throw err;
     if (result) console.log(result);
+  });
+});
+app.get("/api/getGameList", function (req, res) {
+  getGameList(database, function (err, result) {
+    if (err) throw err;
+    if (result) res.send(result);
+  });
+});
+
+app.get("/api/getStageList", function (req, res) {
+  getStageList(database, function (err, result) {
+    if (err) throw err;
+    if (result) res.send(result);
   });
 });
 
@@ -454,13 +469,6 @@ app.post("/quiz", function (req, res) {
 app.get("/game", function (req, res) {
   var gameIndex = 0;
   getGame(database, gameIndex, function (err, result) {
-    if (err) throw err;
-    if (result) res.send(result);
-  });
-});
-
-app.get("/admin", function (req, res) {
-  getGameListAndStageList(database, function (err, result) {
     if (err) throw err;
     if (result) res.send(result);
   });
