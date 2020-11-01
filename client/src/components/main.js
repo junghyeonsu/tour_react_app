@@ -37,8 +37,12 @@ class main extends Component{
       }
     })
     const body = await response.json();
-    
-    
+    console.log(body);
+    if(!body.intro){
+      this.props.history.push({
+        pathname: '/intro', 
+        data:{stage : this.props.match.url.split('/')[1],quiz : this.props.match.url.split('/')[2]}}); 
+    }
     var List2 = body.gameList;
     for(var i = 0; i<body.clearGame.length;i++){
       const idx = List2.indexOf(body.clearGame[i]) 
@@ -184,7 +188,6 @@ class main extends Component{
         </div>
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
-            
             <div id="content_quiz" className="container">
             <div> {this.state.List.length == 0 ? '게임을 로딩중입니다' : <Game List = {this.state.List}/>}</div>
             </div>
@@ -198,7 +201,7 @@ class main extends Component{
         <hr />
 
         {/* <!-- 미션 정답 입력 --> */}
-        <div className="container">
+        <div id="stage_answer"className="container">
             <strong>QR코드를 찾아 문제를 해결하고 힌트를 모아, 4자리 비밀번호를 찾으세요. 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
             <br />
             <input className="submit_input" type="text" id="aa" onChange={this.onChange} />

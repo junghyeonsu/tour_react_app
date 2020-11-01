@@ -14,8 +14,6 @@ const upload = multer({ storage: storage });
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const request = require("request");
-
-const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -27,6 +25,7 @@ app.use(cookieParser());
 const stageModel = require("./stage");
 const userModel = require("./user");
 const gameModel = require("./game");
+const { findById } = require("./stage");
 var database;
 
 // database와 연결하는 코드 (현재는 local로 설정되어있다.)
@@ -249,6 +248,17 @@ getGameList= function (database, cb) {
       console.log(err);
     });
 };
+getStageList = function(database,cb){
+  stageModel.find({}).exec()
+   .then((stage) => {
+    var result = {};
+    result["stageList"] = stage;
+     cb(null, result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
 
 getStageList = function(database,cb){
   stageModel.find({}).exec()
@@ -382,10 +392,16 @@ app.get("/api/getStageList", function (req, res) {
 
 app.get("/:stage/:quiz/", function (req, res) {
   var userInfo = req.cookies["user"];
+  var visited = req.cookies["visited"];
   var stageInfo = req.params.stage;
   var quizInfo = req.params.quiz;
   // console.log(stageInfo);
   // console.log(req.params.quiz);
+
+  if(!visited){
+    visited = {};
+    res.cookie("visited", visited, { maxAge: 86400000, httpOnly: true });
+  }
 
   if (userInfo) {
     //이미 유저쿠키가 존재하는 경우
@@ -405,7 +421,6 @@ app.get("/:stage/:quiz/", function (req, res) {
     // 유저 쿠키가 존재하지않았던 상황. 유저 쿠키를 생성한다.
     var uuid = uuidv4();
     userInfo = uuid;
-    var visited = {};
 
     if (database) {
       // 데이터베이스에 유저의 정보를 추가해주는 부분
@@ -430,8 +445,15 @@ app.get("/:stage/:quiz/", function (req, res) {
     function (err, result) {
       if (err) throw err;
       if (result) {
-        res.send(result);
-        return;
+        if(visited["intro"]){
+          result["intro"] = true;
+          res.send(result);
+        }else{
+          result["intro"] = false;
+          res.send(result);
+        }
+        // res.send(result);
+        // return;
       }
     }
   );
@@ -472,6 +494,16 @@ app.get("/game", function (req, res) {
     if (err) throw err;
     if (result) res.send(result);
   });
+});
+
+app.get("/intro", function (req, res) {
+  var visited = req.cookies["visited"];
+  if(!visited){
+    visited = {};
+  }
+  visited["intro"] = true;
+  res.cookie("visited", visited, { maxAge: 86400000, httpOnly: true });
+  res.send({stage:null,quiz:null});
 });
 
 app.listen(port, function () {

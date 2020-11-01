@@ -1,21 +1,21 @@
 /* 테스트를 위해서 만들어놓은 div 박스의 css */
-.container {
+/* .container {
     border: 1px solid black;
     padding: 5%;
     margin: 1%;
-}
-
+} */
+/* 
 body {
     margin: 0;
-}
+} */
 
-/* 홈페이지가 600px 아래일 때 */
+/* 홈페이지가 600px 아래일 때
 @media (max-width: 650px) {
-    /* header navigation container DIV */
+    /* header navigation container DIV 
     #header_navigation {
         display: none;
     }
-}
+} */
 
 /* content image를 담고있는 컨테이너 div */
 #content_image_container {

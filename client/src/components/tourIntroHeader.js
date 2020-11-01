@@ -143,26 +143,30 @@ class tourIntroHeader extends Component {
       return arr.every((e) => n !== e);
     }
 
-      
     render() {
         const {tourList, randomNumber, randomImageNumber} = this.state;
         return (
             <div id="content_tour" className="container">
-              <div className="title">
-               {tourList[randomNumber].title}
+              <div id="image_div">
+                <div className="image">
+                  { <img src={tourList[randomNumber].image[randomImageNumber[0]] } alt="image" /> }
+                </div>
+                <div className="image">
+                  { <img src={tourList[randomNumber].image[randomImageNumber[1]] } alt="image" /> }
+                </div>
               </div>
-              <div className="address">
-                {tourList[randomNumber].addr}
+              <div id="word_div">
+                <div className="title">
+                 {tourList[randomNumber].title}
+                </div>
+                <div className="address">
+                  {tourList[randomNumber].addr}
+                </div>
+                <div className="explain">
+                  {tourList[randomNumber].explain}
+                </div>
               </div>
-              <div className="image">
-                { <img src={tourList[randomNumber].image[randomImageNumber[0]] } alt="image" /> }
-              </div>
-              <div className="image">
-                { <img src={tourList[randomNumber].image[randomImageNumber[1]] } alt="image" /> }
-              </div>
-              <div className="explain">
-                {tourList[randomNumber].explain}
-              </div>
+              
             </div>
         )
     }
