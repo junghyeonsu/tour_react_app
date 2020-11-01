@@ -56,6 +56,21 @@ class AdminStageModal extends Component {
         console.log(`미션 : ${mission}`);
         console.log(`이름 : ${name}`);
         console.log(`고유 아이디 값 : ${id}`);
+        const response = await fetch('/주소', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+              /* server에서 받을 때는 req.body.stageName 이런식으로 접근가능 */
+              stageName : name,
+              stageHint : hint,
+              stageMission : mission,
+              stageAnswer : answer
+             }),
+          }).then(
+            window.location.reload()
+        );
     }
 
     onClickDeleteButton = async () => {
