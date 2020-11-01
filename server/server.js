@@ -249,6 +249,7 @@ getGameList= function (database, cb) {
       console.log(err);
     });
 };
+
 getStageList = function(database,cb){
   stageModel.find({}).exec()
    .then((stage) => {
@@ -472,7 +473,6 @@ app.get("/game", function (req, res) {
     if (result) res.send(result);
   });
 });
-
 
 app.listen(port, function () {
   console.log("Express server has started on port " + port);

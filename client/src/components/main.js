@@ -76,7 +76,7 @@ class main extends Component{
   goStage2(){
     const url = '/quiz';
     var params = {
-      GameIndex : Number(document.getElementById('correctAnswer').value) - 1
+      GameIndex : Number(document.getElementById('correctAnswer').value)
     }
     return post(url, params)
   }
