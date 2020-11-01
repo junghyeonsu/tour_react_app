@@ -43,15 +43,26 @@
     margin-bottom: 20px;
 } */
 
-.image > img {
-    width: 300px;
-    height: 200px;
+.image  {
+    width: 60%;
+    height: 40%;
+    float: left;
 }
 
-#image_div{
+/* #image_div{
     float: left;
-    overflow: auto;
+} */
+#all_div{
+    display: flex;
 }
 #word_div{
-    background-color: #dddddd;
+    width: 40%;
+    height: 40%;
+    float: right;
+    background-color: #dedede;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+}
+.link{
+    vertical-align: bottom;
 }
