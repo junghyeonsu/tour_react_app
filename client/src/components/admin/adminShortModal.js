@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './adminGameModal.css'
 import { Close } from '@material-ui/icons'
 
-class AdminGameModal extends Component {
+class AdminShortModal extends Component {
 
     state = {
         title : "",
@@ -114,4 +114,4 @@ class AdminGameModal extends Component {
     }
 }
 
-export default AdminGameModal;
+export default AdminShortModal;

@@ -47,7 +47,7 @@ class AdminStageModal extends Component {
         })
     }
 
-    onClickModifyButton = (e) => {
+    onClickModifyButton = async (e) => {
         const {id, hint, mission, name, answer} = this.state;
         e.preventDefault();
         console.log("---넣을 데이터---");
@@ -56,7 +56,7 @@ class AdminStageModal extends Component {
         console.log(`미션 : ${mission}`);
         console.log(`이름 : ${name}`);
         console.log(`고유 아이디 값 : ${id}`);
-        const response = await fetch('/주소', {
+        await fetch('/주소', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -66,7 +66,8 @@ class AdminStageModal extends Component {
               stageName : name,
               stageHint : hint,
               stageMission : mission,
-              stageAnswer : answer
+              stageAnswer : answer,
+              stageId : id
              }),
           }).then(
             window.location.reload()
