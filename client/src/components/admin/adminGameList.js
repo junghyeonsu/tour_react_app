@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 import './adminListView.css';
 import axios from 'axios';
-import AdminGameModal from './adminGameModal';
+import AdminShortModal from './adminShortModal';
+import AdminMultipleModal from './adminMultipleModal';
 
 class AdminGameList extends Component {
 
     state = {
         gameList : [],
         currentGame : {},
-        gameModalVisible: false,
+        shortModalVisible: false,
+        multipleModalVisible : false,
     }
     
     outGameModal = () => {
         this.setState({
-            gameModalVisible: false,
+            shortModalVisible: false,
+            multipleModalVisible : false,
         })
     }
 
@@ -28,31 +31,56 @@ class AdminGameList extends Component {
         console.log(res.data.gameList);
         this.setState({
             gameList : res.data.gameList,
-            gameModalVisible: false,
+            shortModalVisible: false,
+            multipleModalVisible: false,
         });
     }
 
-    onClickGame = (e) => {
+    onClickMultipleGame = (e) => {
         console.log(this.state.gameList[e.target.id]);
         this.setState({
-            gameModalVisible : true,
+            multipleModalVisible : true,
             currentGame : this.state.gameList[e.target.id]
         })
     }
 
+    onClickShortGame = (e) => {
+        console.log(this.state.gameList[e.target.id]);
+        this.setState({
+            shortModalVisible : true,
+            currentGame : this.state.gameList[e.target.id]
+        })
+    }
 
     render(){
-        const { gameList, gameModalVisible, currentGame } = this.state; 
+        const { gameList, multipleModalVisible, shortModalVisible, currentGame } = this.state; 
         return(
             <div>
-                { gameModalVisible ? <AdminGameModal currentGame={currentGame} getApi={this.getApi} outModal={this.outGameModal} /> : "" }
+                { shortModalVisible ? <AdminShortModal currentGame={currentGame} getApi={this.getApi} outModal={this.outGameModal} /> : "" }
+                { multipleModalVisible ? <AdminMultipleModal currentGame={currentGame} getApi={this.getApi} outModal={this.outGameModal} /> : "" }
                 <div className="game">
                     <h2>
                         게임 리스트
                     </h2>
                         {gameList.map((game, index) => {
+
+
+                            // if(game.type == "객관식") {
+                            //     return (
+                            //         <div onClick={this.onClickMultipleGame} id={index} key={game._id} className="list_item">
+                            //             {game.type} {game._id}
+                            //         </div>
+                            //     );  
+                            // } else if (game.type == "주관식") {
+                            //     return (
+                            //         <div onClick={this.onClickShortGame} id={index} key={game._id} className="list_item">
+                            //             {game.type} {game._id}
+                            //         </div>
+                            //     );  
+                            // }
+
                             return (
-                            <div onClick={this.onClickGame} id={index} key={game._id} className="list_item">
+                            <div onClick={this.onClickShortGame} id={index} key={game._id} className="list_item">
                                 {game._id}
                             </div>
                             );                                         

@@ -145,12 +145,11 @@ class tourIntroHeader extends Component {
     render() {
         const {tourList, randomNumber, randomImageNumber} = this.state;
         return (
-            <div id="content_tour" className="container">
-              <div id="all_div">
-                <div id="image_div">
-                  { <img className="image" src={tourList[randomNumber].image[randomImageNumber[0]] } alt="image" /> }
+            <div className="content_tour">
+                <div className="image_div">
+                  <img src={tourList[randomNumber].image[randomImageNumber[0]] } alt="image" />
                 </div>
-                <div id="word_div">
+                <div className="word_div">
                   <h1 className="title">
                    {tourList[randomNumber].title}
                   </h1>
@@ -162,7 +161,6 @@ class tourIntroHeader extends Component {
                   </div> */}
                   <a className = "link" href="">더 정보보기</a>
                 </div>
-              </div>
             </div>
         )
     }

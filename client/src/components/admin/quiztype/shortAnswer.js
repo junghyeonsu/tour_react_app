@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { post } from 'axios';
+import { Widgets } from '@material-ui/icons';
 
 class ShortAnswer extends Component {
 
@@ -27,7 +28,9 @@ class ShortAnswer extends Component {
           'content-type':'multipart/form-data'
         }
       }
-      return post(url, formData, config);
+      return post(url, formData, config).then(
+          window.location.reload()
+      );
     }
     
     onChangeTitle = (e) => {
