@@ -3,13 +3,13 @@ import './adminGameModal.css'
 import { Close } from '@material-ui/icons'
 import { post } from 'axios';
 
-class AdminShortModal extends Component {
+class AdminMultipleModal extends Component {
 
     state = {
         title : "",
         image : "",
         video : "",
-        question : "",
+        text : "",
         choice1 : "",
         choice2 : "",
         choice3 : "",
@@ -24,7 +24,7 @@ class AdminShortModal extends Component {
             title : currentGame.title,
             image : currentGame.image,
             video : currentGame.video,
-            question : currentGame.question,
+            text : currentGame.text,
             answer : currentGame.answer,
             id : currentGame._id
         });
@@ -54,8 +54,7 @@ class AdminShortModal extends Component {
     }
 
     onClickModifyButton = (e) => {
-        console.log("Modify Button")
-        const {id ,title, image, video, question, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
+      const {id ,title, image, video, text, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
         e.preventDefault();
         var choice = [];
         const formData = new FormData();
@@ -69,7 +68,7 @@ class AdminShortModal extends Component {
         formData.append('title', title);
         formData.append('image', image);
         formData.append('video', video);
-        formData.append('question', question);
+        formData.append('text', text);
         choice.push(choice1);
         choice.push(choice2);
         choice.push(choice3);
@@ -116,9 +115,9 @@ class AdminShortModal extends Component {
         })
       }
   
-      onChangeQuestion = (e) => {
+      onChangeText = (e) => {
           this.setState({
-            answer : e.target.value
+            text : e.target.value
           })
       }
   
@@ -160,7 +159,7 @@ class AdminShortModal extends Component {
     
     render(){
         const { outModal, currentGame } = this.props;
-        const {id ,title, image, video, question, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
+        const {id ,title, image, video, text, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
 
         return(
             <div className="modal">
@@ -175,7 +174,7 @@ class AdminShortModal extends Component {
                             이미지 <input type="file" onChange={this.onChangeImage} /><br />
                             <img src={image} alt="image" /> <br />
                             동영상 <input type="text" value={video} onChange={this.onChangeVideo} /><br />
-                            문제 <input type="text" value={question} onChange={this.onChangeQuestion} /><br />
+                            문제 <input type="text" value={text} onChange={this.onChangeText} /><br />
                             선택지 1 <input type="text" value={choice1} onChange={this.onChangeChoice1} /><br />
                             선택지 2 <input type="text" value={choice2} onChange={this.onChangeChoice2} /><br />
                             선택지 3 <input type="text" value={choice3} onChange={this.onChangeChoice3} /><br />
@@ -193,4 +192,4 @@ class AdminShortModal extends Component {
     }
 }
 
-export default AdminShortModal;
+export default AdminMultipleModal;

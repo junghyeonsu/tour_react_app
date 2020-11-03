@@ -7,7 +7,7 @@ class MultipleChoice extends Component {
         title : "",
         image : "",
         video : "",
-        question : "",
+        text : "",
         choice1 : "",
         choice2 : "",
         choice3 : "",
@@ -17,7 +17,7 @@ class MultipleChoice extends Component {
       }
   
     onClickInsertButton = async e => {
-        var {title, image, video, question, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
+        var {title, image, video, text, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
         e.preventDefault();
         var choice = [];
         const formData = new FormData();
@@ -30,17 +30,18 @@ class MultipleChoice extends Component {
         formData.append('title', title);
         formData.append('image', image);
         formData.append('video', video);
-        formData.append('question', question);
+        formData.append('text', text);
         choice.push(choice1);
         choice.push(choice2);
         choice.push(choice3);
         choice.push(choice4);
         choice.push(choice5);
         formData.append('choice', choice);
-        
         formData.append('answer', answer);
         formData.append('type', "객관식");
-        return post(url, formData, config);
+        return post(url, formData, config).then(
+          window.location.reload()
+        );
     }
 
     onChangeTitle = (e) => {
@@ -62,9 +63,9 @@ class MultipleChoice extends Component {
       })
     }
 
-    onChangeQuestion = (e) => {
+    onChangeText = (e) => {
         this.setState({
-          answer : e.target.value
+          text : e.target.value
         })
     }
 
@@ -111,7 +112,7 @@ class MultipleChoice extends Component {
                 제목 <input type="text" onChange={this.onChangeTitle}  /><br />
                 이미지 <input type="file" onChange={this.onChangeImage}  /><br />
                 동영상 <input type="text" onChange={this.onChangeVideo}  /><br />
-                문제 <input type="text" onChange={this.onChangeQuestion}  /><br />
+                문제 <input type="text" onChange={this.onChangeText}  /><br />
                 선택지 1 <input type="text" onChange={this.onChangeChoice1}  /><br />
                 선택지 2 <input type="text" onChange={this.onChangeChoice2}  /><br />
                 선택지 3 <input type="text" onChange={this.onChangeChoice3}  /><br />

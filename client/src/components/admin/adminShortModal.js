@@ -29,8 +29,9 @@ class AdminShortModal extends Component {
     onClickModifyButton = (e) => {
         const { title, image, video, text, answer, id } = this.state;
         e.preventDefault();
-        const url = '/api/setGameInfo';
+        const url = '/api/modifyGame';
         const formData = new FormData();
+        formData.append('id', id);
         formData.append('title', title);
         formData.append('image', image);
         formData.append('video', video);

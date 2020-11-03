@@ -352,7 +352,9 @@ app.post("/api/setGameInfo", upload.single("image"), function (req, res) {
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
   var answer = req.body.answer;
-  var choice = req.body.choice.split(',');
+  var choice = [];
+  if(type == "객관식")
+    choice = req.body.choice.split(',');
   var image = ""
   console.log(req.file==undefined);
   if(req.file == undefined){
@@ -393,12 +395,12 @@ app.post("/api/modifyGame",upload.single("image"), function (req, res) {
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
   var answer = req.body.answer;
-  var choice = req.body.choice.split(',');
-  var image = ""
+  var choice = [];
+  if(type == "객관식")
+    choice = req.body.choice.split(',');
+  var image = req.body.image;
   console.log(req.file==undefined);
-  if(req.file == undefined){
-    image = "";
-  }else{
+  if(req.file != undefined){
     image = "/api/getImage/" + req.file.filename;
   }
   console.log(req.body);
@@ -414,7 +416,7 @@ app.post("/api/modifyStage", function (req, res) {
   var id = req.body.id;
   console.log(req.body)
   var stageName = req.body.stageName;
-  var stageHint = req.body.stageHint.split(",");
+  var stageHint = req.body.stageHint;
   var stageMission = req.body.stageMission;
   var stageAnswer = req.body.stageAnswer;
   stageModel.findOneAndUpdate({_id:id},{$set:{
