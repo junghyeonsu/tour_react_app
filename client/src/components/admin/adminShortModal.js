@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './adminGameModal.css'
 import { Close } from '@material-ui/icons'
+import { post } from 'axios';
 
 class AdminShortModal extends Component {
 
@@ -28,12 +29,22 @@ class AdminShortModal extends Component {
     onClickModifyButton = (e) => {
         const { title, image, video, text, answer, id } = this.state;
         e.preventDefault();
-        console.log("현재 타이틀 : ", title);
-        console.log("현재 이미지 : ", image);
-        console.log("현재 비디오 : ", video);
-        console.log("현재 텍스트 : ", text);
-        console.log("현재 답 : ", answer);
-        console.log("현재 고유 아이디 : ", id);
+        const url = '/api/setGameInfo';
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('image', image);
+        formData.append('video', video);
+        formData.append('text', text);
+        formData.append('answer', answer);
+        formData.append('type', "주관식");
+        const config = {
+          headers : {
+            'content-type':'multipart/form-data'
+          }
+        }
+        return post(url, formData, config).then(
+            window.location.reload()
+        );
     }
 
     onClickDeleteButton = async () => {

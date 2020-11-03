@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './adminGameModal.css'
 import { Close } from '@material-ui/icons'
+import { post } from 'axios';
 
 class AdminShortModal extends Component {
 
@@ -27,45 +28,58 @@ class AdminShortModal extends Component {
             answer : currentGame.answer,
             id : currentGame._id
         });
-        // currentGame.choice.map((i, idx) => {
-        //     if(idx == 0) {
-        //         this.setState({
-        //             choice1 : i,
-        //         });
-        //     } else if (idx == 1) {
-        //         this.setState({
-        //             choice2 : i,
-        //         });
-        //     } else if (idx == 2) {
-        //         this.setState({
-        //             choice3 : i,
-        //         });
-        //     } else if (idx == 3) {
-        //         this.setState({
-        //             choice4 : i,
-        //         });
-        //     } else if (idx == 4) {
-        //         this.setState({
-        //             choice5 : i,
-        //         });
-        //     }
-        // })
+        currentGame.choice.map((i, idx) => {
+            if(idx == 0) {
+                this.setState({
+                    choice1 : i,
+                });
+            } else if (idx == 1) {
+                this.setState({
+                    choice2 : i,
+                });
+            } else if (idx == 2) {
+                this.setState({
+                    choice3 : i,
+                });
+            } else if (idx == 3) {
+                this.setState({
+                    choice4 : i,
+                });
+            } else if (idx == 4) {
+                this.setState({
+                    choice5 : i,
+                });
+            }
+        })
     }
 
     onClickModifyButton = (e) => {
+        console.log("Modify Button")
         const {id ,title, image, video, question, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
         e.preventDefault();
-        console.log("현재 타이틀 : ", title);
-        console.log("현재 이미지 : ", image);
-        console.log("현재 비디오 : ", video);
-        console.log("현재 질문 : ", question);
-        console.log("현재 답 : ", answer);
-        console.log("현재 고유 아이디 : ", id);
-        console.log("현재 선택지 1 : ", choice1);
-        console.log("현재 선택지 2 : ", choice2);
-        console.log("현재 선택지 3 : ", choice3);
-        console.log("현재 선택지 4 : ", choice4);
-        console.log("현재 선택지 5 : ", choice5);
+        var choice = [];
+        const formData = new FormData();
+        const config = {
+          headers : {
+            'content-type':'multipart/form-data'
+          }
+        }
+        const url = '/api/modifyGame';
+        formData.append('id', id);
+        formData.append('title', title);
+        formData.append('image', image);
+        formData.append('video', video);
+        formData.append('question', question);
+        choice.push(choice1);
+        choice.push(choice2);
+        choice.push(choice3);
+        choice.push(choice4);
+        choice.push(choice5);
+        formData.append('choice', choice);
+        
+        formData.append('answer', answer);
+        formData.append('type', "객관식");
+        return post(url, formData, config);
     }
 
     onClickDeleteButton = async () => {
@@ -158,7 +172,8 @@ class AdminShortModal extends Component {
                         </h2>
                         <form onSubmit={this.onClickModifyButton}>
                             제목 <input type="text" value={title} onChange={this.onChangeTitle} /><br />
-                            이미지 <input type="file" value={image} onChange={this.onChangeImage} /><br />
+                            이미지 <input type="file" onChange={this.onChangeImage} /><br />
+                            <img src={image} alt="image" /> <br />
                             동영상 <input type="text" value={video} onChange={this.onChangeVideo} /><br />
                             문제 <input type="text" value={question} onChange={this.onChangeQuestion} /><br />
                             선택지 1 <input type="text" value={choice1} onChange={this.onChangeChoice1} /><br />

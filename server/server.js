@@ -99,6 +99,7 @@ updateStageInfo = function (database, stageInfo, cb) {
     });
   });
 };
+
 updateClearGame = function (database, userInfo, gameIndex, cb) {
   userModel.findOne({ id: userInfo }).exec()
     .then((user) => {
@@ -194,7 +195,6 @@ getLessPeopleStageAndMission = function (database, stageInfo, visited, cb) {
           stage: `다음 방문지는 ${candidate[idx].name}입니다.`,
         });
       }  
-      
     })
     .catch((err) => {
       console.log(err);
@@ -281,11 +281,12 @@ deleteGame = function (database,id, cb) {
 
 deleteStage = function (database,id, cb) {
   stageModel.findOneAndDelete({_id:id}).exec()
-    .catch((err) => {
-      console.log(err);
-    });
+  .catch((err) => {
+    console.log(err);
+  });
 };
 
+////////////////////////////////////////////////////////////////////////////
 //나중에 Stage정보를 추가하거나 변경할 때 사용할 것임(Post)
 app.post("/api/setStageInfo", function (req, res) {
   var stageName = req.body.stageName;
@@ -346,19 +347,27 @@ app.get("/api/getStageInfo", function (req, res) {
 
 app.use("/api/getImage", express.static(__dirname + "/upload"));
 app.post("/api/setGameInfo", upload.single("image"), function (req, res) {
+  var type = req.body.type;
   var title = req.body.title;
-  var image = "/api/getImage/" + req.file.filename;
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
   var answer = req.body.answer;
-  var game = new gameModel({title: title,image: image,video: video,text: text,answer: answer,});
+  var choice = req.body.choice.split(',');
+  var image = ""
+  console.log(req.file==undefined);
+  if(req.file == undefined){
+    image = "";
+  }else{
+    image = "/api/getImage/" + req.file.filename;
+  }
+  var game = new gameModel({ type:type, title: title,image: image, video: video, text: text, answer: answer,choice:choice});
   game.save(function (err) {
     if (err) {
       console.log("게임을 저장하지 못했습니다.");
       return;
     }
   });
-  console.log("success add game");
+  console.log("success add Image game");
 });
 
 app.post("/api/deleteGame", function (req, res) {
@@ -376,6 +385,49 @@ app.post("/api/deleteStage", function (req, res) {
     if (result) console.log(result);
   });
 });
+
+app.post("/api/modifyGame",upload.single("image"), function (req, res) {
+  var id = req.body.id;
+  var type = req.body.type;
+  var title = req.body.title;
+  var video = req.body.video; //youtube link로 보내줘야함
+  var text = req.body.text;
+  var answer = req.body.answer;
+  var choice = req.body.choice.split(',');
+  var image = ""
+  console.log(req.file==undefined);
+  if(req.file == undefined){
+    image = "";
+  }else{
+    image = "/api/getImage/" + req.file.filename;
+  }
+  console.log(req.body);
+  gameModel.updateOne({_id:id},
+    { $set:{type:type, title: title,image: image, video: video, text: text, answer: answer,choice:choice}})
+    .then((game)=>{
+      console.log(game);
+    });
+  console.log("modify game model");
+});
+
+app.post("/api/modifyStage", function (req, res) {
+  var id = req.body.id;
+  console.log(req.body)
+  var stageName = req.body.stageName;
+  var stageHint = req.body.stageHint.split(",");
+  var stageMission = req.body.stageMission;
+  var stageAnswer = req.body.stageAnswer;
+  stageModel.findOneAndUpdate({_id:id},{$set:{
+    name: stageName,
+    hint: stageHint,
+    mission: stageMission,
+    answer: stageAnswer,
+  }}).then((stage)=>{
+    console.log(stage);
+  });
+  console.log("modify stage model");
+});
+
 app.get("/api/getGameList", function (req, res) {
   getGameList(database, function (err, result) {
     if (err) throw err;
@@ -470,10 +522,7 @@ app.post("/mission", function (req, res) {
     if (err) throw err;
     if (result) console.log(result);
   });
-  getLessPeopleStageAndMission(database, stageInfo, visited, function (
-    err,
-    result
-  ) {
+  getLessPeopleStageAndMission(database, stageInfo, visited, function (err,result) {
     if (err) throw err;
     if (result) res.send(result);
   });

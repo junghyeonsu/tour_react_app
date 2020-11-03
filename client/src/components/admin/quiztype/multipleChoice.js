@@ -17,36 +17,29 @@ class MultipleChoice extends Component {
       }
   
     onClickInsertButton = async e => {
-        const {title, image, video, question, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
+        var {title, image, video, question, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
         e.preventDefault();
-        // const url = '/api/setGameInfo';
+        var choice = [];
         const formData = new FormData();
-        formData.append('title', title);
-        formData.append('image', image);
-        formData.append('video', video);
-        formData.append('question', question);
-        if(choice1){
-            formData.append('choice1', choice1);
-        }
-        if(choice2){
-            formData.append('choice2', choice2);
-        }
-        if(choice3){
-            formData.append('choice3', choice3);
-        }
-        if(choice4){
-            formData.append('choice4', choice4);
-        }
-        if(choice5){
-            formData.append('choice5', choice5);
-        }
-        formData.append('answer', answer);
-        formData.append('type', "객관식");
         const config = {
           headers : {
             'content-type':'multipart/form-data'
           }
         }
+        const url = '/api/setGameInfo';
+        formData.append('title', title);
+        formData.append('image', image);
+        formData.append('video', video);
+        formData.append('question', question);
+        choice.push(choice1);
+        choice.push(choice2);
+        choice.push(choice3);
+        choice.push(choice4);
+        choice.push(choice5);
+        formData.append('choice', choice);
+        
+        formData.append('answer', answer);
+        formData.append('type', "객관식");
         return post(url, formData, config);
     }
 
@@ -115,16 +108,16 @@ class MultipleChoice extends Component {
         return(
             <div>
                 <form onSubmit={this.onClickInsertButton}>
-                제목 <input type="text" onChange={this.onChangeTitle} /><br />
-                이미지 <input type="file" onChange={this.onChangeImage} /><br />
-                동영상 <input type="text" onChange={this.onChangeVideo} /><br />
-                문제 <input type="text" onChange={this.onChangeQuestion} /><br />
-                선택지 1 <input type="text" onChange={this.onChangeChoice1} /><br />
-                선택지 2 <input type="text" onChange={this.onChangeChoice2} /><br />
-                선택지 3 <input type="text" onChange={this.onChangeChoice3} /><br />
-                선택지 4 <input type="text" onChange={this.onChangeChoice4} /><br />
-                선택지 5 <input type="text" onChange={this.onChangeChoice5} /><br />
-                정답 <input type="text" onChange={this.onChangeAnswer} /><br />
+                제목 <input type="text" onChange={this.onChangeTitle}  /><br />
+                이미지 <input type="file" onChange={this.onChangeImage}  /><br />
+                동영상 <input type="text" onChange={this.onChangeVideo}  /><br />
+                문제 <input type="text" onChange={this.onChangeQuestion}  /><br />
+                선택지 1 <input type="text" onChange={this.onChangeChoice1}  /><br />
+                선택지 2 <input type="text" onChange={this.onChangeChoice2}  /><br />
+                선택지 3 <input type="text" onChange={this.onChangeChoice3}  /><br />
+                선택지 4 <input type="text" onChange={this.onChangeChoice4}  /><br />
+                선택지 5 <input type="text" onChange={this.onChangeChoice5}  /><br />
+                정답 <input type="text" onChange={this.onChangeAnswer}  /><br />
                 <button>추가하기</button>
               </form> 
             </div>

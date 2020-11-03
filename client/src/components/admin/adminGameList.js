@@ -63,27 +63,21 @@ class AdminGameList extends Component {
                         게임 리스트
                     </h2>
                         {gameList.map((game, index) => {
+                            console.log(game);
 
-
-                            // if(game.type == "객관식") {
-                            //     return (
-                            //         <div onClick={this.onClickMultipleGame} id={index} key={game._id} className="list_item">
-                            //             {game.type} {game._id}
-                            //         </div>
-                            //     );  
-                            // } else if (game.type == "주관식") {
-                            //     return (
-                            //         <div onClick={this.onClickShortGame} id={index} key={game._id} className="list_item">
-                            //             {game.type} {game._id}
-                            //         </div>
-                            //     );  
-                            // }
-
-                            return (
-                            <div onClick={this.onClickShortGame} id={index} key={game._id} className="list_item">
-                                {game._id}
-                            </div>
-                            );                                         
+                            if(game.type == "객관식") {
+                                return (
+                                    <div onClick={this.onClickMultipleGame} id={index} key={game._id} className="list_item">
+                                        {game.type} {game._id}
+                                    </div>
+                                );  
+                            } else if (game.type == "주관식") {
+                                return (
+                                    <div onClick={this.onClickShortGame} id={index} key={game._id} className="list_item">
+                                        {game.type} {game._id}
+                                    </div>
+                                );  
+                            }                                   
                         })}
                 </div>
             </div>
