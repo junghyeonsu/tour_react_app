@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './adminGameModal.css'
 import { Close } from '@material-ui/icons'
 import { post } from 'axios';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class AdminMultipleModal extends Component {
 
@@ -165,28 +167,28 @@ class AdminMultipleModal extends Component {
 
         return(
             <div className="modal">
-                <div className="modal_content">
+                <div className="multiple_modal_content">
                     <Close style={{ fontSize: 40 }} className="close_button" color="secondary" onClick={outModal} />
-                    <div className="modal_form">
+                    <div className="multiple_modal_form">
                         <h2>
                             게임 추가 입력 창
                         </h2>
-                        <form onSubmit={this.onClickModifyButton}>
-                            제목 <input type="text" value={title} onChange={this.onChangeTitle} /><br />
-                            이미지 <input type="file" onChange={this.onChangeImage} /><br />
+                        <form>
+                            <TextField type="text" label="제목" value={title} onChange={this.onChangeTitle} /><br />
+                            <TextField type="file" label="이미지" onChange={this.onChangeImage} /><br />
                             <img src={image} alt="image" /> <br />
-                            동영상 <input type="text" value={video} onChange={this.onChangeVideo} /><br />
-                            문제 <input type="text" value={text} onChange={this.onChangeText} /><br />
-                            선택지 1 <input type="text" value={choice1} onChange={this.onChangeChoice1} /><br />
-                            선택지 2 <input type="text" value={choice2} onChange={this.onChangeChoice2} /><br />
-                            선택지 3 <input type="text" value={choice3} onChange={this.onChangeChoice3} /><br />
-                            선택지 4 <input type="text" value={choice4} onChange={this.onChangeChoice4} /><br />
-                            선택지 5 <input type="text" value={choice5} onChange={this.onChangeChoice5} /><br />
-                            정답 <input type="text" value={answer} onChange={this.onChangeAnswer} /><br />
-                        <button>수정</button>
+                            <TextField type="text" label="동영상" value={video} onChange={this.onChangeVideo} /><br />
+                            <TextField type="text" label="문제" value={text} onChange={this.onChangeText} /><br />
+                            <TextField type="text" label="선택지1" value={choice1} onChange={this.onChangeChoice1} /><br />
+                            <TextField type="text" label="선택지2" value={choice2} onChange={this.onChangeChoice2} /><br />
+                            <TextField type="text" label="선택지3" value={choice3} onChange={this.onChangeChoice3} /><br />
+                            <TextField type="text" label="선택지4" value={choice4} onChange={this.onChangeChoice4} /><br />
+                            <TextField type="text" label="선택지5" value={choice5} onChange={this.onChangeChoice5} /><br />
+                            <TextField type="text" label="정답" value={answer} onChange={this.onChangeAnswer} /><br />
                         </form>
                         <br />
-                        <button onClick={this.onClickDeleteButton}>삭제</button>
+                        <Button variant="contained" color="primary" onClick={this.onClickModifyButton}>수정하기</Button>
+                        <Button variant="contained" color="secondary" onClick={this.onClickDeleteButton}>삭제하기</Button>
                     </div>
                 </div>
             </div>

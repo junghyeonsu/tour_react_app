@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './adminStageAddForm.css';
 import { inject, observer } from 'mobx-react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 @inject('stageStore')
 @observer
@@ -59,17 +61,17 @@ class AdminStageAddForm extends Component {
 
     render(){
         return(
-            <div>
+            <div className="stage_input_container">
                 <h2>
                 스테이지 추가 입력 창
                 </h2>
-                <form onSubmit={this.onClickInsertButton}>
-                    스테이지 이름 <input type="text" onChange={this.onChangeName} /><br />
-                    스테이지 힌트 <input type="text" onChange={this.onChangeHint} /><br />
-                    스테이지 미션 <input type="text" onChange={this.onChangeMission} /><br />
-                    스테이지 정답 <input type="text" onChange={this.onChangeAnswer} /><br />
-                <button>추가</button>
+                <form>
+                  <TextField label="스테이지 이름" type="text" onChange={this.onChangeName} /><br />
+                  <TextField label="스테이지 힌트" type="text" onChange={this.onChangeHint} /><br />
+                  <TextField label="스테이지 미션" type="text" onChange={this.onChangeMission} /><br />
+                  <TextField label="스테이지 정답" type="text" onChange={this.onChangeAnswer} /><br />
                 </form>
+                <Button variant="contained" color="primary" onClick={this.onClickInsertButton}>추가하기</Button>
             </div>
         );
     }

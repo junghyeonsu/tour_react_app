@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './adminStageModal.css';
 import { Close } from '@material-ui/icons'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class AdminStageModal extends Component {
     
@@ -89,22 +91,21 @@ class AdminStageModal extends Component {
         const { hint, mission, name, answer} = this.state;
         return(
             <div className="modal">
-                <div className="modal_content">
+                <div className="stage_modal_content">
                     <Close style={{ fontSize: 40 }} className="close_button" color="secondary" onClick={outModal} />
-                    <div className="modal_form">
+                    <div className="stage_modal_form">
                         <h3>
                             스테이지 입력 창
                         </h3>
-                        <form onSubmit={this.onClickModifyButton}>
-                            정답 <input type="text" value={answer} onChange={this.onChangeAnswer} /><br />
-                            힌트 <input type="text" value={hint} onChange={this.onChangeHint} /><br />
-                            미션 <input type="text" value={mission} onChange={this.onChangeMission} /><br />
-                            이름 <input type="text" value={name} onChange={this.onChangeName} /><br />
-                            {currentStage._id}
-                            <button>수정</button>
+                        <form>
+                            <TextField label="정답" type="text" value={answer} onChange={this.onChangeAnswer} /><br />
+                            <TextField label="힌트" type="text" value={hint} onChange={this.onChangeHint} /><br />
+                            <TextField label="미션" type="text" value={mission} onChange={this.onChangeMission} /><br />
+                            <TextField label="이름" type="text" value={name} onChange={this.onChangeName} /><br />
                         </form>
                         <br />
-                        <button onClick={this.onClickDeleteButton}>삭제하기</button>
+                        <Button variant="contained" color="primary" onClick={this.onClickModifyButton}>수정하기</Button>
+                        <Button variant="contained" color="secondary" onClick={this.onClickDeleteButton}>삭제하기</Button>
                     </div>
                 </div>
             </div>

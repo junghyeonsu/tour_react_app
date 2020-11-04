@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import { post } from 'axios';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import './gameType.css';
 
 class MultipleChoice extends Component {
 
@@ -107,20 +110,20 @@ class MultipleChoice extends Component {
 
     render(){
         return(
-            <div>
-                <form onSubmit={this.onClickInsertButton}>
-                제목 <input type="text" onChange={this.onChangeTitle} /><br />
-                이미지 <input type="file" onChange={this.onChangeImage} /><br />
-                동영상 <input type="text" onChange={this.onChangeVideo} /><br />
-                문제 <input type="text" onChange={this.onChangeText} /><br />
-                선택지 1 <input type="text" onChange={this.onChangeChoice1} /><br />
-                선택지 2 <input type="text" onChange={this.onChangeChoice2} /><br />
-                선택지 3 <input type="text" onChange={this.onChangeChoice3} /><br />
-                선택지 4 <input type="text" onChange={this.onChangeChoice4} /><br />
-                선택지 5 <input type="text" onChange={this.onChangeChoice5} /><br />
-                정답 <input type="text" onChange={this.onChangeAnswer} /><br />
-                <button>추가하기</button>
+            <div className="multiple_container">
+                <form>
+                <TextField label="제목" type="text" onChange={this.onChangeTitle} /><br />
+                <TextField label="이미지" type="file" onChange={this.onChangeImage} /><br />
+                <TextField label="동영상" type="text" onChange={this.onChangeVideo} /><br />
+                <TextField label="문제" type="text" onChange={this.onChangeText} /><br />
+                <TextField label="선택지 1" type="text" onChange={this.onChangeChoice1} /><br />
+                <TextField label="선택지 2" type="text" onChange={this.onChangeChoice2} /><br />
+                <TextField label="선택지 3" type="text" onChange={this.onChangeChoice3} /><br />
+                <TextField label="선택지 4" type="text" onChange={this.onChangeChoice4} /><br />
+                <TextField label="선택지 5" type="text" onChange={this.onChangeChoice5} /><br />
+                <TextField label="정답" type="text" onChange={this.onChangeAnswer} /><br />
               </form> 
+                <Button variant="contained" color="primary"  onClick={this.onClickInsertButton}>추가하기</Button>
             </div>
         );
     }
