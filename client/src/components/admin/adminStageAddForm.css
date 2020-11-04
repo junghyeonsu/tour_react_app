@@ -1,0 +1,8 @@
+.stage_input_container {
+    text-align: center;
+}
+
+.stage_input_container > Button {
+    margin-top: 10px;
+    width: 100px;
+}

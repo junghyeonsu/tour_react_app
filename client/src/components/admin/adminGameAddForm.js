@@ -24,7 +24,7 @@ class AdminGameAddForm extends Component {
     render(){
       const { formSelect } = this.state;
       return(
-          <div>
+          <div className="game">
               <h2>
               게임 추가 입력 창
               </h2>

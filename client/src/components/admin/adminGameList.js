@@ -28,7 +28,6 @@ class AdminGameList extends Component {
     /* 사용자 트래픽 받아오는 함수 */
     getApi = async () => {
         const res = await axios.get("/api/getGameList");
-        console.log(res.data.gameList);
         this.setState({
             gameList : res.data.gameList,
             shortModalVisible: false,
@@ -37,7 +36,6 @@ class AdminGameList extends Component {
     }
 
     onClickMultipleGame = (e) => {
-        console.log(this.state.gameList[e.target.id]);
         this.setState({
             multipleModalVisible : true,
             currentGame : this.state.gameList[e.target.id]
@@ -45,7 +43,6 @@ class AdminGameList extends Component {
     }
 
     onClickShortGame = (e) => {
-        console.log(this.state.gameList[e.target.id]);
         this.setState({
             shortModalVisible : true,
             currentGame : this.state.gameList[e.target.id]
@@ -63,18 +60,16 @@ class AdminGameList extends Component {
                         게임 리스트
                     </h2>
                         {gameList.map((game, index) => {
-                            console.log(game);
-
                             if(game.type == "객관식") {
                                 return (
                                     <div onClick={this.onClickMultipleGame} id={index} key={game._id} className="list_item">
-                                        {game.type} {game._id}
+                                        ({game.type}) {game.title}
                                     </div>
                                 );  
                             } else if (game.type == "주관식") {
                                 return (
                                     <div onClick={this.onClickShortGame} id={index} key={game._id} className="list_item">
-                                        {game.type} {game._id}
+                                        ({game.type}) {game.title}
                                     </div>
                                 );  
                             }                                   

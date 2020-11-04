@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './adminGameModal.css'
 import { Close } from '@material-ui/icons'
 import { post } from 'axios';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class AdminShortModal extends Component {
 
@@ -101,24 +103,23 @@ class AdminShortModal extends Component {
         const { title, image, video, text, answer } = this.state;
         return(
             <div className="modal">
-                <div className="modal_content">
+                <div className="short_modal_content">
                     <Close style={{ fontSize: 40 }} className="close_button" color="secondary" onClick={outModal} />
-                    <div className="modal_form">
+                    <div className="short_modal_form">
                         <h2>
                             게임 추가 입력 창
                         </h2>
-                        <form onSubmit={this.onClickModifyButton}>
-                            제목 <input type="text" value={title} onChange={this.onChangeTitle} /><br />
-                            이미지 <input type="file" onChange={this.onChangeImage} /><br />
+                        <form>
+                            <TextField label="제목" type="text" value={title} onChange={this.onChangeTitle} /><br />
+                            <TextField label="이미지" type="file" onChange={this.onChangeImage} /><br />
                             <img src={image} alt="image" /> <br />
-                            동영상 <input type="text" value={video} onChange={this.onChangeVideo} /><br />
-                            글 <input type="text" value={text} onChange={this.onChangeText} /><br />
-                            정답 <input type="text" value={answer} onChange={this.onChangeAnswer} /><br />
-                            {currentGame._id}
-                        <button>수정</button>
+                            <TextField label="동영상" type="text" value={video} onChange={this.onChangeVideo} /><br />
+                            <TextField label="글" type="text" value={text} onChange={this.onChangeText} /><br />
+                            <TextField label="정답" type="text" value={answer} onChange={this.onChangeAnswer} /><br />
                         </form>
                         <br />
-                        <button onClick={this.onClickDeleteButton}>삭제</button>
+                        <Button variant="contained" color="primary" onClick={this.onClickModifyButton}>수정하기</Button>
+                        <Button variant="contained" color="secondary" onClick={this.onClickDeleteButton}>삭제하기</Button>
                     </div>
                 </div>
             </div>

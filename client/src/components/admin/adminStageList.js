@@ -56,7 +56,7 @@ class AdminStageList extends Component {
                         {stageList.map((stage, index) => {
                             return (
                             <div className="list_item" onClick={this.onClickStage} id={index} key={stage._id}>
-                                {stage.name} {stage._id}
+                                {stage.name}
                             </div>
                             );
                         })}

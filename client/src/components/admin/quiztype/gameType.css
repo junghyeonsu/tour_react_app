@@ -1,0 +1,17 @@
+.short_container {
+    text-align: center;
+}
+
+.short_container > Button {
+    width: 100px;
+    margin-top: 10px;
+}
+
+.multiple_container {
+    text-align: center;
+}
+
+.multiple_container > Button {
+    width: 100px;
+    margin-top: 10px;
+}
