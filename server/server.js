@@ -445,72 +445,92 @@ app.get("/api/getStageList", function (req, res) {
 });
 
 app.get("/:stage/:quiz/", function (req, res) {
+  // cookie를 불러온다. 없으면 undefined
   var userInfo = req.cookies["user"];
   var visited = req.cookies["visited"];
   var stageInfo = req.params.stage;
   var quizInfo = req.params.quiz;
-  // console.log(stageInfo);
-  // console.log(req.params.quiz);
 
-  if(!visited){
+  if(!visited){  //visited 가 없으면 생성하는거임
     visited = {};
     res.cookie("visited", visited, { maxAge: 86400000, httpOnly: true });
   }
 
-  if (userInfo) {
-    //이미 유저쿠키가 존재하는 경우
-    var visited = req.cookies["visited"];
-    if (!visited[stageInfo]) {
+  if (userInfo) {    //이미 유저쿠키가 존재하는 경우
+    //유저 쿠키가 존재하면 visited도 필연적으로 존재한다.
+    if (!visited[stageInfo]) {   // 그런데, 해당 stage를 방문하지 않았다면 
       visited[stageInfo] = true;
       console.log(visited[stageInfo]);
       res.cookie("visited", visited, { maxAge: 86400000, httpOnly: true });
       //stage의 카운트를 증가시켜주는 함수를 호출한다.
       updateStageInfo(database, stageInfo, function (err, result) {
         if (err) throw err;
-        if (result) console.log(`${stageInfo} Count 증가`);
+        if (result) {
+          console.log(`${stageInfo} Count 증가`);
+          getHintAndAnswerAndGameList(database,stageInfo,quizInfo,userInfo,
+            function (err, result) {
+              if (err) throw err;
+              if (result) {
+                result["intro"] = true;
+                res.send(result);
+                return;
+              }
+            }
+          );
+        }
       });
+    }else{
+      getHintAndAnswerAndGameList(database,stageInfo,quizInfo,userInfo,
+        function (err, result) {
+          if (err) throw err;
+          if (result) {
+            result["intro"] = true;
+            res.send(result);
+            return;
+          }
+        }
+      );
     }
-    // res.send("Cookie has setted");
-  } else {
+  } 
+  else {
     // 유저 쿠키가 존재하지않았던 상황. 유저 쿠키를 생성한다.
     var uuid = uuidv4();
     userInfo = uuid;
-
-    if (database) {
-      // 데이터베이스에 유저의 정보를 추가해주는 부분
-      addUser(database, uuid, function (err, result) {
-        if (err) throw err;
-        if (result) console.log("유저 추가 성공");
-      });
-      // 쿠키 생성
-      res.cookie("user", uuid, { maxAge: 86400000, httpOnly: true });
-      visited[stageInfo] = true;
-      res.cookie("visited", visited, { maxAge: 86400000, httpOnly: true });
-
-      //stage의 카운트를 증가시켜주는 함수를 호출한다.
-      updateStageInfo(database, stageInfo, function (err, result) {
-        if (err) throw err;
-        if (result) console.log(`${stageInfo} Count 증가`);
-      });
-      // res.send("Cookie Setting");
-    }
-  }
-  getHintAndAnswerAndGameList(database,stageInfo,quizInfo,userInfo,
-    function (err, result) {
+    // 데이터베이스에 유저의 정보를 추가해주는 부분
+    addUser(database, uuid, function (err, result) {
       if (err) throw err;
       if (result) {
-        if(visited["intro"]){
-          result["intro"] = true;
-          res.send(result);
-        }else{
-          result["intro"] = false;
-          res.send(result);
-        }
-        // res.send(result);
-        // return;
+        console.log("유저 추가 성공");
+        
+        // 쿠키 생성
+        res.cookie("user", uuid, { maxAge: 86400000, httpOnly: true });
+        visited[stageInfo] = true;
+        res.cookie("visited", visited, { maxAge: 86400000, httpOnly: true });
+        
+        //stage의 카운트를 증가시켜주는 함수를 호출한다.
+        updateStageInfo(database, stageInfo, function (err, result) {
+          if (err) throw err;
+          if (result) {
+            console.log(`${stageInfo} Count 증가`);
+            getHintAndAnswerAndGameList(database,stageInfo,quizInfo,userInfo,
+              function (err, result) {
+                if (err) throw err;
+                if (result) {
+                  if(visited["intro"]){
+                    result["intro"] = true;
+                    res.send(result);
+                  }else{
+                    result["intro"] = false;
+                    res.send(result);
+                  }
+                }
+              }
+            );
+          }
+        });
       }
-    }
-  );
+    });  
+  }
 });
 
 //미션화면에서 가져다가 사용할 것임(다음 스테이지와 )
@@ -552,8 +572,10 @@ app.get("/intro", function (req, res) {
   if(!visited){
     visited = {};
   }
+  console.log("Get Intro visited Cookie Before : ",visited);
   visited["intro"] = true;
   res.cookie("visited", visited, { maxAge: 86400000, httpOnly: true });
+  console.log("Get Intro visited Cookie After : ",visited);
   res.send({stage:null,quiz:null});
 });
 
