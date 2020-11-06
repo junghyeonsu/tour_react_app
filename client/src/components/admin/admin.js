@@ -5,7 +5,7 @@ import AdminMain from './adminMain';
 
 class Admin extends Component {
 
-    state = { 
+    state = {
         authority : false,
     };
 

@@ -9,8 +9,9 @@ class Game extends Component {
     }
 
     async componentDidMount(){
-        const res = await axios.get("/api/getGameList");
-        var acceptGameList = this.props.acceptGameList;
+        const res = await axios.get("/api/getGameList");    
+        console.log(res);
+        console.log(this.props);
         this.setState({
             gameList : res.data.gameList,
             randomNumber : this.props.randomNumber
