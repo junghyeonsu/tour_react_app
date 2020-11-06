@@ -38,6 +38,12 @@ class main extends Component{
       }
     })
     const body = await response.json();
+    if(body.error){
+      this.props.history.push({
+        pathname: '/', 
+        data:{stage : this.props.match.url.split('/')[1],quiz : this.props.match.url.split('/')[2]}});
+        return;
+    }
     if(!body.intro){
       this.props.history.push({
         pathname: '/intro', 

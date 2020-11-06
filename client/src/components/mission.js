@@ -4,22 +4,31 @@ import './mission.css';
 import TourIntroHeader from './tourIntroHeader';
 
 class mission extends Component {
-    state={
-        stage : this.props.location.data,
+
+
+
+    state = {
+        data : 0
     }
 
-    // componentDidMount(){
-    //     const response =  fetch(`/mission`,{
-    //       method : 'post',
-    //       headers : {
-    //         'Content-Type': 'application/json',
-    //       }
-    //     })
-        
-    //     const body = response.json()
-    //     console.log("미션 컴포넌트", body);
-        
-    //   }
+    static getDerivedStateFromProps (props) {
+        if(props.location.data) {
+            console.log("오케이 너 오케이");
+        } else {
+            props.location.data = 1;
+            console.log(";");
+            props.history.push({
+                pathname: '/'
+            }) 
+            return null;
+        }
+        return null;
+    }
+
+    componentWillUnmount () {
+
+    }
+
     copyHashtag = (e) => {
         alert('해쉬태그가 복사 되었습니다.');
     }

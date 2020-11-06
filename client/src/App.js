@@ -18,8 +18,6 @@ class App extends Component{
     return (
       <CookiesProvider>
       <Router>
-        
-
         <Switch>
           {/*   /로 이동하면 Main 컴포넌트를 띄움   */}
           <Route exact path="/intro" component={Intro} />
