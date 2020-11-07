@@ -14,7 +14,7 @@ const upload = multer({ storage: storage });
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const request = require("request");
-const { v4: uuidv4, validate } = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -289,6 +289,17 @@ deleteStage = function (database,id, cb) {
     console.log(err);
   });
 };
+
+getGameOne = function(database,index,cb){
+  gameModel.find({}).exec()
+  .then((game)=>{
+    cb(null,game[index]);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+
 validationURL = function(database,stageInfo,quizInfo,cb){
   stageModel.find({}).exec()
   .then((stage) => {
@@ -468,6 +479,14 @@ app.get("/api/getStageList", function (req, res) {
     if (err) throw err;
     if (result) res.send(result);
   });
+});
+
+app.post("/api/getGameOne",function(req,res){
+  var gameIndex = req.body.gameIndex;
+  getGameOne(database,gameIndex,function(err,result){
+    if (err) throw err;
+    if (result) res.send(result);
+  })
 });
 
 app.get("/:stage/:quiz/", function (req, res) {
