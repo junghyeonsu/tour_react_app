@@ -9,6 +9,16 @@ body {
     padding: 0;
 }
 
+#But{
+    margin-left : 87.5% 
+}
+
+.ButContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+
 /* content image를 담고있는 컨테이너 div */
 #content_image_container {
     display: flex;
