@@ -12,7 +12,7 @@ const customStyles = {
       marginRight           : '-50%',
       transform             : 'translate(-50%, -50%)',
       width                 : '70%',
-      height                : '70%'
+      height                : '50%'
     }
     };
 
@@ -65,7 +65,7 @@ class ExplainModal extends Component{
         const {modal,NotButton} = this.state;
         return (
             <div id="But">
-              <Button  variant="contained" color="primary" onClick={this.openModal}>설명 보기</Button>
+              <Button variant="contained" color="primary" onClick={this.openModal}>설명 보기</Button>
               <Modal
                 isOpen={modal}
                 onAfterOpen={this.openModal}

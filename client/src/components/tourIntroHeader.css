@@ -3,6 +3,7 @@
 .content_tour{
     display: flex;
     align-items: center;
+    background-color: #F5F5F5;
 }
 
 .word_div{
@@ -11,11 +12,12 @@
 }
 
 .word_div > a {
-    padding: 1vw;
+    padding: 1.5vw;
     text-decoration: solid;
-    font-size: 3vw;
+    font-size: 2.8vw;
     background-color: #FF788C;
     color: white;
+    border-radius: 5vw;
 }
 
 .image_div {
