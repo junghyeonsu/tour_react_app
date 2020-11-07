@@ -56,7 +56,10 @@ class main extends Component{
       if (idx > -1) List2.splice(idx, 1)
     }
     for(var i = 0; i<List2.length;i++){
-      this.state.List.push(List2[i]);
+      this.setState({
+        List: this.state.List.concat(List2[i])
+      })
+
     }
     console.log("Main List:",this.state.List)
     this.setState({
@@ -261,10 +264,7 @@ class main extends Component{
         <div id="content"> </div>
         
         {/* <!-- 컨텐츠 이미지 --> */}
-        <div>
-          <ExplainModal />
-        </div>
-        
+
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
             <div id="content_quiz" className="container">
@@ -285,7 +285,8 @@ class main extends Component{
 
         {/* <!-- 미션 정답 입력 --> */}
         <div id="stage_answer" className="container">
-            <strong>QR코드를 찾아 문제를 해결하고 힌트를 모아, 4자리 비밀번호를 찾으세요. 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
+            <ExplainModal />
+            <strong>QR코드를 찾아 문제를 해결하고<br /> 힌트를 모아 4자리 비밀번호를 찾으세요. <br /> 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
             <br />
             <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
             <button id="mission_button" className="submit_button" onClick={this.StageSuccess}>제출</button>    

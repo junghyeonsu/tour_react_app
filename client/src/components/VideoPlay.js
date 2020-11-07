@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import './VideoTest.css';
+import Button from '@material-ui/core/Button';
 
 class YouTubeVideo extends React.PureComponent {
   static propTypes = {
@@ -57,7 +58,7 @@ class YouTubeVideo extends React.PureComponent {
         <p>
         {this.props.seek !== undefined ? Object.entries(this.props.seek).map(([key,value]) => {
             return(
-                <button onClick={() => {this.state.player.seekTo(value)}}>{key}</button>
+                <Button variant="contained" color="primary" style={{width:'40%',marginRight:'2.5%',marginLeft:'2.5%'}} onClick={() => {this.state.player.seekTo(value)}}>{key}</Button>
             )
         }): ''}
         </p>

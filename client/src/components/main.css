@@ -9,6 +9,37 @@ body {
     padding: 0;
 }
 
+#But {
+    text-align: right;
+}
+
+#But > button {
+    font-size: 3vw;
+}
+
+.ButContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+#stage_answer > strong {
+    margin-left: 4%;
+    margin-right: 4%;
+    font-size: 3.5vw;
+}
+
+#stage_answer > button {
+    width: 25%;
+    font-size: 3.5vw;
+    border-radius: 2vw;
+}
+
+#quiz_button {
+    width: 25%;
+    font-size: 3.5vw;
+    border-radius: 2vw;
+}
+
 /* content image를 담고있는 컨테이너 div */
 #content_image_container {
     display: flex;

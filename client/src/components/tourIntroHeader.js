@@ -150,16 +150,16 @@ class tourIntroHeader extends Component {
                   <img src={tourList[randomNumber].image[randomImageNumber[0]] } alt="image" />
                 </div>
                 <div className="word_div">
-                  <h1 className="title">
+                  <h1 className="header_title">
                    {tourList[randomNumber].title}
                   </h1>
-                  <p className="address">
+                  <p className="header_address">
                     {tourList[randomNumber].addr}
                   </p>
                   {/* <div className="explain">
                     {tourList[randomNumber].explain}
                   </div> */}
-                  <a className = "link" href="">더 정보보기</a>
+                  <a className = "link" href="">정보 보기</a>
                 </div>
             </div>
         )
