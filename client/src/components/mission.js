@@ -2,26 +2,31 @@ import React, { Component } from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import './mission.css';
 import TourIntroHeader from './tourIntroHeader';
+import GifPlayer from 'react-gif-player';
 
 class mission extends Component {
 
-
-
     state = {
-        data : 0
+        data : 0,
+        gifTime : 0
     }
 
+    componentDidMount = () => {
+        setTimeout(() => {
+            this.setState({
+                gifTime : this.state.gifTime + 1 
+            })
+        },1100)
+    }  
+
     static getDerivedStateFromProps (props) {
-        if(props.location.data) {
-            console.log("오케이 너 오케이");
-        } else {
+        if(!props.location.data) {
             props.location.data = 1;
-            console.log(";");
             props.history.push({
                 pathname: '/'
             }) 
             return null;
-        }
+        } 
         return null;
     }
 
@@ -29,9 +34,21 @@ class mission extends Component {
 
     }
 
+    touchGif = () => {
+        this.setState({
+            gifTime : 0
+        })
+        setTimeout(() => {
+            this.setState({
+                gifTime : this.state.gifTime + 1 
+            })
+        },1100)
+    }
+
     copyHashtag = (e) => {
         alert('해쉬태그가 복사 되었습니다.');
     }
+
     render() {
         return (
             <div>
@@ -39,6 +56,12 @@ class mission extends Component {
                 {/* <!-- 스테이지 정답 확인 이미지 + message --> */}
                 <div id="success_container">
                 <h1>축하합니다!</h1>
+
+                {this.state.gifTime == 0 ? 
+                <GifPlayer gif={require('../images/intro.gif')} autoplay={true} alt="GIF" /> :
+                <GifPlayer gif={require('../images/loop.gif')} autoplay={true} alt="GIF" onTogglePlay={this.touchGif} />
+                }
+
                 <h2>{String(this.props.location.data['area'])}를 해결하셨습니다.</h2>
                 <img id="success_image" src={require('../images/Daejeon.jpg')} alt="대전광역시청" />
                 <p><i>1995년 대전이 직할시로 승격한 해입니다.</i></p>
