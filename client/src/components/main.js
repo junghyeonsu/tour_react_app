@@ -55,7 +55,10 @@ class main extends Component{
       if (idx > -1) List2.splice(idx, 1)
     }
     for(var i = 0; i<List2.length;i++){
-      this.state.List.push(List2[i]);
+      this.setState({
+        List: this.state.List.concat(List2[i])
+      })
+
     }
     this.setState({
       stageAnswer:body.answer,

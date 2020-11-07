@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);
+
 .content_tour{
     display: flex;
     align-items: center;
@@ -6,6 +8,14 @@
 .word_div{
     flex: 1;
     text-align: center;
+}
+
+.word_div > a {
+    padding: 1vw;
+    text-decoration: solid;
+    font-size: 3vw;
+    background-color: #FF788C;
+    color: white;
 }
 
 .image_div {
@@ -19,4 +29,12 @@
 
 .link{
     vertical-align: bottom;
+}
+
+.header_title {
+    font-size: 5vw;
+}
+
+.header_address {
+    font-size: 3vw;
 }
