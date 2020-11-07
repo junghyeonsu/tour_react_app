@@ -495,12 +495,12 @@ app.get("/:stage/:quiz/", function (req, res) {
   var visited = req.cookies["visited"];
   var stageInfo = req.params.stage;
   var quizInfo = req.params.quiz;
-  // validationURL(database,stageInfo,quizInfo,function(err,result){
-  //   if(err) {
-  //     console.error(err);
-  //   }
-  //   if(result){
-      // console.log(result);
+  validationURL(database,stageInfo,quizInfo,function(err,result){
+    if(err) {
+      console.error(err);
+    }
+    if(result){
+      console.log(result);
       if(!visited){  //visited 가 없으면 생성하는거임
         visited = {};
         res.cookie("visited", visited, { maxAge: 86400000, httpOnly: true });
@@ -580,11 +580,11 @@ app.get("/:stage/:quiz/", function (req, res) {
           }
         });  
       }
-    // }else{
-    //   console.log("error");
-    //   res.send({});
-    // }
-  // })
+    }else{
+      console.log("error");
+      res.send({error:true});
+    }
+  })
 });
 
 //미션화면에서 가져다가 사용할 것임(다음 스테이지와 )
