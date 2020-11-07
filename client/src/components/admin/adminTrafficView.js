@@ -37,8 +37,8 @@ class AdminTrafficView extends Component {
         return(
             <>
                 <BarChart
-                    width={500}
-                    height={400}
+                    width={900}
+                    height={500}
                     data={data}
                     margin={{
                         top: 5,

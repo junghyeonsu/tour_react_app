@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import './adminGameModal.css'
 import { Close } from '@material-ui/icons'
+import { post } from 'axios';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-class AdminGameModal extends Component {
+class AdminShortModal extends Component {
 
     state = {
         title : "",
@@ -28,12 +31,23 @@ class AdminGameModal extends Component {
     onClickModifyButton = (e) => {
         const { title, image, video, text, answer, id } = this.state;
         e.preventDefault();
-        console.log("현재 타이틀 : ", title);
-        console.log("현재 이미지 : ", image);
-        console.log("현재 비디오 : ", video);
-        console.log("현재 텍스트 : ", text);
-        console.log("현재 답 : ", answer);
-        console.log("현재 고유 아이디 : ", id);
+        const url = '/api/modifyGame';
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('image', image);
+        formData.append('video', video);
+        formData.append('text', text);
+        formData.append('answer', answer);
+        formData.append('type', "주관식");
+        formData.append('id', id);
+        const config = {
+          headers : {
+            'content-type':'multipart/form-data'
+          }
+        }
+        return post(url, formData, config).then(
+            window.location.reload()
+        );
     }
 
     onClickDeleteButton = async () => {
@@ -89,24 +103,23 @@ class AdminGameModal extends Component {
         const { title, image, video, text, answer } = this.state;
         return(
             <div className="modal">
-                <div className="modal_content">
+                <div className="short_modal_content">
                     <Close style={{ fontSize: 40 }} className="close_button" color="secondary" onClick={outModal} />
-                    <div className="modal_form">
+                    <div className="short_modal_form">
                         <h2>
                             게임 추가 입력 창
                         </h2>
-                        <form onSubmit={this.onClickModifyButton}>
-                            제목 <input type="text" value={title} onChange={this.onChangeTitle} /><br />
-                            이미지 <input type="file" onChange={this.onChangeImage} /><br />
+                        <form>
+                            <TextField label="제목" type="text" value={title} onChange={this.onChangeTitle} /><br />
+                            <TextField label="이미지" type="file" onChange={this.onChangeImage} /><br />
                             <img src={image} alt="image" /> <br />
-                            동영상 <input type="text" value={video} onChange={this.onChangeVideo} /><br />
-                            글 <input type="text" value={text} onChange={this.onChangeText} /><br />
-                            정답 <input type="text" value={answer} onChange={this.onChangeAnswer} /><br />
-                            {currentGame._id}
-                        <button>수정</button>
+                            <TextField label="동영상" type="text" value={video} onChange={this.onChangeVideo} /><br />
+                            <TextField label="글" type="text" value={text} onChange={this.onChangeText} /><br />
+                            <TextField label="정답" type="text" value={answer} onChange={this.onChangeAnswer} /><br />
                         </form>
                         <br />
-                        <button onClick={this.onClickDeleteButton}>삭제</button>
+                        <Button variant="contained" color="primary" onClick={this.onClickModifyButton}>수정하기</Button>
+                        <Button variant="contained" color="secondary" onClick={this.onClickDeleteButton}>삭제하기</Button>
                     </div>
                 </div>
             </div>
@@ -114,4 +127,4 @@ class AdminGameModal extends Component {
     }
 }
 
-export default AdminGameModal;
+export default AdminShortModal;

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 .admin_container {
     display: flex;
     flex-direction: column;
@@ -20,4 +21,8 @@
     flex: 1;
     display: flex;
     margin: 50px auto 0 auto;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
 }

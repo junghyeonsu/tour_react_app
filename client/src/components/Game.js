@@ -5,17 +5,18 @@ import VideoPlay from './VideoPlay';
 class Game extends Component {
     state = {
         gameList : [],
-        randomNumber : 1
+        randomNumber : 0
     }
 
     async componentDidMount(){
         const res = await axios.get("/api/getGameList");
-       
         this.setState({
             gameList : res.data.gameList,
-            // randomNumber : Math.floor(Math.random() * this.props.List.length)
+            randomNumber : this.props.randomNumber
         });
         this.props.ChangeThis();
+        console.log("Game: ",this.state.randomNumber);
+        console.log("Game:",this.state.gameList);
     }
     
     render = () => {
@@ -32,21 +33,20 @@ class Game extends Component {
                     <input type='hidden' value="객관식" id ="Question"/>
                     {gameList[randomNumber].title}
                     {gameList[randomNumber].image == "" ? '' : <img src={gameList[randomNumber].image} />}
-                    {gameList[randomNumber].video == "" ? '' : <VideoPlay id={'9vkZVikwTAU'} startTime={0} seek= {{게임설명:16,퀴즈설명:32}} count = {2}/>}
+                    {gameList[randomNumber].video == "" ? '' : <VideoPlay id={gameList[randomNumber].video} startTime={0} seek= {{게임설명:16,퀴즈설명:32}} count = {2}/>}
                     <p>
                         {gameList[randomNumber].question}
                     </p>
                     <div>
-                    {gameList[randomNumber].choice.map((i) => {
+                    {gameList[randomNumber].choice.map((key,i) => {
                         return(
                             <div>
-                            <input type='radio' name="gener" className="checking" value={i} onChange={this.props.selectChange}/>{i}<br />
+                            <input type='radio' name="gener" className="checking" value={i} onChange={this.props.selectChange}/>
+                            {gameList[randomNumber].choice[i]}<br />
                             </div>
                         )
                     })}
-                    </div>
-                    
-                    
+                    </div>  
                     <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
                 </div>
                     :
@@ -55,7 +55,7 @@ class Game extends Component {
                     <input type='hidden' value="주관식" id ="Question"/>
                     {gameList[randomNumber].title}
                     {gameList[randomNumber].image == "" ? '' : <img src={gameList[randomNumber].image} />}
-                    {gameList[randomNumber].video == "" ? '' : <VideoPlay id={'9vkZVikwTAU'} startTime={0} />}
+                    {gameList[randomNumber].video == "" ? '' : <VideoPlay id={gameList[randomNumber].video} startTime={0} />}
                     <p>
                         {gameList[randomNumber].question}
                     </p>

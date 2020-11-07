@@ -259,8 +259,7 @@ class main extends Component{
         <div id="content"> </div>
         
         {/* <!-- 컨텐츠 이미지 --> */}
-        
-        
+
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
             <div id="content_quiz" className="container">

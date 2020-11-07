@@ -18,11 +18,10 @@ class App extends Component{
     return (
       <CookiesProvider>
       <Router>
-        
-
         <Switch>
           {/*   /로 이동하면 Main 컴포넌트를 띄움   */}
-          <Route exact path="/" component={Intro} />
+          <Route exact path="/intro" component={Intro} />
+          <Route exact path="/:stage/intro/:quiz" component={Intro} />
           {/*   /mission로 이동하면 Mission 컴포넌트를 띄움   */}
           <Route exact path="/mission" component={Mission} />
           {/* 어드민 홈페이지 테스트 */}
