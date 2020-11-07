@@ -1,25 +1,44 @@
 /* 테스트를 위해서 만들어놓은 div 박스의 css */
 .container {
-    padding: 5%;
-    margin: 1%;
     text-align: center;
+    overflow: auto;
 }
 
 body {
     margin: 0;
+    padding: 0;
 }
+
+#But{
+    margin-left : 87.5% 
+}
+
+.ButContainer{
+    display: flex;
+    flex-direction: column;
+}
+
 
 /* content image를 담고있는 컨테이너 div */
 #content_image_container {
     display: flex;
 }
 
+#stage_answer{
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: rgb(202, 202, 202);
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
 /* content image */
 #content_image {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
+
 #explain{
     width: 70%;
     margin-left: auto;

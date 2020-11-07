@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import VideoPlayer from './VideoPlay';
+import Button from '@material-ui/core/Button';
+
 const customStyles = {
     content : {
       top                   : '50%',
@@ -8,9 +10,11 @@ const customStyles = {
       right                 : 'auto',
       bottom                : 'auto',
       marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
+      transform             : 'translate(-50%, -50%)',
+      width                 : '70%',
+      height                : '70%'
     }
-  };
+    };
 
 const Explain = {
     explain1 : '게임설명',
@@ -60,8 +64,8 @@ class ExplainModal extends Component{
     render(){
         const {modal,NotButton} = this.state;
         return (
-            <div>
-              <button onClick={this.openModal}>설명 보기</button>
+            <div id="But">
+              <Button  variant="contained" color="primary" onClick={this.openModal}>설명 보기</Button>
               <Modal
                 isOpen={modal}
                 onAfterOpen={this.openModal}
@@ -70,18 +74,17 @@ class ExplainModal extends Component{
                 contentLabel="Example Modal"
               >
                 {NotButton === true ?
-                <div>
-                <button onClick={this.clickButton}>게임설명</button>
-                <button onClick={this.clickButton}>퀴즈설명</button> 
-                <button onClick={this.clickButton}>미션설명</button>
-                <br />
-                <button onClick={() => this.setState({modal : false})}>창 닫기</button>
-                </div>
+                <div className="ButContainer">
+                <Button variant="contained" color="secondary" style={{marginTop:'15%',marginBottom : '15%',width:'100%'}} onClick={this.clickButton}>게임설명</Button>
+                <Button variant="contained" color="secondary" style={{marginBottom : '15%',width:'100%'}}className="buttonSt" onClick={this.clickButton}>퀴즈설명</Button> 
+                <Button variant="contained" color="secondary" style={{marginBottom : '15%',width:'100%'}}className="buttonSt" onClick={this.clickButton}>미션설명</Button>
+                <Button variant="contained" color="secondary" style={{marginBottom : '15%',width:'100%'}}className="buttonSt" onClick={() => this.setState({modal : false})}>창 닫기</Button>
+                </div> 
 
                 :
-                <div> 
-                <VideoPlayer id={'9vkZVikwTAU'} startTime={this.state.startPoint}/>
-                <button onClick={this.goBack}>뒤로가기</button>
+                <div style={{width:'100%', height:'100%'}}> 
+                    <VideoPlayer id={'9vkZVikwTAU'} startTime={this.state.startPoint}/>
+                    <Button variant="contained" color="secondary" className="buttonSt" onClick={this.goBack}>뒤로가기</Button>
                 </div>
                   }
                 

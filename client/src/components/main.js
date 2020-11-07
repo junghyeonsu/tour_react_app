@@ -24,7 +24,8 @@ class main extends Component{
     area : '',
     hint : '',
     List : [],
-    isChange : 0
+    isChange : 0,
+    randomNumber:0,
   }
 
   async componentDidMount(){
@@ -37,7 +38,12 @@ class main extends Component{
       }
     })
     const body = await response.json();
-    console.log(body);
+    if(body.error){
+      this.props.history.push({
+        pathname: '/', 
+        data:{stage : this.props.match.url.split('/')[1],quiz : this.props.match.url.split('/')[2]}});
+        return;
+    }
     if(!body.intro){
       this.props.history.push({
         pathname: '/intro', 
@@ -55,6 +61,7 @@ class main extends Component{
       stageAnswer:body.answer,
       area : this.props.match.url.split('/')[1], //
       hint : body.hint,
+      randomNumber:this.state.List[Math.floor(Math.random() * this.state.List.length)]
     });
     
     if(this.props.cookies.get('time') !== undefined){
@@ -111,7 +118,7 @@ class main extends Component{
   goStage2(){
     const url = '/quiz';
     var params = {
-      GameIndex : Number(document.getElementById('correctAnswer').value) - 1
+      GameIndex : this.state.randomNumber
     }
     return post(url, params)
   }
@@ -252,14 +259,13 @@ class main extends Component{
         <div id="content"> </div>
         
         {/* <!-- 컨텐츠 이미지 --> */}
-        <div>
-          <ExplainModal />
-        </div>
+        
         
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
             <div id="content_quiz" className="container">
-              <div> {this.state.List.length == 0 ? '게임을 로딩중입니다' : <Game ChangeThis={this.ChangeThis} selectChange={this.selectChange} />}</div>
+              <div> {this.state.List.length == 0 ? '게임을 로딩중입니다' : <Game ChangeThis={this.ChangeThis} selectChange={this.selectChange}
+                                                                          randomNumber={this.state.randomNumber}/>}</div>
               <div>
               {this.state.isChange ? <div>{
                document.getElementById('Question').value == '주관식'?
@@ -270,22 +276,16 @@ class main extends Component{
               
             </div>
              {/* <p>퀴즈의 정답을 입력해주세요</p> */}
-             
-           
-          
-            <button id="quiz_button" name="a"className="submit_button"onClick={this.QuizSuccess}>확인</button>
-           
+            <button id="quiz_button" name="a" className="submit_button"onClick={this.QuizSuccess}>확인</button> 
         </div>
-        <hr />
 
         {/* <!-- 미션 정답 입력 --> */}
-        <div id="stage_answer"className="container">
+        <div id="stage_answer" className="container">
+            <ExplainModal />
             <strong>QR코드를 찾아 문제를 해결하고 힌트를 모아, 4자리 비밀번호를 찾으세요. 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
             <br />
             <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
-            <button id="mission_button" className="submit_button" onClick={this.StageSuccess}>제출</button>
-            
-                
+            <button id="mission_button" className="submit_button" onClick={this.StageSuccess}>제출</button>    
         </div>
       </div>
     );

@@ -48,9 +48,7 @@ class YouTubeVideo extends React.PureComponent {
 
   
   render = () => {
-    
     const { id } = this.props;
-    console.log(this.props)
     return (
       <div>
         <div className='Video'>
