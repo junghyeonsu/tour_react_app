@@ -259,10 +259,7 @@ class main extends Component{
         <div id="content"> </div>
         
         {/* <!-- 컨텐츠 이미지 --> */}
-        <div>
-          <ExplainModal />
-        </div>
-        
+
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
             <div id="content_quiz" className="container">
@@ -283,6 +280,7 @@ class main extends Component{
 
         {/* <!-- 미션 정답 입력 --> */}
         <div id="stage_answer" className="container">
+            <ExplainModal />
             <strong>QR코드를 찾아 문제를 해결하고 힌트를 모아, 4자리 비밀번호를 찾으세요. 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
             <br />
             <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
