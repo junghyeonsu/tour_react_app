@@ -50,6 +50,7 @@ class main extends Component{
         data:{stage : this.props.match.url.split('/')[1],quiz : this.props.match.url.split('/')[2]}}); 
     }
     var List2 = body.gameList;
+    console.log("Main List2:",List2);
     for(var i = 0; i<body.clearGame.length;i++){
       const idx = List2.indexOf(body.clearGame[i]) 
       if (idx > -1) List2.splice(idx, 1)
@@ -57,13 +58,14 @@ class main extends Component{
     for(var i = 0; i<List2.length;i++){
       this.state.List.push(List2[i]);
     }
+    console.log("Main List:",this.state.List)
     this.setState({
       stageAnswer:body.answer,
       area : this.props.match.url.split('/')[1], //
       hint : body.hint,
       randomNumber:this.state.List[Math.floor(Math.random() * this.state.List.length)]
     });
-    
+    console.log("Main RandomNumber : ",this.state.randomNumber)
     if(this.props.cookies.get('time') !== undefined){
       document.getElementById('aa').disabled = true;
       console.log(this.props.cookies.get('time'),localStorage.getItem('count'))
