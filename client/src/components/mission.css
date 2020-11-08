@@ -32,7 +32,7 @@ body {
 /* success image를 담고있는 컨테이너 div */
 #success_container {
     /* border: 1px solid black; */
-    padding: 5%;
+    /* padding: 5%; */
     margin: 1% 0%;
     width: 80%;
     margin-left: auto;
@@ -49,7 +49,7 @@ body {
 
 .sns_image{
     width: 10%;
-    margin:0px 10px;
+    margin:0% 3%;
     display: inline-block;
 }
 #mission_container{

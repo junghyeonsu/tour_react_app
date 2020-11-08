@@ -84,7 +84,7 @@ class mission extends Component {
                     </div>
                 </div>
                 <div id="button_container">
-                <h2>{String(this.props.location.data['stage'])}</h2> 
+                <h1>{String(this.props.location.data['stage'])}</h1> 
                 </div>
                 </div>
                 {/* <TourIntroHeader /> */}
