@@ -107,7 +107,7 @@ updateClearGame = function (database, userInfo, gameIndex, cb) {
       if (user.clearGame.indexOf(gameIndex) == -1) {
         user.clearGame.push(gameIndex);
       }
-      if(user.clearGame.length == user.gameList.length){
+      if(user.clearGame.length >= user.gameList.length){
         user.clearGame = [];
       }
       user.save(function (err) {

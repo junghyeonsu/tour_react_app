@@ -16,7 +16,7 @@ class Game extends Component {
             randomNumber : this.props.randomNumber
         });
         this.props.ChangeThis();
-        console.log("Game: ",this.state.randomNumber);
+        console.log("Game Random Number: ",this.state.randomNumber);
         console.log("Game:",this.state.gameList);
     }
     
@@ -43,7 +43,7 @@ class Game extends Component {
                     {gameList[randomNumber].choice.map((key,i) => {
                         return(
                             <div key={i}>
-                            <input type='radio' name="gener" className="checking" value={i} onChange={this.props.selectChange}/>
+                            <input type='radio' name="gener" className="checking" value={i+1} onChange={this.props.selectChange}/>
                             {gameList[randomNumber].choice[i]}<br />
                             </div>
                         )

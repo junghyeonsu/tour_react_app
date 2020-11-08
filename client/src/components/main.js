@@ -129,6 +129,8 @@ class main extends Component{
   }
 
   QuizSuccess = (e) => {
+    console.log("Main 원하는 정답 : ",document.getElementById('correctAnswer').value);
+    console.log("Main 입력받은 정답 : ",this.state.input);
     if(document.getElementById('Question').value === '주관식'){
       if(document.getElementById('correctAnswer').value !== this.state.input){
         console.log(document.getElementById('correctAnswer').value)
@@ -260,10 +262,6 @@ class main extends Component{
 
         {/* <!-- 관광지 소개 --> */}
         <TourIntroHeader />
-        {/* <!-- 컨텐츠 부분 --> */}
-        <div id="content"> </div>
-        
-        {/* <!-- 컨텐츠 이미지 --> */}
 
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
@@ -277,7 +275,6 @@ class main extends Component{
                : ''
                }</div> :'' }
                </div>
-              
             </div>
              {/* <p>퀴즈의 정답을 입력해주세요</p> */}
             <button id="quiz_button" name="a" className="submit_button"onClick={this.QuizSuccess}>확인</button> 
