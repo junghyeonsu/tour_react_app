@@ -169,7 +169,7 @@ class tourIntroHeader extends Component {
                   {/* <div className="explain">
                     {tourList[randomNumber].explain}
                   </div> */}
-                  <a className = "link" href={tourList[randomNumber].link} target="_blank">정보 보기</a>
+                  <a className = "link" href={tourList[randomNumber].link} target="_blank" rel="noopner noreferrer">정보 보기</a>
                 </div>
             </div>
         )
