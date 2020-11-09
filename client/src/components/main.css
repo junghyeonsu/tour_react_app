@@ -14,7 +14,7 @@ body {
 }
 
 #But > button {
-    font-size: 3vw;
+    font-size: 1vw;
 }
 
 .ButContainer{
@@ -46,12 +46,14 @@ body {
 }
 
 #stage_answer{
-    position: -webkit-sticky;
-    position: sticky;
+    position: -webkit-fixed;
+    position: fixed;
     background-color: rgb(202, 202, 202);
     left: 0;
     right: 0;
     bottom: 0;
+    height: 50vw;
+    line-height: 4vw;
 }
 /* content image */
 #content_image {
@@ -69,18 +71,18 @@ body {
 
 .submit_button {
     display: block;
-    margin: 10px auto;
+    margin: 5px auto;
     border-style: none;
     background-color: black;
     color: white;
-    width: 80px;
-    height: 40px;
+    width: 18vw;
+    height: 8vw;
 }
 
 .submit_input {
-    margin: 10px auto;
+    margin: 1vw auto;
     width: 80%;
-    height: 40px;
+    height: 6vw;
 } 
 
 img{

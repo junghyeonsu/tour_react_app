@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import VideoPlayer from './VideoPlay';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles  = {
+    root: {
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      border: 0,
+      borderRadius: 3,
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      color: 'white',
+      height: '6vw',
+      width: '20vw',
+      margin : '10px'
+    },
+  };
 
 const customStyles = {
     content : {
@@ -63,9 +77,10 @@ class ExplainModal extends Component{
     }
     render(){
         const {modal,NotButton} = this.state;
+        const {classes} = this.props;
         return (
             <div id="But">
-              <Button variant="contained" color="primary" onClick={this.openModal}>설명 보기</Button>
+              <Button className={classes.root} variant="contained" color="primary" onClick={this.openModal}>설명</Button>
               <Modal
                 isOpen={modal}
                 onAfterOpen={this.openModal}
@@ -94,4 +109,4 @@ class ExplainModal extends Component{
     }
 }
 
-export default ExplainModal;
+export default withStyles(styles)(ExplainModal);
