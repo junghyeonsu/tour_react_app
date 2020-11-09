@@ -21,7 +21,7 @@
 }
 
 .image_div {
-    flex : 2;
+    flex : 1.2;
 }
 
 .image_div > img {
