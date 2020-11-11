@@ -46,8 +46,8 @@ body {
 }
 
 #stage_answer{
-    position: -webkit-fixed;
-    position: fixed;
+    position: -webkit-sticky;
+    position: sticky;
     background-color: rgb(202, 202, 202);
     left: 0;
     right: 0;

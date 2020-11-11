@@ -17,7 +17,6 @@ class main extends Component{
     cookies: instanceOf(Cookies).isRequired
   };
   state = {
-    quizAnswer : '',
     input : '',
     FinalInput :  '',
     stageAnswer : '',
@@ -69,6 +68,7 @@ class main extends Component{
       randomNumber:this.state.List[Math.floor(Math.random() * this.state.List.length)]
     });
     console.log("Main RandomNumber : ",this.state.randomNumber)
+    console.log(this.props.cookies.get('time'))
     if(this.props.cookies.get('time') !== undefined){
       document.getElementById('aa').disabled = true;
       console.log(this.props.cookies.get('time'),localStorage.getItem('count'))
@@ -83,11 +83,12 @@ class main extends Component{
           count = 0;
           localStorage.removeItem("count");
           clearInterval(timer);
-         
         }
       },1000);
     }
-  
+    if(this.props.cookies.get('time2') !== undefined){
+      console.log('hello');
+    }
   }
 
 
@@ -131,9 +132,14 @@ class main extends Component{
   QuizSuccess = (e) => {
     console.log("Main 원하는 정답 : ",document.getElementById('correctAnswer').value);
     console.log("Main 입력받은 정답 : ",this.state.input);
-    if(document.getElementById('Question').value === '주관식'){
-      if(document.getElementById('correctAnswer').value !== this.state.input){
-        console.log(document.getElementById('correctAnswer').value)
+    console.log("Main 입력받은 정답 : ",this.state.input.replace(/(\s*)/g,""));
+    var quizAnswer = document.getElementById('correctAnswer').value.split(',');
+    
+    if(this.props.cookies.get('time2') !== undefined){
+      alert(String(cookieTime2 - localStorage.getItem('count2'))+'초 남았습니다.')
+    }
+    else if(document.getElementById('Question').value === '주관식' && this.props.cookies.get('time2') === undefined){
+      if(quizAnswer.indexOf(this.state.input.replace(/(\s*)/g,"")) == -1){
         alert('틀렸습니다!');
         e.preventDefault();
         document.getElementById('quizInput').disabled = true;
@@ -153,12 +159,12 @@ class main extends Component{
         }
       },1000);
       }
-      else if(document.getElementById('correctAnswer').value === this.state.input){
+      else {
         alert('맞았습니다.');
         this.handleFormSubmit2();
       }
     }
-    else if(document.getElementById('Question').value === '객관식'){
+    else if(document.getElementById('Question').value === '객관식'&& this.props.cookies.get('time2') === undefined){
       for(var i = 0; i<document.getElementsByClassName('checking').length;i++){
         if(document.getElementsByClassName('checking')[i].checked){
           this.setState({
@@ -166,8 +172,7 @@ class main extends Component{
           })
         } 
       }
-      console.log(this.state.input,document.getElementById('correctAnswer').value)
-      if(this.state.input !== document.getElementById('correctAnswer').value){
+      if(quizAnswer.indexOf(this.state.input) == -1){
         console.log(document.getElementById('correctAnswer').value)
         alert('틀렸습니다!');
         e.preventDefault();
@@ -195,16 +200,10 @@ class main extends Component{
         }
       },1000);
       }
-      else if(document.getElementById('correctAnswer').value === this.state.input){
+      else {
         alert('맞았습니다.');
         this.handleFormSubmit2();
       }
-    }
-    else if(this.props.cookies.get('time2') !== undefined){
-      alert(String(cookieTime2 - localStorage.getItem('count2'))+'초 남았습니다.')
-    }
-    else{
-      alert('답을 입력하세요!')
     }
   }
   

@@ -344,35 +344,6 @@ app.post("/api/setStageInfo", function (req, res) {
     }
   });
   console.log("success add stage");
-  // if (database) {
-  //   stageModel.insertMany([{
-  //     name: "stage1",
-  //     count: 0,
-  //     hint: ["stage1 hint1", "stage1 hint2", "stage1 hint3", "stage1 hint4"],
-  //     mission: ["stage1 Mission1", "stage1 Mission2", "stage1 Mission3"],
-  //     answer: "Happy",
-  //   },{
-  //     name: "stage2",
-  //     count: 0,
-  //     hint: ["stage2 hint1", "stage2 hint2", "stage2 hint3", "stage2 hint4"],
-  //     mission: ["stage2 Mission1", "stage2 Mission2", "stage2 Mission3"],
-  //     answer: "Hello",
-  //   },{
-  //     name: "stage3",
-  //     count: 0,
-  //     hint: ["stage3 hint1", "stage3 hint2", "stage3 hint3", "stage3 hint4"],
-  //     mission: ["stage3 Mission1", "stage3 Mission2", "stage3 Mission3"],
-  //     answer: "Hint",
-  //   },{
-  //     name: "stage4",
-  //     count: 0,
-  //     hint: ["stage4 hint1", "stage4 hint2", "stage4 hint3", "stage4 hint4"],
-  //     mission: ["stage4 Mission1", "stage4 Mission2", "stage4 Mission3"],
-  //     answer: "Hi",
-  //   }
-  // ]);
-  //   res.send("Set Stage Information");
-  // }
 });
 
 app.get("/api/getStageInfo", function (req, res) {
@@ -388,7 +359,7 @@ app.post("/api/setGameInfo", upload.single("image"), function (req, res) {
   var title = req.body.title;
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
-  var answer = req.body.answer;
+  var answer = req.body.answer.split(',');
   var choice = [];
   if(type == "객관식")
     choice = req.body.choice.split(',');
@@ -406,7 +377,7 @@ app.post("/api/setGameInfo", upload.single("image"), function (req, res) {
       return;
     }
   });
-  console.log("success add Image game");
+  console.log("success add game");
 });
 
 app.post("/api/deleteGame", function (req, res) {
@@ -431,7 +402,7 @@ app.post("/api/modifyGame",upload.single("image"), function (req, res) {
   var title = req.body.title;
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
-  var answer = req.body.answer;
+  var answer = req.body.answer.split(',');
   var choice = [];
   if(type == "객관식")
     choice = req.body.choice.split(',');
