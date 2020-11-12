@@ -6,12 +6,17 @@ import ExplainModal from './Modal';
 import {post} from 'axios';
 import { withCookies, Cookies} from 'react-cookie';
 import { instanceOf } from 'prop-types';
-
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
 
 let time = new Date();
 
 var cookieTime = 100;
 var cookieTime2 = 10;
+
+const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 class main extends Component{
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
@@ -25,6 +30,7 @@ class main extends Component{
     List : [],
     isChange : 0,
     randomNumber:0,
+    bottom : false
   }
 
   async componentDidMount(){
@@ -268,12 +274,21 @@ class main extends Component{
     this.setState({
       input : e.target.value
      })
-  }
+  };
+
+  toggleDrawer = (anchor, open) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    this.setState({ bottom: open });
+  };
+
+  
 
   render(){
-    console.log(this.state)
     return (
-      <div>
+      <div className="main_container">
 
         {/* <!-- 관광지 소개 --> */}
         <TourIntroHeader />
@@ -294,15 +309,28 @@ class main extends Component{
              {/* <p>퀴즈의 정답을 입력해주세요</p> */}
             <button id="quiz_button" name="a" className="submit_button"onClick={this.QuizSuccess}>확인</button> 
         </div>
+        
+        <Fab size="small" color="secondary" aria-label="add" onClick={this.toggleDrawer("bottom", true)}>
+          <EditIcon/>
+        </Fab>
+        <ExplainModal/>
 
         {/* <!-- 미션 정답 입력 --> */}
-        <div id="stage_answer" className="container">
-            <ExplainModal />
-            <strong>QR코드를 찾아 문제를 해결하고<br /> 힌트를 모아 4자리 비밀번호를 찾으세요. <br /> 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
-            <br />
-            <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
-            <button id="mission_button" className="submit_button" onClick={this.StageSuccess}>제출</button>    
-        </div>
+        <SwipeableDrawer 
+          anchor={"bottom"}
+          open={this.state.bottom}
+          onClose={this.toggleDrawer("bottom", false)}
+          onOpen={this.toggleDrawer("bottom", true)}
+          disableBackdropTransition={!iOS} 
+          disableDiscovery={iOS}
+        >  
+          <div id="stage_answer" className="container">
+              <strong>QR코드를 찾아 문제를 해결하고<br /> 힌트를 모아 4자리 비밀번호를 찾으세요. <br /> 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
+              <br />
+              <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
+              <button id="mission_button" className="submit_button" onClick={this.StageSuccess}>제출</button>    
+          </div>
+        </SwipeableDrawer>
       </div>
     );
   }

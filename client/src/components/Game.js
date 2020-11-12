@@ -24,7 +24,7 @@ class Game extends Component {
         
         const {gameList, randomNumber} = this.state;
         return(
-           <div>
+           <div className="quiz_container">
             {gameList.length === 0 ? '' :
             <div>
                   

@@ -3,3 +3,7 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
 }
+
+.quiz_container {
+    font-size: 3.5vw;
+}
