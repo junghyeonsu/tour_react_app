@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import VideoPlayer from './VideoPlay';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import { withStyles } from '@material-ui/core/styles';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 
 const styles  = {
     root: {
@@ -77,10 +79,11 @@ class ExplainModal extends Component{
     }
     render(){
         const {modal,NotButton} = this.state;
-        const {classes} = this.props;
         return (
             <div id="But">
-              <Button className={classes.root} variant="contained" color="primary" onClick={this.openModal}>설명</Button>
+              <Fab size="small" color="primary" onClick={this.openModal}>
+                <ContactSupportIcon />
+              </Fab>
               <Modal
                 isOpen={modal}
                 onAfterOpen={this.openModal}
