@@ -87,7 +87,20 @@ class main extends Component{
       },1000);
     }
     if(this.props.cookies.get('time2') !== undefined){
-      console.log('hello');
+      console.log(this.props.cookies.get('time2'),localStorage.getItem('count2'))
+      var count = this.props.cookies.get('time2') - localStorage.getItem('count2')
+      console.log(count)
+      var timer = setInterval(function(){
+        count--;
+        localStorage.setItem('count2',cookieTime2 - count)
+        console.log(count,localStorage.getItem('count2'))
+        if(count === 0){
+  
+          count = 0;
+          localStorage.removeItem("count2");
+          clearInterval(timer);
+        }
+      },1000);
     }
   }
 
@@ -137,6 +150,9 @@ class main extends Component{
     
     if(this.props.cookies.get('time2') !== undefined){
       alert(String(cookieTime2 - localStorage.getItem('count2'))+'초 남았습니다.')
+    }
+    else if(this.state.input == ''){
+      alert('답을 입력하세요!');
     }
     else if(document.getElementById('Question').value === '주관식' && this.props.cookies.get('time2') === undefined){
       if(quizAnswer.indexOf(this.state.input.replace(/(\s*)/g,"")) == -1){
