@@ -14,7 +14,17 @@ body {
 }
 
 #But > button {
-    font-size: 1vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform:translate(10px, -10px);
+}
+
+.main_container > button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    transform:translate(-10px, -10px);
 }
 
 .ButContainer{
@@ -23,20 +33,18 @@ body {
 }
 
 #stage_answer > strong {
-    margin-left: 4%;
-    margin-right: 4%;
-    font-size: 3.5vw;
+    font-size: 3vw;
 }
 
 #stage_answer > button {
-    width: 25%;
+    width: 20%;
     font-size: 3.5vw;
     border-radius: 2vw;
 }
 
 #quiz_button {
-    width: 25%;
-    font-size: 3.5vw;
+    width: 20%;
+    font-size: 3vw;
     border-radius: 2vw;
 }
 
@@ -45,16 +53,23 @@ body {
     display: flex;
 }
 
+
 #stage_answer{
     position: -webkit-sticky;
     position: sticky;
+    padding: 5%;
     background-color: rgb(202, 202, 202);
     left: 0;
     right: 0;
     bottom: 0;
-    height: 50vw;
-    line-height: 4vw;
+    height: 30%;
+    line-height: 3.5vw;
 }
+
+#content_answer {
+    height: 40%;
+}
+
 /* content image */
 #content_image {
     width: 100%;
@@ -75,14 +90,15 @@ body {
     border-style: none;
     background-color: black;
     color: white;
-    width: 18vw;
-    height: 8vw;
+    width: 10vw;
+    height: 6vw;
+    font-size: 3vw;
 }
 
 .submit_input {
     margin: 1vw auto;
-    width: 80%;
-    height: 6vw;
+    width: 50%;
+    height: 3vw;
 } 
 
 img{
