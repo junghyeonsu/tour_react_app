@@ -10,7 +10,7 @@ import { instanceOf } from 'prop-types';
 
 let time = new Date();
 
-var cookieTime = 100;
+var cookieTime = 10;
 var cookieTime2 = 10;
 class main extends Component{
   static propTypes = {
@@ -208,7 +208,9 @@ class main extends Component{
   }
   
   StageSuccess = (e) => {
-    if(this.state.stageAnswer !== this.state.Finalinput && this.props.cookies.get('time') === undefined){
+    console.log(this.state.stageAnswer);
+    console.log(this.state.stageAnswer.indexOf(this.state.FinalInput))
+    if(this.state.stageAnswer.indexOf(this.state.FinalInput) == -1 && this.props.cookies.get('time') === undefined){
       alert('틀렸습니다!');
       e.preventDefault();
       document.getElementById('aa').disabled = true;
@@ -227,7 +229,7 @@ class main extends Component{
         }
       },1000);
     }
-    else if(this.state.stageAnswer === this.state.Finalinput){
+    else if(this.state.stageAnswer.indexOf(this.state.FinalInput) != -1){
       alert('맞았습니다.');
       this.handleFormSubmit();
     }
@@ -240,7 +242,7 @@ class main extends Component{
 
   }
   onChange = (e) => {
-    this.setState({Finalinput:e.target.value});
+    this.setState({FinalInput:e.target.value});
   }
 
   ChangeThis = () => {

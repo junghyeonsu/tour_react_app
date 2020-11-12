@@ -328,7 +328,7 @@ app.post("/api/setStageInfo", function (req, res) {
   var stageName = req.body.stageName;
   var stageHint = req.body.stageHint.split(",");
   var stageMission = req.body.stageMission.split(",");
-  var stageAnswer = req.body.stageAnswer;
+  var stageAnswer = req.body.stageAnswer.split(",");
 
   var newStage = new stageModel({
     name: stageName,
@@ -426,7 +426,7 @@ app.post("/api/modifyStage", function (req, res) {
   var stageName = req.body.stageName;
   var stageHint = req.body.stageHint;
   var stageMission = req.body.stageMission;
-  var stageAnswer = req.body.stageAnswer;
+  var stageAnswer = req.body.stageAnswer.split(",");
   stageModel.findOneAndUpdate({_id:id},{$set:{
     name: stageName,
     hint: stageHint,
