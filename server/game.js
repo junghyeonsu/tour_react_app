@@ -7,6 +7,7 @@ var gameSchema = new mongoose.Schema({
   image : String,
   video : String,
   text : String,
+  comment:String,
   answer : [String],
   choice : Array
 });

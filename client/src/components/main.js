@@ -108,7 +108,7 @@ class main extends Component{
    .then((response) => {
      this.props.history.push({
       pathname: '/quiz', 
-      data : { area : this.state.area, hint:this.state.hint }
+      data : { area : this.state.area, hint:this.state.hint,comment:document.getElementById('comment').value }
       }); 
    });
  }

@@ -12,6 +12,7 @@ class AdminMultipleModal extends Component {
         image : "",
         video : "",
         text : "",
+        comment: "",
         choice1 : "",
         choice2 : "",
         choice3 : "",
@@ -27,6 +28,7 @@ class AdminMultipleModal extends Component {
             image : currentGame.image,
             video : currentGame.video,
             text : currentGame.text,
+            comment : currentGame.comment,
             answer : currentGame.answer,
             id : currentGame._id
         });
@@ -56,7 +58,7 @@ class AdminMultipleModal extends Component {
     }
 
     onClickModifyButton = (e) => {
-      const {id ,title, image, video, text, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
+      const {id ,title, image, video, text,comment, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
         console.log(image);
         e.preventDefault();
         var choice = [];
@@ -72,6 +74,7 @@ class AdminMultipleModal extends Component {
         formData.append('image', image);
         formData.append('video', video);
         formData.append('text', text);
+        formData.append('comment', text);
         choice.push(choice1);
         choice.push(choice2);
         choice.push(choice3);
@@ -105,7 +108,11 @@ class AdminMultipleModal extends Component {
           title : e.target.value
         })
       }
-  
+      onChangeComment = (e) => {
+        this.setState({
+          comment : e.target.value
+        })
+      }
       onChangeImage = (e) => {
         this.setState({
           image : e.target.files[0],
@@ -163,7 +170,7 @@ class AdminMultipleModal extends Component {
     
     render(){
         const { outModal, currentGame } = this.props;
-        const {id ,title, image, video, text, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
+        const {id ,title, image, video, text, comment,choice1, choice2, choice3, choice4, choice5, answer } = this.state;
 
         return(
             <div className="modal">
@@ -179,6 +186,7 @@ class AdminMultipleModal extends Component {
                             <img src={image} alt="image" /> <br />
                             <TextField type="text" label="동영상" value={video} onChange={this.onChangeVideo} /><br />
                             <TextField type="text" label="문제" value={text} onChange={this.onChangeText} /><br />
+                            <TextField type="text" label="해설" value={comment} onChange={this.onChangeComment} /><br />
                             <TextField type="text" label="선택지1" value={choice1} onChange={this.onChangeChoice1} /><br />
                             <TextField type="text" label="선택지2" value={choice2} onChange={this.onChangeChoice2} /><br />
                             <TextField type="text" label="선택지3" value={choice3} onChange={this.onChangeChoice3} /><br />

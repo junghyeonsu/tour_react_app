@@ -9,8 +9,7 @@ var storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage });
-
+const upload = multer({ storage: storage ,limits:{fileSize:1024*1024*5}});
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const request = require("request");
@@ -359,18 +358,18 @@ app.post("/api/setGameInfo", upload.single("image"), function (req, res) {
   var title = req.body.title;
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
+  var comment = req.body.comment;
   var answer = req.body.answer.split(',');
   var choice = [];
   if(type == "객관식")
     choice = req.body.choice.split(',');
   var image = ""
-  console.log(req.file==undefined);
   if(req.file == undefined){
     image = "";
   }else{
     image = "/api/getImage/" + req.file.filename;
   }
-  var game = new gameModel({ type:type, title: title,image: image, video: video, text: text, answer: answer,choice:choice});
+  var game = new gameModel({ type:type, title: title,image: image, video: video, text: text, comment:comment,answer: answer,choice:choice});
   game.save(function (err) {
     if (err) {
       console.log("게임을 저장하지 못했습니다.");
@@ -402,6 +401,7 @@ app.post("/api/modifyGame",upload.single("image"), function (req, res) {
   var title = req.body.title;
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
+  var comment = req.body.comment;
   var answer = req.body.answer.split(',');
   var choice = [];
   if(type == "객관식")
@@ -413,7 +413,7 @@ app.post("/api/modifyGame",upload.single("image"), function (req, res) {
   }
   console.log(req.body);
   gameModel.updateOne({_id:id},
-    { $set:{type:type, title: title,image: image, video: video, text: text, answer: answer,choice:choice}})
+    { $set:{type:type, title: title,image: image, video: video, text: text,comment:comment, answer: answer,choice:choice}})
     .then((game)=>{
       console.log(game);
     });
