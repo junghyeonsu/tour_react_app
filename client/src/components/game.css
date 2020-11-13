@@ -7,3 +7,19 @@ body {
 .quiz_container {
     font-size: 3.5vw;
 }
+
+.multiple_quiz_container > img {
+    width: 80%;
+    height: 50vh;
+    object-fit: contain;
+}
+
+.multiple_quiz_text {
+    margin: 10px auto;
+}
+
+.short_quiz_container > img {
+    width: 80%;
+    height: 50vh;
+    object-fit: contain;
+}

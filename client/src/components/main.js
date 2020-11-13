@@ -9,6 +9,9 @@ import { instanceOf } from 'prop-types';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CheckIcon from '@material-ui/icons/Check';
 
 let time = new Date();
 
@@ -295,19 +298,19 @@ class main extends Component{
 
         {/* <!-- 퀴즈 정답 입력 --> */}
         <div id="content_answer" className="container">
-            <div id="content_quiz" className="container">
+            <div id="content_quiz">
               <div> {this.state.List.length == 0 ? '게임을 로딩중입니다' : <Game ChangeThis={this.ChangeThis} selectChange={this.selectChange}
                                                                           randomNumber={this.state.randomNumber}/>}</div>
               <div>
               {this.state.isChange ? <div>{
                document.getElementById('Question').value == '주관식'?
-               <input className="submit_input" id="quizInput" type="text"  onChange={(e) => {this.setState({input:e.target.value})}}/>
+               <TextField label="정답" className="submit_input" id="quizInput" type="text"  onChange={(e) => {this.setState({input:e.target.value})}}/>
                : ''
                }</div> :'' }
                </div>
-            </div>
              {/* <p>퀴즈의 정답을 입력해주세요</p> */}
-            <button id="quiz_button" name="a" className="submit_button"onClick={this.QuizSuccess}>확인</button> 
+              <button id="quiz_button" name="a" className="submit_button"onClick={this.QuizSuccess}>확인</button> 
+            </div>
         </div>
         
         <Fab size="small" color="secondary" aria-label="add" onClick={this.toggleDrawer("bottom", true)}>
@@ -328,7 +331,8 @@ class main extends Component{
               <strong>QR코드를 찾아 문제를 해결하고<br /> 힌트를 모아 4자리 비밀번호를 찾으세요. <br /> 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
               <br />
               <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
-              <button id="mission_button" className="submit_button" onClick={this.StageSuccess}>제출</button>    
+              <br />
+              <Button startIcon={<CheckIcon />} variant="contained" color="secondary" id="mission_button" onClick={this.StageSuccess}>제출</Button>    
           </div>
         </SwipeableDrawer>
       </div>
