@@ -32,9 +32,15 @@ class ShortAnswer extends Component {
           'content-type':'multipart/form-data'
         }
       }
-      return post(url, formData, config).then(
+      if(image==""){
+        return post(url, formData, config).then(
           window.location.reload()
-      );
+        );
+      }else{
+        return post(url, formData, config).then(
+          // window.location.reload()
+        );
+      }
     }
     
     onChangeTitle = (e) => {
