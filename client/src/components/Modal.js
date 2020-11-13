@@ -28,7 +28,7 @@ const customStyles = {
       marginRight           : '-50%',
       transform             : 'translate(-50%, -50%)',
       width                 : '70%',
-      height                : '50%'
+      height                : '50%',
     }
     };
 
@@ -93,16 +93,16 @@ class ExplainModal extends Component{
               >
                 {NotButton === true ?
                 <div className="ButContainer">
-                <Button variant="contained" color="secondary" style={{marginTop:'15%',marginBottom : '15%',width:'100%'}} onClick={this.clickButton}>게임설명</Button>
-                <Button variant="contained" color="secondary" style={{marginBottom : '15%',width:'100%'}}className="buttonSt" onClick={this.clickButton}>퀴즈설명</Button> 
-                <Button variant="contained" color="secondary" style={{marginBottom : '15%',width:'100%'}}className="buttonSt" onClick={this.clickButton}>미션설명</Button>
-                <Button variant="contained" color="secondary" style={{marginBottom : '15%',width:'100%'}}className="buttonSt" onClick={() => this.setState({modal : false})}>창 닫기</Button>
+                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', marginTop:'15%',marginBottom : '15%',width:'70%'}} onClick={this.clickButton}>게임설명</Button>
+                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', marginBottom : '15%',width:'70%'}}className="buttonSt" onClick={this.clickButton}>퀴즈설명</Button> 
+                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', marginBottom : '15%',width:'70%'}}className="buttonSt" onClick={this.clickButton}>미션설명</Button>
+                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', width:'70%'}}className="buttonSt" onClick={() => this.setState({modal : false})}>창 닫기</Button>
                 </div> 
 
                 :
                 <div style={{width:'100%', height:'100%'}}> 
                     <VideoPlayer id={'9vkZVikwTAU'} startTime={this.state.startPoint}/>
-                    <Button variant="contained" color="secondary" className="buttonSt" onClick={this.goBack}>뒤로가기</Button>
+                    <Button variant="contained" color="primary" className="buttonSt" onClick={this.goBack}>뒤로가기</Button>
                 </div>
                   }
                 

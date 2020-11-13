@@ -14,9 +14,9 @@
     display: flex;
     background-color: white;
     z-index: 100;
-    width: 50%;
+    width: 90%;
     height: 100%;
-    transform: translate(50%);
+    transform: translate(5%);
 }
 
 .stage_modal_form {
