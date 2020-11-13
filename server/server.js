@@ -9,10 +9,15 @@ var storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage ,limits:{fileSize:1024*1024*5}});
+const upload = multer(
+  { storage: storage ,
+    limits:{
+      fileSize:5*1024*1024,
+      fieldSize:5*1024*1024,
+    }
+});
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const request = require("request");
 const { v4: uuidv4 } = require("uuid");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -28,9 +33,8 @@ var database;
 
 // database와 연결하는 코드 (현재는 local로 설정되어있다.)
 function connectDB() {
-  var databaseUrl =
-    process.env.MONGODB_URI || `mongodb://localhost:27017/node-react-starter`;
-  mongoose.connect(databaseUrl);
+  var databaseUrl = process.env.MONGODB_URI || `mongodb://localhost:27017/node-react-starter`;
+  mongoose.connect(databaseUrl,{ useNewUrlParser:true, useUnifiedTopology: true });
   database = mongoose.connection;
   database.on(
     "error",

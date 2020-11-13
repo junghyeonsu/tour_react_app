@@ -44,9 +44,15 @@ class MultipleChoice extends Component {
         formData.append('choice', choice);
         formData.append('answer', answer);
         formData.append('type', "객관식");
-        return post(url, formData, config).then(
-          window.location.reload()
-        );
+        if(image==""){
+          return post(url, formData, config).then(
+            window.location.reload()
+          );
+        }else{
+          return post(url, formData, config).then(
+            // window.location.reload()
+          );
+        }
     }
 
     onChangeTitle = (e) => {
