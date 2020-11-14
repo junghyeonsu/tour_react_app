@@ -119,7 +119,7 @@ class main extends Component{
     .then((response) => {
       var data = response.data;
       data['area'] = this.state.area;
-      this.props.history.push({
+      this.props.history.replace({
         pathname: '/mission', 
         data :  data}); 
     });
@@ -128,7 +128,7 @@ class main extends Component{
   handleFormSubmit2 = async () => {
     this.goStage2()
    .then((response) => {
-     this.props.history.push({
+     this.props.history.replace({
       pathname: '/quiz', 
       data : { area : this.state.area, hint:this.state.hint,comment:document.getElementById('comment').value }
       }); 
