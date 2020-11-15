@@ -9,7 +9,7 @@ class Quiz extends Component{
                 <div id="QuizExplain">
                 {'해설 : 삼류는 여기서 바위게 싸움을 해 이류는 라인을 쫙 밀어 일류는 이게뭐야...? 나야!, 밑에있는 주석을 여기로 넣으면됨'}
                 </div>
-                <div id="content_quiz" className="container">
+                <div id="content_quiz2" className="container">
                     <p>
                     {this.props.location.data.area} 구역의 힌트는
                     </p>
