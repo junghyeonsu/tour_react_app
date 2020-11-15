@@ -26,7 +26,7 @@ class main extends Component{
   };
   state = {
     input : '',
-    FinalInput :  '',
+    Finalinput :  '',
     stageAnswer : '',
     area : '',
     hint : '',
