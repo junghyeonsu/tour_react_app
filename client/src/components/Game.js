@@ -43,8 +43,10 @@ class Game extends Component {
                     {gameList[randomNumber].choice.map((key,i) => {
                         return(
                             <div key={i}>
+                            <label>
                             <input type='radio' name="gener" className="checking" value={i+1} onChange={this.props.selectChange}/>
-                            {gameList[randomNumber].choice[i]}<br />
+                            {gameList[randomNumber].choice[i]}</label>
+                            <br />
                             </div>
                         )
                     })}

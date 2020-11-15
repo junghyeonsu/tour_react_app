@@ -11,6 +11,7 @@ class AdminStageModal extends Component {
         hint : "",
         mission : "",
         name : "",
+        comment:"",
         id : "",
     };
 
@@ -21,6 +22,7 @@ class AdminStageModal extends Component {
             hint : currentStage.hint,
             mission : currentStage.mission,
             name : currentStage.name,
+            comment : currentStage.comment,
             id : currentStage._id
         })
     }
@@ -48,9 +50,14 @@ class AdminStageModal extends Component {
             name: e.target.value
         })
     }
+    onChangeComment= (e) => {
+        this.setState({
+            comment: e.target.value
+        })
+    }
 
     onClickModifyButton = async (e) => {
-        const {id, hint, mission, name, answer} = this.state;
+        const {id, hint, mission, name, comment,answer} = this.state;
         console.log(mission);
         e.preventDefault();
         await fetch('/api/modifyStage', {
@@ -64,6 +71,7 @@ class AdminStageModal extends Component {
               stageHint : hint,
               stageMission : mission,
               stageAnswer : answer,
+              stageComment :comment,
               id : id
              }),
           }).then(
@@ -88,7 +96,7 @@ class AdminStageModal extends Component {
 
     render(){
         const { outModal, currentStage } = this.props;
-        const { hint, mission, name, answer} = this.state;
+        const { hint, mission, name, answer,comment} = this.state;
         return(
             <div className="modal">
                 <div className="stage_modal_content">
@@ -98,10 +106,11 @@ class AdminStageModal extends Component {
                             스테이지 입력 창
                         </h3>
                         <form>
-                            <TextField label="정답" type="text" value={answer} onChange={this.onChangeAnswer} /><br />
-                            <TextField label="힌트" type="text" value={hint} onChange={this.onChangeHint} /><br />
-                            <TextField label="미션" type="text" value={mission} onChange={this.onChangeMission} /><br />
-                            <TextField label="이름" type="text" value={name} onChange={this.onChangeName} /><br />
+                        <TextField label="스테이지 이름" value={name} type="text" onChange={this.onChangeName} /><br />
+                        <TextField label="스테이지 힌트" value={hint} type="text" onChange={this.onChangeHint} /><br />
+                        <TextField label="스테이지 미션" value={mission} type="text" onChange={this.onChangeMission} /><br />
+                        <TextField label="스테이지 정답" value={answer} type="text" onChange={this.onChangeAnswer} /><br />
+                        <TextField label="스테이지 정답해설" value={comment} type="text" onChange={this.onChangeComment} /><br />
                         </form>
                         <br />
                         <Button variant="contained" color="primary" onClick={this.onClickModifyButton}>수정하기</Button>

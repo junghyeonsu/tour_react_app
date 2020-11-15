@@ -85,7 +85,7 @@ class tourIntroHeader extends Component {
             ,link:"https://www.yuseong.go.kr/?p=342149"
           },
           {
-            title : "식장산(식장산 문화공원)",
+            title : "식장산 문화공원",
             addr : "대전광역시 동구 세천동 산43-5",
             image : [
               "http://tong.visitkorea.or.kr/cms/resource/99/2661799_image2_1.jpg",

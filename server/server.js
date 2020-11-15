@@ -171,12 +171,14 @@ getLessPeopleStageAndMission = function (database, stageInfo, visited, cb) {
       var minValue = Number.MAX_VALUE;
       var candidate = [];
       var mission = [];
+      var comment = "";
       for (var i = 0; i < stage.length; i++) {
         if (!visited[stage[i].name]) {
           candidate.push(stage[i]);
         }
         if (stage[i].name == stageInfo) {
           mission = stage[i].mission;
+          comment = stage[i].comment;
           stage[i].count--;
           stage[i].save(function (err) {
             if (err) {
@@ -194,11 +196,13 @@ getLessPeopleStageAndMission = function (database, stageInfo, visited, cb) {
       if (candidate.length == 0) {
         cb(null, {
           mission: mission[0],
+          comment:comment,
           stage: "더 이상 방문할 곳이 없습니다.",
         });
       } else {
         cb(null, {
           mission: mission[0],
+          comment:comment,
           stage: `다음 방문지는 ${candidate[idx].name}입니다.`,
         });
       }  
@@ -332,12 +336,14 @@ app.post("/api/setStageInfo", function (req, res) {
   var stageName = req.body.stageName;
   var stageHint = req.body.stageHint.split(",");
   var stageMission = req.body.stageMission.split(",");
+  var stageComment = req.body.stageComment;
   var stageAnswer = req.body.stageAnswer.split(",");
 
   var newStage = new stageModel({
     name: stageName,
     count: 0,
     hint: stageHint,
+    comment : stageComment,
     mission: stageMission,
     answer: stageAnswer,
   });
@@ -429,11 +435,13 @@ app.post("/api/modifyStage", function (req, res) {
   console.log(req.body)
   var stageName = req.body.stageName;
   var stageHint = req.body.stageHint;
+  var stageComment = req.body.stageComment;
   var stageMission = req.body.stageMission;
   var stageAnswer = req.body.stageAnswer.split(",");
   stageModel.findOneAndUpdate({_id:id},{$set:{
     name: stageName,
     hint: stageHint,
+    comment : stageComment,
     mission: stageMission,
     answer: stageAnswer,
   }}).then((stage)=>{

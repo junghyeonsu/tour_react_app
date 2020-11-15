@@ -13,10 +13,11 @@ class AdminStageAddForm extends Component {
       hint : "",
       mission : "",
       answer : "",
+      comment:"",
     }
 
     onClickInsertButton = async e => {
-      const {name, hint, mission, answer} = this.state;
+      const {name, hint, mission, answer,comment} = this.state;
         e.preventDefault();
         const response = await fetch('/api/setStageInfo', {
           method: 'POST',
@@ -28,7 +29,8 @@ class AdminStageAddForm extends Component {
             stageName : name,
             stageHint : hint,
             stageMission : mission,
-            stageAnswer : answer
+            stageAnswer : answer,
+            stageComment: comment,
            }),
         }).then(
           window.location.reload()
@@ -59,6 +61,12 @@ class AdminStageAddForm extends Component {
       })
     }
 
+    onChangeComment = (e) => {
+      this.setState({
+        comment : e.target.value
+      })
+    }
+
     render(){
         return(
             <div className="stage_input_container">
@@ -70,6 +78,7 @@ class AdminStageAddForm extends Component {
                   <TextField label="스테이지 힌트" type="text" onChange={this.onChangeHint} /><br />
                   <TextField label="스테이지 미션" type="text" onChange={this.onChangeMission} /><br />
                   <TextField label="스테이지 정답" type="text" onChange={this.onChangeAnswer} /><br />
+                  <TextField label="스테이지 정답해설" type="text" onChange={this.onChangeComment} /><br />
                 </form>
                 <Button variant="contained" color="primary" onClick={this.onClickInsertButton}>추가하기</Button>
             </div>

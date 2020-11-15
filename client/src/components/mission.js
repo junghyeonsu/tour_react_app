@@ -11,6 +11,7 @@ class mission extends Component {
         mission:'',
         area:'',
         stage:'',
+        comment:'',
     }
 
     componentDidMount = () => {
@@ -25,7 +26,8 @@ class mission extends Component {
                 this.setState({
                     stage : this.props.location.data.stage,
                     area:this.props.location.data.area,
-                    mission:this.props.location.data.mission
+                    mission:this.props.location.data.mission,
+                    comment:this.props.location.data.comment
                 });
             }
         }else{
@@ -56,7 +58,7 @@ class mission extends Component {
     }
 
     render() {
-        const {stage,area,mission} = this.state;
+        const {stage,area,mission,comment} = this.state;
         if(this._isMounted){
             return (
                 <div>
@@ -65,7 +67,7 @@ class mission extends Component {
                     <div id="success_container">
                     <h1>축하합니다!</h1>
                     <h2>{area}를 해결하셨습니다.</h2>
-                    
+                    <h2>{comment}</h2>
                     {this.state.gifTime == 0 ? 
                     <GifPlayer gif={require('../images/intro.gif')} autoplay={true} alt="GIF" /> :
                     <GifPlayer gif={require('../images/loop.gif')} autoplay={true} alt="GIF" onTogglePlay={this.touchGif} />

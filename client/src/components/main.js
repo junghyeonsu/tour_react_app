@@ -104,7 +104,6 @@ class main extends Component{
         localStorage.setItem('count2',cookieTime2 - count)
         console.log(count,localStorage.getItem('count2'))
         if(count === 0){
-  
           count = 0;
           localStorage.removeItem("count2");
           clearInterval(timer);
