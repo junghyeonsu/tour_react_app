@@ -56,7 +56,7 @@ class mission extends Component {
                 {/* <!-- 스테이지 정답 확인 이미지 + message --> */}
                 <div id="success_container">
                 <h1>축하합니다!</h1>
-                <h2>{String(this.props.location.data['area'])}를 해결하셨습니다.</h2>
+                <h3>{String(this.props.location.data['area'])} 스테이지를 해결하셨습니다.</h3>
                 
                 {this.state.gifTime == 0 ? 
                 <GifPlayer gif={require('../images/intro.gif')} autoplay={true} alt="GIF" /> :
@@ -65,12 +65,12 @@ class mission extends Component {
                 </div>
 
                 <div id="mission_container">
-                    <h1>미션은 {String(this.props.location.data['mission'])} 입니다.</h1> 
-                    <p>주의사항 : SNS에 올릴 때 해쉬태그를 추가해주세요.</p>
-                    <p>(아래 해쉬태그를 누르면 복사됩니다.)</p>
+                    <h2>미션은 {String(this.props.location.data['mission'])} 입니다.</h2> 
+                    <p className="mission_hashtag"><strong>주의사항</strong><br /> SNS에 올릴 때 해쉬태그를 추가해주세요.</p>
                     <CopyToClipboard text={"#대전여행 #미션여행"} onCopy={this.copyHashtag}>
                     <span>#대전여행 #미션여행</span>
                     </CopyToClipboard>
+                    <p>(위 해쉬태그를 누르면 복사됩니다.)</p>
                     <div id="SNS-container">
                     <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
                         <img id = "instagram-img" className = "sns_image" src={require('../images/instagram.jpeg')} alt = "instagram" /> 
@@ -84,7 +84,7 @@ class mission extends Component {
                     </div>
                 </div>
                 <div id="button_container">
-                <h1>{String(this.props.location.data['stage'])}</h1> 
+                <h2>{String(this.props.location.data['stage'])}</h2> 
                 </div>
                 </div>
                 {/* <TourIntroHeader /> */}
