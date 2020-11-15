@@ -62,43 +62,43 @@ class mission extends Component {
         if(this._isMounted){
             return (
                 <div>
-                    <div id="content">
-                    {/* <!-- 스테이지 정답 확인 이미지 + message --> */}
-                    <div id="success_container">
-                    <h1>축하합니다!</h1>
-                    <h2>{area}를 해결하셨습니다.</h2>
-                    <h2>{comment}</h2>
-                    {this.state.gifTime == 0 ? 
-                    <GifPlayer gif={require('../images/intro.gif')} autoplay={true} alt="GIF" /> :
-                    <GifPlayer gif={require('../images/loop.gif')} autoplay={true} alt="GIF" onTogglePlay={this.touchGif} />
-                    }
+                <div id="content">
+                {/* <!-- 스테이지 정답 확인 이미지 + message --> */}
+                <div id="success_container">
+                <h1>축하합니다!</h1>
+                <h3>{area} 스테이지를 해결하셨습니다.</h3>
+                <h3>{comment}</h3>
+                {this.state.gifTime == 0 ? 
+                <GifPlayer gif={require('../images/intro.gif')} autoplay={true} alt="GIF" /> :
+                <GifPlayer gif={require('../images/loop.gif')} autoplay={true} alt="GIF" onTogglePlay={this.touchGif} />
+                }
+                </div>
+
+                <div id="mission_container">
+                    <h2>미션은 {mission} 입니다.</h2> 
+                    <p className="mission_hashtag"><strong>주의사항</strong><br /> SNS에 올릴 때 해쉬태그를 추가해주세요.</p>
+                    <CopyToClipboard text={"#대전여행 #미션여행"} onCopy={this.copyHashtag}>
+                    <span>#대전여행 #미션여행</span>
+                    </CopyToClipboard>
+                    <p>(위 해쉬태그를 누르면 복사됩니다.)</p>
+                    <div id="SNS-container">
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                        <img id = "instagram-img" className = "sns_image" src={require('../images/instagram.jpeg')} alt = "instagram" /> 
+                    </a>
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                        <img id="facebook-img" className = "sns_image" src={require('../images/facebook.jpeg')} alt = "facebook" />
+                    </a>
+                    <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer">
+                        <img id="twitter-img" className = "sns_image" src={require('../images/twitter.png')} alt = "twitter" />
+                    </a>
                     </div>
-    
-                    <div id="mission_container">
-                        <h1>미션은 {mission} 입니다.</h1> 
-                        <p>주의사항 : SNS에 올릴 때 해쉬태그를 추가해주세요.</p>
-                        <p>(아래 해쉬태그를 누르면 복사됩니다.)</p>
-                        <CopyToClipboard text={"#대전여행 #미션여행"} onCopy={this.copyHashtag}>
-                        <span>#대전여행 #미션여행</span>
-                        </CopyToClipboard>
-                        <div id="SNS-container">
-                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                            <img id = "instagram-img" className = "sns_image" src={require('../images/instagram.jpeg')} alt = "instagram" /> 
-                        </a>
-                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                            <img id="facebook-img" className = "sns_image" src={require('../images/facebook.jpeg')} alt = "facebook" />
-                        </a>
-                        <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer">
-                            <img id="twitter-img" className = "sns_image" src={require('../images/twitter.png')} alt = "twitter" />
-                        </a>
-                        </div>
-                    </div>
-                    <div id="button_container">
-                    <h1>{stage}</h1> 
-                    </div>
-                    </div>
-                    {/* <TourIntroHeader /> */}
-            </div>
+                </div>
+                <div id="button_container">
+                <h2>{stage}</h2> 
+                </div>
+                </div>
+                {/* <TourIntroHeader /> */}
+        </div>
             )
         }else{
             return <div>Error</div>

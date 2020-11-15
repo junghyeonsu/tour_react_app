@@ -36,3 +36,31 @@
 .btn{
     width:20%;
 }
+
+#bottom{
+    position: absolute;
+
+    bottom : 0;
+}
+
+#content_quiz2{
+    margin-top: 40%;
+    font-size: 5.5vw;
+}
+
+#explain{
+    position: relative;
+    margin: auto; 
+}
+
+.hint_container {
+    display: flex;
+    height: 70vh;
+}
+#hintAnswer{
+    color: blue;
+}
+
+#QuizExplain{
+    font-size: 4vw;
+}

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import TourIntroHeader from './tourIntroHeader';
-
+import './quiz.css';
 class Quiz extends Component{
     _isMounted =  false;
     state = {
@@ -33,18 +33,25 @@ class Quiz extends Component{
         if(this._isMounted){
             const {comment,area,hint} = this.state;
             return(
-                <div>
-                    <div id="content">
-                    </div>
-                    {
-                    comment =='' ?
-                    '': <div>해설: {comment}</div>
-                    }
-                    <div id="content_quiz" className="container">
-                        {area} 구역의 힌트는 {hint}입니다.
-                    </div>
-                    <TourIntroHeader />
+                <div className="hint_container">
+                <div id="explain">
+                <div id="QuizExplain">
+                {
+                comment =='' ?
+                '': <div>해설: {comment}</div>
+                }
                 </div>
+                <div id="content_quiz2" className="container">
+                    <p>
+                    {area} 구역의 힌트는
+                    </p>
+                    <span id='hintAnswer'>{hint}</span>입니다.
+                </div>
+                </div>
+                <div id='bottom'>
+                <TourIntroHeader />
+                </div>
+            </div>
             )
         }
         else{

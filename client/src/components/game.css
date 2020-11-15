@@ -14,12 +14,24 @@ body {
     object-fit: contain;
 }
 
+.multiple_quiz_container > h2 {
+    padding: 18px;
+}
+
 .multiple_quiz_text {
-    margin: 10px auto;
+    padding: 20px;
 }
 
 .short_quiz_container > img {
     width: 80%;
     height: 100%;
     object-fit: contain;
+}
+
+.short_quiz_container > h2 {
+    padding: 18px;
+}
+
+.short_quiz_text {
+    padding: 20px;
 }

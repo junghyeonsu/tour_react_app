@@ -16,8 +16,6 @@ class Game extends Component {
             randomNumber : this.props.randomNumber
         });
         this.props.ChangeThis();
-        console.log("Game Random Number: ",this.state.randomNumber);
-        console.log("Game:",this.state.gameList);
     }
     
     render = () => {
@@ -35,7 +33,7 @@ class Game extends Component {
                     <h2>{gameList[randomNumber].title}</h2>
                     {gameList[randomNumber].image == "" ? '' : <img src={gameList[randomNumber].image} />}
                     {gameList[randomNumber].video == "" ? '' : <VideoPlay id={gameList[randomNumber].video} startTime={0} seek= {{게임설명:16,퀴즈설명:32}} count = {2}/>}
-                    {gameList[randomNumber].text == ""  ? '' : <div>{gameList[randomNumber].text}</div>}
+                    {gameList[randomNumber].text == ""  ? '' : <div className="short_quiz_text">{gameList[randomNumber].text}</div>}
                     <p>
                         <strong>{gameList[randomNumber].question}</strong>
                     </p>
