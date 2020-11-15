@@ -12,6 +12,7 @@ class AdminShortModal extends Component {
         image : "",
         video : "",
         text : "",
+        comment:"",
         answer : "",
         id : ""
     }
@@ -23,6 +24,7 @@ class AdminShortModal extends Component {
             image : currentGame.image,
             video : currentGame.video,
             text : currentGame.text,
+            comment : currentGame.comment,
             answer : currentGame.answer,
             id : currentGame._id
         });
@@ -45,9 +47,15 @@ class AdminShortModal extends Component {
             'content-type':'multipart/form-data'
           }
         }
-        return post(url, formData, config).then(
+        if(image==""){
+          return post(url, formData, config).then(
             window.location.reload()
-        );
+          );
+        }else{
+          return post(url, formData, config).then(
+            // window.location.reload()
+          );
+        }
     }
 
     onClickDeleteButton = async () => {
@@ -71,7 +79,11 @@ class AdminShortModal extends Component {
           title : e.target.value
         })
     }
-  
+    onChangeComment = (e) => {
+        this.setState({
+          comment : e.target.value
+        })
+    }
     onChangeImage = (e) => {
         console.log("이미지는 : ",e.target.files[0]);
         this.setState({
@@ -100,7 +112,7 @@ class AdminShortModal extends Component {
     
     render(){
         const { outModal, currentGame } = this.props;
-        const { title, image, video, text, answer } = this.state;
+        const { title, image, video, text, comment,answer } = this.state;
         return(
             <div className="modal">
                 <div className="short_modal_content">
@@ -114,7 +126,8 @@ class AdminShortModal extends Component {
                             <TextField label="이미지" type="file" onChange={this.onChangeImage} /><br />
                             <img src={image} alt="image" /> <br />
                             <TextField label="동영상" type="text" value={video} onChange={this.onChangeVideo} /><br />
-                            <TextField label="글" type="text" value={text} onChange={this.onChangeText} /><br />
+                            <TextField label="문제" type="text" value={text} onChange={this.onChangeText} /><br />
+                            <TextField label="해설" type="text" value={comment} onChange={this.onChangeComment} /><br />
                             <TextField label="정답" type="text" value={answer} onChange={this.onChangeAnswer} /><br />
                         </form>
                         <br />

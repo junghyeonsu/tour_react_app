@@ -7,7 +7,10 @@ class Quiz extends Component{
             <div className="hint_container">
                 <div id="explain">
                 <div id="QuizExplain">
-                {'해설 : 삼류는 여기서 바위게 싸움을 해 이류는 라인을 쫙 밀어 일류는 이게뭐야...? 나야!, 밑에있는 주석을 여기로 넣으면됨'}
+                {
+                this.props.location.data.comment =='' ?
+                '': <div>해설: {this.props.location.data.comment}</div>
+                }
                 </div>
                 <div id="content_quiz2" className="container">
                     <p>
@@ -25,8 +28,3 @@ class Quiz extends Component{
 }
 
 export default Quiz;
-
-//   {/* {
-//                 this.props.location.data.comment =='' ?
-//                 '': <div>해설: {this.props.location.data.comment}</div>
-//                 } */}

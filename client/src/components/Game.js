@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import VideoPlay from './VideoPlay';
+import './game.css';
 
 class Game extends Component {
     state = {
@@ -15,51 +16,53 @@ class Game extends Component {
             randomNumber : this.props.randomNumber
         });
         this.props.ChangeThis();
-        console.log("Game: ",this.state.randomNumber);
-        console.log("Game:",this.state.gameList);
     }
     
     render = () => {
         
         const {gameList, randomNumber} = this.state;
         return(
-           <div>
+           <div className="quiz_container">
             {gameList.length === 0 ? '' :
             <div>
                   
                 {gameList[randomNumber].type == "객관식" ? 
-                <div>
+                <div className="short_quiz_container">
                     {/* 객관식 */}
                     <input type='hidden' value="객관식" id ="Question"/>
-                    {gameList[randomNumber].title}
+                    <h2>{gameList[randomNumber].title}</h2>
                     {gameList[randomNumber].image == "" ? '' : <img src={gameList[randomNumber].image} />}
                     {gameList[randomNumber].video == "" ? '' : <VideoPlay id={gameList[randomNumber].video} startTime={0} seek= {{게임설명:16,퀴즈설명:32}} count = {2}/>}
+                    {gameList[randomNumber].text == ""  ? '' : <div className="short_quiz_text">{gameList[randomNumber].text}</div>}
                     <p>
-                        {gameList[randomNumber].question}
+                        <strong>{gameList[randomNumber].question}</strong>
                     </p>
                     <div>
                     {gameList[randomNumber].choice.map((key,i) => {
                         return(
-                            <div>
-                            <input type='radio' name="gener" className="checking" value={i} onChange={this.props.selectChange}/>
+                            <div key={i}>
+                            <input type='radio' name="gener" className="checking" value={i+1} onChange={this.props.selectChange}/>
                             {gameList[randomNumber].choice[i]}<br />
                             </div>
                         )
                     })}
                     </div>  
                     <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
+                    <input type='hidden' id = "comment" value = {gameList[randomNumber].comment} />
                 </div>
                     :
-                <div>
+                <div className="multiple_quiz_container">
                     {/* 주관식 */}
                     <input type='hidden' value="주관식" id ="Question"/>
-                    {gameList[randomNumber].title}
+                    <h2>{gameList[randomNumber].title}</h2>
                     {gameList[randomNumber].image == "" ? '' : <img src={gameList[randomNumber].image} />}
                     {gameList[randomNumber].video == "" ? '' : <VideoPlay id={gameList[randomNumber].video} startTime={0} />}
+                    {gameList[randomNumber].text == ""  ? '' : <div className="multiple_quiz_text">{gameList[randomNumber].text}</div>}
                     <p>
                         {gameList[randomNumber].question}
                     </p>
                     <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
+                    <input type='hidden' id = "comment" value = {gameList[randomNumber].comment} />
                 </div>
             }
 

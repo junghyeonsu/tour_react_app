@@ -9,11 +9,15 @@ var storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage });
-
+const upload = multer(
+  { storage: storage ,
+    limits:{
+      fileSize:5*1024*1024,
+      fieldSize:5*1024*1024,
+    }
+});
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const request = require("request");
 const { v4: uuidv4 } = require("uuid");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -29,9 +33,8 @@ var database;
 
 // database와 연결하는 코드 (현재는 local로 설정되어있다.)
 function connectDB() {
-  var databaseUrl =
-    process.env.MONGODB_URI || `mongodb://localhost:27017/node-react-starter`;
-  mongoose.connect(databaseUrl);
+  var databaseUrl = process.env.MONGODB_URI || `mongodb://localhost:27017/node-react-starter`;
+  mongoose.connect(databaseUrl,{ useNewUrlParser:true, useUnifiedTopology: true });
   database = mongoose.connection;
   database.on(
     "error",
@@ -107,7 +110,7 @@ updateClearGame = function (database, userInfo, gameIndex, cb) {
       if (user.clearGame.indexOf(gameIndex) == -1) {
         user.clearGame.push(gameIndex);
       }
-      if(user.clearGame.length == user.gameList.length){
+      if(user.clearGame.length >= user.gameList.length){
         user.clearGame = [];
       }
       user.save(function (err) {
@@ -329,7 +332,7 @@ app.post("/api/setStageInfo", function (req, res) {
   var stageName = req.body.stageName;
   var stageHint = req.body.stageHint.split(",");
   var stageMission = req.body.stageMission.split(",");
-  var stageAnswer = req.body.stageAnswer;
+  var stageAnswer = req.body.stageAnswer.split(",");
 
   var newStage = new stageModel({
     name: stageName,
@@ -344,35 +347,6 @@ app.post("/api/setStageInfo", function (req, res) {
     }
   });
   console.log("success add stage");
-  // if (database) {
-  //   stageModel.insertMany([{
-  //     name: "stage1",
-  //     count: 0,
-  //     hint: ["stage1 hint1", "stage1 hint2", "stage1 hint3", "stage1 hint4"],
-  //     mission: ["stage1 Mission1", "stage1 Mission2", "stage1 Mission3"],
-  //     answer: "Happy",
-  //   },{
-  //     name: "stage2",
-  //     count: 0,
-  //     hint: ["stage2 hint1", "stage2 hint2", "stage2 hint3", "stage2 hint4"],
-  //     mission: ["stage2 Mission1", "stage2 Mission2", "stage2 Mission3"],
-  //     answer: "Hello",
-  //   },{
-  //     name: "stage3",
-  //     count: 0,
-  //     hint: ["stage3 hint1", "stage3 hint2", "stage3 hint3", "stage3 hint4"],
-  //     mission: ["stage3 Mission1", "stage3 Mission2", "stage3 Mission3"],
-  //     answer: "Hint",
-  //   },{
-  //     name: "stage4",
-  //     count: 0,
-  //     hint: ["stage4 hint1", "stage4 hint2", "stage4 hint3", "stage4 hint4"],
-  //     mission: ["stage4 Mission1", "stage4 Mission2", "stage4 Mission3"],
-  //     answer: "Hi",
-  //   }
-  // ]);
-  //   res.send("Set Stage Information");
-  // }
 });
 
 app.get("/api/getStageInfo", function (req, res) {
@@ -388,25 +362,25 @@ app.post("/api/setGameInfo", upload.single("image"), function (req, res) {
   var title = req.body.title;
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
-  var answer = req.body.answer;
+  var comment = req.body.comment;
+  var answer = req.body.answer.split(',');
   var choice = [];
   if(type == "객관식")
     choice = req.body.choice.split(',');
   var image = ""
-  console.log(req.file==undefined);
   if(req.file == undefined){
     image = "";
   }else{
     image = "/api/getImage/" + req.file.filename;
   }
-  var game = new gameModel({ type:type, title: title,image: image, video: video, text: text, answer: answer,choice:choice});
+  var game = new gameModel({ type:type, title: title,image: image, video: video, text: text, comment:comment,answer: answer,choice:choice});
   game.save(function (err) {
     if (err) {
       console.log("게임을 저장하지 못했습니다.");
       return;
     }
   });
-  console.log("success add Image game");
+  console.log("success add game");
 });
 
 app.post("/api/deleteGame", function (req, res) {
@@ -431,7 +405,8 @@ app.post("/api/modifyGame",upload.single("image"), function (req, res) {
   var title = req.body.title;
   var video = req.body.video; //youtube link로 보내줘야함
   var text = req.body.text;
-  var answer = req.body.answer;
+  var comment = req.body.comment;
+  var answer = req.body.answer.split(',');
   var choice = [];
   if(type == "객관식")
     choice = req.body.choice.split(',');
@@ -442,7 +417,7 @@ app.post("/api/modifyGame",upload.single("image"), function (req, res) {
   }
   console.log(req.body);
   gameModel.updateOne({_id:id},
-    { $set:{type:type, title: title,image: image, video: video, text: text, answer: answer,choice:choice}})
+    { $set:{type:type, title: title,image: image, video: video, text: text,comment:comment, answer: answer,choice:choice}})
     .then((game)=>{
       console.log(game);
     });
@@ -455,7 +430,7 @@ app.post("/api/modifyStage", function (req, res) {
   var stageName = req.body.stageName;
   var stageHint = req.body.stageHint;
   var stageMission = req.body.stageMission;
-  var stageAnswer = req.body.stageAnswer;
+  var stageAnswer = req.body.stageAnswer.split(",");
   stageModel.findOneAndUpdate({_id:id},{$set:{
     name: stageName,
     hint: stageHint,

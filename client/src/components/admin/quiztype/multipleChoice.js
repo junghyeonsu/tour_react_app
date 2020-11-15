@@ -11,6 +11,7 @@ class MultipleChoice extends Component {
         image : "",
         video : "",
         text : "",
+        comment:"",
         choice1 : "",
         choice2 : "",
         choice3 : "",
@@ -20,7 +21,7 @@ class MultipleChoice extends Component {
       }
   
     onClickInsertButton = async e => {
-        var {title, image, video, text, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
+        var {title, image, video, text,comment, choice1, choice2, choice3, choice4, choice5, answer } = this.state;
         e.preventDefault();
         var choice = [];
         const formData = new FormData();
@@ -34,6 +35,7 @@ class MultipleChoice extends Component {
         formData.append('image', image);
         formData.append('video', video);
         formData.append('text', text);
+        formData.append('comment', comment);
         choice.push(choice1);
         choice.push(choice2);
         choice.push(choice3);
@@ -42,9 +44,15 @@ class MultipleChoice extends Component {
         formData.append('choice', choice);
         formData.append('answer', answer);
         formData.append('type', "객관식");
-        return post(url, formData, config).then(
-          window.location.reload()
-        );
+        if(image==""){
+          return post(url, formData, config).then(
+            window.location.reload()
+          );
+        }else{
+          return post(url, formData, config).then(
+            // window.location.reload()
+          );
+        }
     }
 
     onChangeTitle = (e) => {
@@ -71,7 +79,11 @@ class MultipleChoice extends Component {
           text : e.target.value
         })
     }
-
+    onChangeComment = (e) => {
+      this.setState({
+        comment : e.target.value
+      })
+  }
     onChangeChoice1 = (e) => {
         this.setState({
           choice1 : e.target.value
@@ -116,6 +128,7 @@ class MultipleChoice extends Component {
                 <TextField label="이미지" type="file" onChange={this.onChangeImage} /><br />
                 <TextField label="동영상" type="text" onChange={this.onChangeVideo} /><br />
                 <TextField label="문제" type="text" onChange={this.onChangeText} /><br />
+                <TextField label="해설" type="text" onChange={this.onChangeComment} /><br />
                 <TextField label="선택지 1" type="text" onChange={this.onChangeChoice1} /><br />
                 <TextField label="선택지 2" type="text" onChange={this.onChangeChoice2} /><br />
                 <TextField label="선택지 3" type="text" onChange={this.onChangeChoice3} /><br />

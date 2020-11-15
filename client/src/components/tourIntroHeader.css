@@ -1,6 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);
+
 .content_tour{
     display: flex;
     align-items: center;
+    background-color: #F5F5F5;
+    height: 30%;
 }
 
 .word_div{
@@ -8,15 +12,33 @@
     text-align: center;
 }
 
+.word_div > a {
+    padding: 1.5vw;
+    text-decoration: solid;
+    font-size: 2.8vw;
+    background-color: #FF788C;
+    color: white;
+    border-radius: 5vw;
+}
+
 .image_div {
-    flex : 2;
+    flex : 1;
 }
 
 .image_div > img {
+    object-fit: cover;
     width: 100%;
-    height: 100%;
+    height: 40vw;
 }
 
 .link{
     vertical-align: bottom;
+}
+
+.header_title {
+    font-size: 5vw;
+}
+
+.header_address {
+    font-size: 3vw;
 }

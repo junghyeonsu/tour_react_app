@@ -14,24 +14,23 @@ class AdminMain extends Component {
         <div className="traffic_container">
           <AdminTrafficView />
         </div>
-        <div className="form_container">
 
-          <div className="game_Add_Container">
-            <AdminGameAddForm />
-          </div>
-
-          <div className="stage_Add_Container">
-            <AdminStageAddForm />
-          </div>
+        <div className="game_list_container">
+          <AdminGameList />
         </div>
-          <div className="present_game_list">
-            <div>
-              <AdminGameList />
-            </div>
-            <div>
-              <AdminStageList />
-            </div>
-          </div>
+
+        <div className="game_Add_Container">
+          <AdminGameAddForm />
+        </div>
+
+        <div className="stage_list_container">
+          <AdminStageList />
+        </div>
+
+        <div className="stage_Add_Container">
+          <AdminStageAddForm />
+        </div>
+
       </div>
     );
   }

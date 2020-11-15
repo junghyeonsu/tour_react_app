@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.quiz_container {
+    font-size: 3.5vw;
+}
+
+.multiple_quiz_container > img {
+    width: 80%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.multiple_quiz_container > h2 {
+    padding: 18px;
+}
+
+.multiple_quiz_text {
+    padding: 20px;
+}
+
+.short_quiz_container > img {
+    width: 80%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.short_quiz_container > h2 {
+    padding: 18px;
+}
+
+.short_quiz_text {
+    padding: 20px;
+}
