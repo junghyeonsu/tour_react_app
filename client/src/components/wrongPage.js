@@ -13,7 +13,7 @@ const pStyle = {
 class WrongPage extends Component {
     render(){
         return(
-            <div style={wrongStyle}>
+            <div style={wrongStyle}> 
                 <div style={pStyle}>
                     <strong>
                         <h2>잘못된 접근입니다.</h2>
