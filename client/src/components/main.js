@@ -34,7 +34,9 @@ class main extends Component{
     List : [],
     isChange : 0,
     randomNumber:0,
-    bottom : false
+    bottom : false,
+    stageFail : false,
+    quizFail : false,
   }
 
   async componentDidMount(){
@@ -80,7 +82,9 @@ class main extends Component{
     console.log("Main RandomNumber : ",this.state.randomNumber)
     console.log(this.props.cookies.get('time'))
     if(this.props.cookies.get('time') !== undefined){
-      document.getElementById('aa').disabled = true;
+      this.setState({
+        stageFail : true
+      })
       console.log(this.props.cookies.get('time'),localStorage.getItem('count'))
       var count = this.props.cookies.get('time') - localStorage.getItem('count')
       console.log(count)
@@ -89,7 +93,9 @@ class main extends Component{
         localStorage.setItem('count',cookieTime - count)
         console.log(count,localStorage.getItem('count'))
         if(count === 0){
-          document.getElementById('aa').disabled = false;
+          this.setState({
+            stageFail : false
+          })
           count = 0;
           localStorage.removeItem("count");
           clearInterval(timer);
@@ -112,7 +118,6 @@ class main extends Component{
       },1000);
     }
   }
-
   handleFormSubmit = async () => {
      this.goStage()
     .then((response) => {
@@ -170,10 +175,10 @@ class main extends Component{
       if(quizAnswer.indexOf(this.state.input.replace(/(\s*)/g,"")) == -1){
         alert('틀렸습니다!');
         e.preventDefault();
-        document.getElementById('quizInput').disabled = true;
         this.props.cookies.set('time2',String(cookieTime2),{maxAge:cookieTime2})
         var a = Number(this.props.cookies.get('time2'));
         var count2 = 0;
+
         var timer = setInterval(function(){
         a--;
         count2++;
@@ -181,12 +186,12 @@ class main extends Component{
         localStorage.setItem('count2',count2)
         if(count2 === cookieTime2){
           localStorage.removeItem("count2");
-          document.getElementById('quizInput').disabled = false;
           count2 = 0;
           clearInterval(timer);
         }
       },1000);
-      }
+
+    }
       else {
         alert('맞았습니다.');
         this.handleFormSubmit2();
@@ -203,16 +208,10 @@ class main extends Component{
       if(quizAnswer.indexOf(this.state.input) == -1){
         console.log(document.getElementById('correctAnswer').value)
         alert('틀렸습니다!');
-        e.preventDefault();
-        for(var i = 0; i<document.getElementsByClassName('checking').length;i++){
-          document.getElementsByClassName('checking')[i].disabled = true;
-        }   
+        e.preventDefault(); 
         this.props.cookies.set('time2',String(cookieTime2),{maxAge:cookieTime2})
         var a = Number(this.props.cookies.get('time2'));
         var count2 = 0;
-        for(var i = 0; i<document.getElementsByClassName('checking').length;i++){
-          document.getElementsByClassName('checking')[i].disabled = true;
-        } 
         var timer = setInterval(function(){
         a--;
         count2++;
@@ -220,9 +219,6 @@ class main extends Component{
         localStorage.setItem('count2',count2)
         if(count2 === cookieTime2){
           localStorage.removeItem("count2");
-          for(var i = 0; i<document.getElementsByClassName('checking').length;i++){
-            document.getElementsByClassName('checking')[i].disabled = false;
-          }
           count2 = 0;
           clearInterval(timer);
         }
@@ -239,7 +235,9 @@ class main extends Component{
     if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) == -1 && this.props.cookies.get('time') === undefined){
       alert('틀렸습니다!');
       e.preventDefault();
-      document.getElementById('aa').disabled = true;
+      this.setState({
+        stageFail : true
+      })
       this.props.cookies.set('time',String(cookieTime),{maxAge:cookieTime})
       var a = Number(this.props.cookies.get('time'));
       var count = 0;
@@ -249,11 +247,14 @@ class main extends Component{
         localStorage.setItem('count',count)
         if(count === cookieTime){
           localStorage.removeItem("count");
-          document.getElementById('aa').disabled = false;
+         
           count = 0;
           clearInterval(timer);
         }
       },1000);
+      this.setState({
+        stageFail : false
+      })
     }
     else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) != -1){
       alert('맞았습니다.');
@@ -336,7 +337,11 @@ class main extends Component{
               <br /> 구역 내 QR코드에 숨겨져 있는 퀴즈를 해결하고  
               <br /> 힌트를 찾아 암호를 완성해줘!!</strong>
               <br />
-              <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
+              {
+                this.state.stageFail === false ? <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
+                : <input className="submit_input" type="text" id="aa" onChange={this.onChange} disabled/>
+              }
+              
               <br />
               <Button startIcon={<CheckIcon />} variant="contained" color="secondary" id="mission_button" onClick={this.StageSuccess}>제출</Button>    
           </div>
