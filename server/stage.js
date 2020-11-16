@@ -10,6 +10,7 @@ var stageSchema = new Schema({
   //   of:String
   // },
   comment:String,
+  problem:String,
   answer:[String],
   mission:Array,
 });

@@ -74,7 +74,7 @@ class AdminMultipleModal extends Component {
         formData.append('image', image);
         formData.append('video', video);
         formData.append('text', text);
-        formData.append('comment', text);
+        formData.append('comment', comment);
         choice.push(choice1);
         choice.push(choice2);
         choice.push(choice3);

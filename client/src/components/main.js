@@ -26,8 +26,9 @@ class main extends Component{
   };
   state = {
     input : '',
-    Finalinput :  '',
+    FinalInput :  '',
     stageAnswer : '',
+    stageProblem:'',
     area : '',
     hint : '',
     List : [],
@@ -37,7 +38,6 @@ class main extends Component{
   }
 
   async componentDidMount(){
-  
     console.log(this.props.cookies)
     const response = await fetch(`${this.props.match.url}`,{
       method : 'GET',
@@ -72,7 +72,8 @@ class main extends Component{
     console.log("Main List:",this.state.List)
     this.setState({
       stageAnswer:body.answer,
-      area : this.props.match.url.split('/')[1], //
+      area : this.props.match.url.split('/')[1], 
+      stageProblem: body.problem,
       hint : body.hint,
       randomNumber:this.state.List[Math.floor(Math.random() * this.state.List.length)]
     });
@@ -111,7 +112,6 @@ class main extends Component{
       },1000);
     }
   }
-
 
   handleFormSubmit = async () => {
      this.goStage()
@@ -327,7 +327,11 @@ class main extends Component{
           disableDiscovery={iOS}
         >  
           <div id="stage_answer" className="container">
-              <strong>QR코드를 찾아 문제를 해결하고<br /> 힌트를 모아 4자리 비밀번호를 찾으세요. <br /> 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong>
+              {/* <strong>QR코드를 찾아 문제를 해결하고<br /> 힌트를 모아 4자리 비밀번호를 찾으세요. <br /> 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong> */}
+              <strong>
+                {this.state.stageProblem == undefined ? this.state.area +"의 알맞은 데이터 암호를 구해라!": this.state.stageProblem}
+              <br /> 구역 내 QR코드에 숨겨져 있는 퀴즈를 해결하고  
+              <br /> 힌트를 찾아 암호를 완성해줘!!</strong>
               <br />
               <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
               <br />

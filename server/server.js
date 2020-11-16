@@ -146,6 +146,7 @@ getHintAndAnswerAndGameList = function (database,stageInfo,quizInfo,userInfo,cb)
       quizIdx = Number(quizInfo.substring(4,quizInfo.length));
       var hint = stage["hint"][quizIdx - 1];
       var answer = stage["answer"];
+      var problem = stage["problem"];
       userModel.findOne({ id: userInfo }).exec()
         .then((user) => {
           //gameIndex는 array
@@ -154,6 +155,7 @@ getHintAndAnswerAndGameList = function (database,stageInfo,quizInfo,userInfo,cb)
             clearGame: user.clearGame,
             hint: hint,
             answer: answer,
+            problem:problem,
           });
         });
     })
@@ -337,6 +339,7 @@ app.post("/api/setStageInfo", function (req, res) {
   var stageHint = req.body.stageHint.split(",");
   var stageMission = req.body.stageMission.split(",");
   var stageComment = req.body.stageComment;
+  var stageProblem = req.body.stageProblem;
   var stageAnswer = req.body.stageAnswer.split(",");
 
   var newStage = new stageModel({
@@ -345,6 +348,7 @@ app.post("/api/setStageInfo", function (req, res) {
     hint: stageHint,
     comment : stageComment,
     mission: stageMission,
+    problem:stageProblem,
     answer: stageAnswer,
   });
   newStage.save(function (err) {
@@ -432,17 +436,18 @@ app.post("/api/modifyGame",upload.single("image"), function (req, res) {
 
 app.post("/api/modifyStage", function (req, res) {
   var id = req.body.id;
-  console.log(req.body)
   var stageName = req.body.stageName;
-  var stageHint = req.body.stageHint;
+  var stageHint = req.body.stageHint.split(',');
   var stageComment = req.body.stageComment;
-  var stageMission = req.body.stageMission;
-  var stageAnswer = req.body.stageAnswer.split(",");
+  var stageProblem = req.body.stageProblem;
+  var stageMission = req.body.stageMission.split(',');
+  var stageAnswer = req.body.stageAnswer.split(',');
   stageModel.findOneAndUpdate({_id:id},{$set:{
     name: stageName,
     hint: stageHint,
     comment : stageComment,
     mission: stageMission,
+    problem:stageProblem,
     answer: stageAnswer,
   }}).then((stage)=>{
     console.log(stage);

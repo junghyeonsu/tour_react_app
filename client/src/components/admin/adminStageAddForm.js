@@ -4,8 +4,6 @@ import { inject, observer } from 'mobx-react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-@inject('stageStore')
-@observer
 class AdminStageAddForm extends Component {
 
     state = {
@@ -14,10 +12,11 @@ class AdminStageAddForm extends Component {
       mission : "",
       answer : "",
       comment:"",
+      problem:"",
     }
 
     onClickInsertButton = async e => {
-      const {name, hint, mission, answer,comment} = this.state;
+      const {name, hint, mission, answer,comment,problem} = this.state;
         e.preventDefault();
         const response = await fetch('/api/setStageInfo', {
           method: 'POST',
@@ -31,6 +30,7 @@ class AdminStageAddForm extends Component {
             stageMission : mission,
             stageAnswer : answer,
             stageComment: comment,
+            stageProblem:problem,
            }),
         }).then(
           window.location.reload()
@@ -66,6 +66,11 @@ class AdminStageAddForm extends Component {
         comment : e.target.value
       })
     }
+    onChangeProblem = (e) => {
+      this.setState({
+        problem : e.target.value
+      })
+    }
 
     render(){
         return(
@@ -79,6 +84,7 @@ class AdminStageAddForm extends Component {
                   <TextField label="스테이지 미션" type="text" onChange={this.onChangeMission} /><br />
                   <TextField label="스테이지 정답" type="text" onChange={this.onChangeAnswer} /><br />
                   <TextField label="스테이지 정답해설" type="text" onChange={this.onChangeComment} /><br />
+                  <TextField label="스테이지 문제" type="text" onChange={this.onChangeProblem} /><br />
                 </form>
                 <Button variant="contained" color="primary" onClick={this.onClickInsertButton}>추가하기</Button>
             </div>

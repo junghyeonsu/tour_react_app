@@ -13,6 +13,7 @@ class AdminStageModal extends Component {
         name : "",
         comment:"",
         id : "",
+        problem:"",
     };
 
     componentDidMount = () => {
@@ -23,6 +24,7 @@ class AdminStageModal extends Component {
             mission : currentStage.mission,
             name : currentStage.name,
             comment : currentStage.comment,
+            problem:currentStage.problem,
             id : currentStage._id
         })
     }
@@ -55,10 +57,16 @@ class AdminStageModal extends Component {
             comment: e.target.value
         })
     }
-
+    onChangeProblem= (e) => {
+        this.setState({
+            problem: e.target.value
+        })
+    }
     onClickModifyButton = async (e) => {
-        const {id, hint, mission, name, comment,answer} = this.state;
-        console.log(mission);
+        const {id, hint, mission, name, comment,answer,problem} = this.state;
+        console.log("stageAnswerModal",answer.toString())
+        console.log("stageAnswerModal",mission.toString())
+        console.log("stageAnswerModal",hint.toString())
         e.preventDefault();
         await fetch('/api/modifyStage', {
             method: 'POST',
@@ -68,10 +76,11 @@ class AdminStageModal extends Component {
             body: JSON.stringify({ 
               /* server에서 받을 때는 req.body.stageName 이런식으로 접근가능 */
               stageName : name,
-              stageHint : hint,
-              stageMission : mission,
-              stageAnswer : answer,
+              stageHint : hint.toString(),
+              stageMission : mission.toString(),
+              stageAnswer : answer.toString(),
               stageComment :comment,
+              stageProblem:problem,
               id : id
              }),
           }).then(
@@ -96,7 +105,7 @@ class AdminStageModal extends Component {
 
     render(){
         const { outModal, currentStage } = this.props;
-        const { hint, mission, name, answer,comment} = this.state;
+        const { hint, mission, name, answer,comment,problem} = this.state;
         return(
             <div className="modal">
                 <div className="stage_modal_content">
@@ -111,6 +120,7 @@ class AdminStageModal extends Component {
                         <TextField label="스테이지 미션" value={mission} type="text" onChange={this.onChangeMission} /><br />
                         <TextField label="스테이지 정답" value={answer} type="text" onChange={this.onChangeAnswer} /><br />
                         <TextField label="스테이지 정답해설" value={comment} type="text" onChange={this.onChangeComment} /><br />
+                        <TextField label="스테이지 정답해설" value={problem} type="text" onChange={this.onChangeProblem} /><br />
                         </form>
                         <br />
                         <Button variant="contained" color="primary" onClick={this.onClickModifyButton}>수정하기</Button>

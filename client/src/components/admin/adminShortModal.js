@@ -31,7 +31,7 @@ class AdminShortModal extends Component {
     }
 
     onClickModifyButton = (e) => {
-        const { title, image, video, text, answer, id } = this.state;
+        const { title, image, video, text,comment, answer, id } = this.state;
         e.preventDefault();
         const url = '/api/modifyGame';
         const formData = new FormData();
@@ -40,6 +40,7 @@ class AdminShortModal extends Component {
         formData.append('video', video);
         formData.append('text', text);
         formData.append('answer', answer);
+        formData.append('comment', comment);
         formData.append('type', "주관식");
         formData.append('id', id);
         const config = {
