@@ -129,7 +129,11 @@ class main extends Component{
    .then((response) => {
      this.props.history.replace({
       pathname: '/quiz', 
-      data : { area : this.state.area, hint:this.state.hint,comment:document.getElementById('comment').value }
+      data : {area : this.state.area, 
+              hint:this.state.hint,
+              comment:document.getElementById('comment').value,
+              stageAnswer:this.state.stageAnswer,
+              stageProblem:this.state.stageProblem }
       }); 
    });
  }
@@ -261,7 +265,6 @@ class main extends Component{
     else{
       alert('답을 입력하세요!')
     }
-
   }
   onChange = (e) => {
     this.setState({FinalInput:e.target.value});

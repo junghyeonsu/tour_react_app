@@ -199,7 +199,7 @@ getLessPeopleStageAndMission = function (database, stageInfo, visited, cb) {
         cb(null, {
           mission: mission[0],
           comment:comment,
-          stage: "더 이상 방문할 곳이 없습니다.",
+          stage: "축하합니다! 모든 스테이지를 클리어 하셨습니다.",
         });
       } else {
         cb(null, {
