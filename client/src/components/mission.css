@@ -80,3 +80,7 @@ body {
 .gif_player > img {
     margin: auto;
 }
+
+.survey_container {
+    text-align: center;
+}
