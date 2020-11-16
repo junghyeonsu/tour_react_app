@@ -1,22 +1,27 @@
 import React,{Component} from 'react';
 import TourIntroHeader from './tourIntroHeader';
-
+import './quiz.css';
 class Quiz extends Component{
-    // 헤으응....
     render(){
-        console.log(this.props.location.state)
         return(
-            <div>
-                <div id="content">
-                {/* <!-- 컨텐츠 이미지 --> */}
-                <div id="content_image_container">
-                    <img id="content_image" src={require('../images/abcd-01-1.jpg')} alt="이미지" />
+            <div className="hint_container">
+                <div id="explain">
+                <div id="QuizExplain">
+                {
+                this.props.location.data.comment =='' ?
+                '': <div>해설: {this.props.location.data.comment}</div>
+                }
+                </div>
+                <div id="content_quiz2" className="container">
+                    <p>
+                    {this.props.location.data.area} 구역의 힌트는
+                    </p>
+                    <span id='hintAnswer'>{this.props.location.data.hint}</span>입니다.
                 </div>
                 </div>
-                <div id="content_quiz" className="container">
-                    {this.props.location.state.area} 구역의 힌트는 {this.props.location.state.hint}입니다.
-                </div>
+                <div id='bottom'>
                 <TourIntroHeader />
+                </div>
             </div>
         )
     }

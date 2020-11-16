@@ -1,37 +1,5 @@
-/* 테스트를 위해서 만들어놓은 div 박스의 css */
-.container {
-    border: 1px solid black;
-    padding: 5%;
-    margin: 1%;
-}
-
-body {
-    margin: 0;
-}
-
-/* 홈페이지가 600px 아래일 때 */
-@media (max-width: 650px) {
-    /* header navigation container DIV */
-    #header_navigation {
-        display: none;
-    }
-}
-
-/* content image를 담고있는 컨테이너 div */
-#content_image_container {
-    display: flex;
-}
-
-/* content image */
-#content_image {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* success image를 담고있는 컨테이너 div */
 #success_container {
-    border: 1px solid black;
     padding: 5%;
     margin: 1% 0%;
     width: 80%;
@@ -52,7 +20,6 @@ body {
     display: inline-block;
 }
 #mission_container{
-    border: 1px solid black;
     padding: 5%;
     margin: 1% 0%;
     width: 80%;
@@ -60,7 +27,6 @@ body {
     margin-right: auto;
 }
 #button_container{
-    border: 1px solid black;
     padding: 5%;
     margin: 1% 0%;
     width: 80%;
@@ -69,4 +35,32 @@ body {
 }
 .btn{
     width:20%;
+}
+
+#bottom{
+    position: absolute;
+
+    bottom : 0;
+}
+
+#content_quiz2{
+    margin-top: 40%;
+    font-size: 5.5vw;
+}
+
+#explain{
+    position: relative;
+    margin: auto; 
+}
+
+.hint_container {
+    display: flex;
+    height: 70vh;
+}
+#hintAnswer{
+    color: blue;
+}
+
+#QuizExplain{
+    font-size: 4vw;
 }

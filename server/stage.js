@@ -9,7 +9,7 @@ var stageSchema = new Schema({
   //   type:Map,
   //   of:String
   // },
-  answer:String,
+  answer:[String],
   mission:Array,
 });
 

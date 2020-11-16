@@ -1,32 +1,73 @@
 import React, {Component} from 'react';
+import axios from 'axios';
+import VideoPlay from './VideoPlay';
+import './game.css';
 
 class Game extends Component {
     state = {
-        
+        gameList : [],
+        randomNumber : 0
     }
 
-    componentDidMount() {
-        // 게임데이터를 불러오고 그중에서 랜덤으로 뽑아주기
+    async componentDidMount(){
+        const res = await axios.get("/api/getGameList");
+        this.setState({
+            gameList : res.data.gameList,
+            randomNumber : this.props.randomNumber
+        });
+        this.props.ChangeThis();
     }
     
     render = () => {
-        const {title, text, image, video, answer} = this.props;
+        
+        const {gameList, randomNumber} = this.state;
         return(
+           <div className="quiz_container">
+            {gameList.length === 0 ? '' :
             <div>
-                <div>
-                    {title}
+                  
+                {gameList[randomNumber].type == "객관식" ? 
+                <div className="short_quiz_container">
+                    {/* 객관식 */}
+                    <input type='hidden' value="객관식" id ="Question"/>
+                    <h2>{gameList[randomNumber].title}</h2>
+                    {gameList[randomNumber].image == "" ? '' : <img src={gameList[randomNumber].image} />}
+                    {gameList[randomNumber].video == "" ? '' : <VideoPlay id={gameList[randomNumber].video} startTime={0} seek= {{게임설명:16,퀴즈설명:32}} count = {2}/>}
+                    {gameList[randomNumber].text == ""  ? '' : <div className="short_quiz_text">{gameList[randomNumber].text}</div>}
+                    <p>
+                        <strong>{gameList[randomNumber].question}</strong>
+                    </p>
+                    <div>
+                    {gameList[randomNumber].choice.map((key,i) => {
+                        return(
+                            <div key={i}>
+                            <input type='radio' name="gener" className="checking" value={i+1} onChange={this.props.selectChange}/>
+                            {gameList[randomNumber].choice[i]}<br />
+                            </div>
+                        )
+                    })}
+                    </div>  
+                    <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
+                    <input type='hidden' id = "comment" value = {gameList[randomNumber].comment} />
                 </div>
-                <div>
-                    <img src={image} alt="image" />
+                    :
+                <div className="multiple_quiz_container">
+                    {/* 주관식 */}
+                    <input type='hidden' value="주관식" id ="Question"/>
+                    <h2>{gameList[randomNumber].title}</h2>
+                    {gameList[randomNumber].image == "" ? '' : <img src={gameList[randomNumber].image} />}
+                    {gameList[randomNumber].video == "" ? '' : <VideoPlay id={gameList[randomNumber].video} startTime={0} />}
+                    {gameList[randomNumber].text == ""  ? '' : <div className="multiple_quiz_text">{gameList[randomNumber].text}</div>}
+                    <p>
+                        {gameList[randomNumber].question}
+                    </p>
+                    <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
+                    <input type='hidden' id = "comment" value = {gameList[randomNumber].comment} />
                 </div>
-                <div>
-                    {/* 비디오 */}
-                </div>
-                <div>
-                    {text}
-                </div>
-                {/* <img src={require(`./게임/${this.state.tour[0].image[this.state.randomNumber]}`)}></img>
-                <input type='hidden' id = "correctAnswer" value = {this.state.tour[0].answer[this.state.randomNumber]} /> */}
+            }
+
+            </div>
+            }
             </div>
         )
     }

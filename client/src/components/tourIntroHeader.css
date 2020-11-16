@@ -1,49 +1,44 @@
-/* #content_tour_image_line1,
-#content_tour_image_line2,
-#content_tour_image_line3 {
+@import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);
+
+.content_tour{
     display: flex;
-} */
+    align-items: center;
+    background-color: #F5F5F5;
+    height: 30%;
+}
 
-/* 관광지 소개 사진 4장 */
-/* .content_tour_picture {
-    border: 1px solid black;
+.word_div{
     flex: 1;
-    margin: 10px;
-} */
+    text-align: center;
+}
 
-/* 관광지 소개 설명 글 */
-/* #content_tour_intro {
+.word_div > a {
+    padding: 1.5vw;
+    text-decoration: solid;
+    font-size: 2.8vw;
+    background-color: #FF788C;
+    color: white;
+    border-radius: 5vw;
+}
 
-} */
+.image_div {
+    flex : 1;
+}
 
-
-/* 모바일 */
-/* #picture1,
-#picture2,
-#picture3,
-#picture4 {
+.image_div > img {
+    object-fit: cover;
     width: 100%;
-    height: 200px;
-} */
+    height: 40vw;
+}
 
-/* 데스크탑 */
-/* @media screen and (min-width: 769px) {
-    #picture1,
-    #picture2,
-    #picture3,
-    #picture4 {
-        width: 100%;
-        height: 500px;
-    }
- }
- 
- 
-#picture5 {
-    width: 100%;
-    margin-bottom: 20px;
-} */
+.link{
+    vertical-align: bottom;
+}
 
-.image > img {
-    width: 300px;
-    height: 200px;
+.header_title {
+    font-size: 5vw;
+}
+
+.header_address {
+    font-size: 3vw;
 }

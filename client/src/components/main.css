@@ -1,17 +1,69 @@
 /* 테스트를 위해서 만들어놓은 div 박스의 css */
 .container {
-    padding: 5%;
-    margin: 1%;
     text-align: center;
+    overflow: auto;
 }
 
 body {
     margin: 0;
+    padding: 0;
+}
+
+#But {
+    text-align: right;
+}
+
+#But > button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform:translate(10px, -10px);
+}
+
+.main_container > button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    transform:translate(-10px, -10px);
+}
+
+.ButContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+#stage_answer > strong {
+    font-size: 3vw;
+}
+
+#stage_answer > button {
+    /* width: 20%;
+    font-size: 3.5vw;
+    border-radius: 2vw; */
+}
+
+#quiz_button {
+    width: 20%;
+    font-size: 3vw;
+    border-radius: 2vw;
 }
 
 /* content image를 담고있는 컨테이너 div */
 #content_image_container {
     display: flex;
+}
+
+
+#stage_answer{
+    position: -webkit-sticky;
+    position: sticky;
+    padding: 5%;
+    background-color: rgb(230, 230, 230);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30%;
+    line-height: 3.5vw;
 }
 
 /* content image */
@@ -20,6 +72,7 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
 #explain{
     width: 70%;
     margin-left: auto;
@@ -29,18 +82,22 @@ body {
 
 .submit_button {
     display: block;
-    margin: 10px auto;
+    margin: 15px auto;
     border-style: none;
     background-color: black;
     color: white;
-    width: 80px;
-    height: 40px;
+    width: 10vw;
+    height: 8vw;
+    font-size: 3vw;
+}
+
+.content_answer_button {
+    margin : 15px auto;
 }
 
 .submit_input {
-    margin: 10px auto;
-    width: 80%;
-    height: 40px;
+    margin: 15px auto;
+    width: 50%;
 } 
 
 img{

@@ -1,82 +1,38 @@
 import React, {Component} from 'react';
 import './adminGameAddForm.css';
+import MultipleChoice from './quiztype/multipleChoice';
+import ShortAnswer from './quiztype/shortAnswer';
 
 class AdminGameAddForm extends Component {
 
     state = {
-      title : "",
-      image : "",
-      video : "",
-      text : "",
-      answer : "",
+      formSelect : "객관식"
     }
 
-    onClickInsertButton = async e => {
-      const {image, title, video, text, answer} = this.state;
-        e.preventDefault();
-        const response = await fetch('/api/insert', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            /* server에서 받을 때는 req.body.title 이런식으로 접근가능 */
-            title: title,
-            image: image,
-            video: video,
-            text: text,
-            answer: answer
-           }),
-        });
-        console.log(await response.text());
-      }
-    
-    onChangeTitle = (e) => {
+    onSelectMultipleChoice = () => {
       this.setState({
-        title : e.target.value
+        formSelect : "객관식"
       })
     }
 
-    onChangeImage = (e) => {
+    onSelectOneChoice = () => {
       this.setState({
-        image : e.target.value
+        formSelect : "주관식"
       })
-    }
-
-    onChangeVideo = (e) => {
-      this.setState({
-        video : e.target.value
-      })
-    }
-
-    onChangeText = (e) => {
-      this.setState({
-        text : e.target.value
-      })
-    }
-
-    onChangeAnswer = (e) => {
-      this.setState({
-        answer : e.target.value
-      })
-    }
+    }  
 
     render(){
-        return(
-            <div>
-                <div>
-                게임 추가 입력 창
-                </div>
-                <form onSubmit={this.onClickInsertButton}>
-                    제목 <input type="text" onChange={this.onChangeTitle} /><br />
-                    이미지 <input type="text" onChange={this.onChangeImage} /><br />
-                    동영상 <input type="text" onChange={this.onChangeVideo} /><br />
-                    글 <input type="text" onChange={this.onChangeText} /><br />
-                    정답 <input type="text" onChange={this.onChangeAnswer} /><br />
-                <button>추가</button>
-                </form>
-            </div>
-        );
+      const { formSelect } = this.state;
+      return(
+          <div className="game">
+              <h2>
+              게임 추가 입력 창
+              </h2>
+              <input type="radio" defaultChecked name="check" onClick={this.onSelectMultipleChoice} value="객관식" />객관식
+              <input type="radio" name="check" onClick={this.onSelectOneChoice} value="주관식" />주관식
+              {formSelect == "객관식" ? <MultipleChoice /> : <ShortAnswer />}
+          </div>
+      );
     }
 }
 

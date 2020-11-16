@@ -4,13 +4,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'mobx-react';
-import gameStore from './store/store';
+import gameStore from './store/gameStore';
+import stageStore from './store/stageStore';
 
 const gamestore = new gameStore();
+const stagestore = new stageStore();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={gamestore}>
+    <Provider stageStore={stagestore} gameStore={gamestore}>
       <App />
     </Provider>
   </React.StrictMode>,
