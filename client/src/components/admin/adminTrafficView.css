@@ -1,0 +1,7 @@
+.recharts-cartesian-axis-ticks {
+    font-size: 13px;
+}
+
+.recharts-cartesian-axis-tick > text > tspan {
+    transform: rotate(45deg) !important;
+}
