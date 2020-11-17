@@ -4,14 +4,13 @@ import TourIntroHeader from './tourIntroHeader';
 import Game from './Game';
 import ExplainModal from './Modal';
 import {post} from 'axios';
-import { withCookies, Cookies} from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CheckIcon from '@material-ui/icons/Check';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 let time = new Date();
 
@@ -21,9 +20,6 @@ var cookieTime2 = 30;
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 class main extends Component{
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  };
   state = {
     input : '',
     FinalInput :  '',
@@ -40,7 +36,6 @@ class main extends Component{
   }
 
   async componentDidMount(){
-    console.log(this.props.cookies)
     const response = await fetch(`${this.props.match.url}`,{
       method : 'GET',
       headers : {
@@ -79,8 +74,9 @@ class main extends Component{
       hint : body.hint,
       randomNumber:this.state.List[Math.floor(Math.random() * this.state.List.length)]
     });
-    console.log("Main RandomNumber : ",this.state.randomNumber)
-    console.log(this.props.cookies.get('time'))
+    
+    console.log("Main RandomNumber : ",this.state.randomNumber);
+
     if(localStorage.getItem('count') !== null){
       var count = cookieTime - localStorage.getItem('count')
       console.log(count)
@@ -184,7 +180,6 @@ class main extends Component{
       }
     }
     else if(document.getElementById('Question').value === '객관식'&& localStorage.getItem('count2') === null){
-      console.log(this.props.cookies.get('time2'));
       for(var i = 0; i<document.getElementsByClassName('checking').length;i++){
         if(document.getElementsByClassName('checking')[i].checked){
           this.setState({
@@ -264,7 +259,11 @@ class main extends Component{
     this.setState({ bottom: open });
   };
 
-  
+  onClickReloadButton = () => {
+    this.setState({
+        randomNumber: this.state.List[Math.floor(Math.random() * this.state.List.length)]
+    });
+  }
 
   render(){
     return (
@@ -274,24 +273,29 @@ class main extends Component{
         <TourIntroHeader />
 
         {/* <!-- 퀴즈 정답 입력 --> */}
-        <div id="content_answer" className="container">
-            <div id="content_quiz">
-              <div> {this.state.List.length == 0 ? '게임을 로딩중입니다' : <Game ChangeThis={this.ChangeThis} selectChange={this.selectChange}
-                                                                          randomNumber={this.state.randomNumber}/>}</div>
-              <div>
-              {this.state.isChange ? <div>{
-               document.getElementById('Question').value == '주관식'?
-               <TextField label="정답" className="submit_input" id="quizInput" type="text"  onChange={(e) => {this.setState({input:e.target.value})}}/>
-               : ''
-               }</div> :'' }
-               </div>
-             {/* <p>퀴즈의 정답을 입력해주세요</p> */}
-              <button id="quiz_button" name="a" className="submit_button"onClick={this.QuizSuccess}>확인</button> 
+        <div id="content_answer" className="container"> 
+          <div id="content_quiz">
+            <div> {this.state.List.length == 0 ? '게임을 로딩중입니다' : 
+              <Game 
+                ChangeThis={this.ChangeThis} 
+                selectChange={this.selectChange} 
+                randomNumber={this.state.randomNumber}
+                onClickReloadButton={this.onClickReloadButton}
+              />}
             </div>
+            <div>
+              {this.state.isChange ? <div>{
+              document.getElementById('Question').value == '주관식'?
+              <TextField label="정답" className="submit_input" id="quizInput" type="text"  onChange={(e) => {this.setState({input:e.target.value})}}/>
+              : ''
+              }</div> :'' }
+            </div>
+              <button id="quiz_button" name="a" className="submit_button"onClick={this.QuizSuccess}>확인</button> 
+          </div>
         </div>
         
         <Fab size="small" color="secondary" aria-label="add" onClick={this.toggleDrawer("bottom", true)}>
-          <EditIcon/>
+          <LockOpenIcon/>
         </Fab>
         <ExplainModal/>
 
@@ -321,4 +325,4 @@ class main extends Component{
   }
 }
 
-export default withCookies(main);
+export default main;

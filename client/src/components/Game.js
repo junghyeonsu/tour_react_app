@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import VideoPlay from './VideoPlay';
+import ReloadButton from './reloadButton';
 import './game.css';
 
 class Game extends Component {
@@ -17,15 +18,26 @@ class Game extends Component {
         });
         this.props.ChangeThis();
     }
+
+    onClickButton = async () => {
+        await this.props.onClickReloadButton();
+        this.setState({
+            randomNumber : this.props.randomNumber
+        });
+        this.props.ChangeThis();
+        // window.location.reload();
+    }
     
     render = () => {
-        
         const {gameList, randomNumber} = this.state;
         return(
            <div className="quiz_container">
+                <div className="reload_button_container">
+                    <ReloadButton onClickButton={this.onClickButton} />
+                </div>
             {gameList.length === 0 ? '' :
             <div>
-                  
+
                 {gameList[randomNumber].type == "객관식" ? 
                 <div className="short_quiz_container">
                     {/* 객관식 */}
@@ -50,7 +62,7 @@ class Game extends Component {
                     })}
                     </div>  
                     <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
-                    <input type='hidden' id = "comment" value = {gameList[randomNumber].comment} />
+                    <input type='hidden' id = "comment" value = "" />
                 </div>
                     :
                 <div className="multiple_quiz_container">
@@ -64,7 +76,7 @@ class Game extends Component {
                         {gameList[randomNumber].question}
                     </p>
                     <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
-                    <input type='hidden' id = "comment" value = {gameList[randomNumber].comment} />
+                    <input type='hidden' id = "comment" value = "" />
                 </div>
             }
 

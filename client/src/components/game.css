@@ -35,3 +35,11 @@ body {
 .short_quiz_text {
     padding: 20px;
 }
+
+.reload_button_container {
+    text-align: left;
+}
+
+.reload_button_container > Button {
+    margin: 10px;
+}

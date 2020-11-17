@@ -316,11 +316,13 @@ validationURL = function(database,stageInfo,quizInfo,cb){
     for(var i =0;i<stage.length;i++){
       if(stage[i].name == stageInfo){
         validator['stage'] = true;
+        console.log(stage[i].hint.length)
         if(Number(quizInfo.substring(4,quizInfo.length)) <= stage[i].hint.length){
           validator['quiz'] = true;
         }
       }
     }
+    console.log("stage validation",validator['stage'],"hint validation",validator['quiz'])
     if(validator['stage']&&validator['quiz']){
       cb(null,true);  
     }

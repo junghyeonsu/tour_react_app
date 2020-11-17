@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import TourIntroHeader from "./tourIntroHeader";
 import "./quiz.css";
 import {post} from 'axios';
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies} from 'react-cookie';
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Button from "@material-ui/core/Button";
 import CheckIcon from "@material-ui/icons/Check";
@@ -15,9 +13,6 @@ var cookieTime = 100;
 
 class Quiz extends Component {
   _isMounted = false;
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  };
   state = {
     comment: "",
     area: "",
@@ -187,4 +182,4 @@ class Quiz extends Component {
   }
 }
 
-export default withCookies(Quiz);
+export default Quiz;
