@@ -5,6 +5,7 @@ import Mains from './components/main';
 import Mission from './components/mission';
 import Admin from './components/admin/admin';
 import Quiz from './components/quiz';
+import WrongPage from './components/wrongPage';
 import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ class App extends Component{
       <CookiesProvider>
       <Router>
         <Switch>
+          <Route exact path="/" component={WrongPage} />
           {/*   /로 이동하면 Main 컴포넌트를 띄움   */}
           <Route exact path="/intro" component={Intro} />
           {/*   /mission로 이동하면 Mission 컴포넌트를 띄움   */}

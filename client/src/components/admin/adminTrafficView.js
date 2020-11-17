@@ -2,14 +2,9 @@ import React, {Component} from 'react';
 import './adminTrafficView.css';
 import axios from 'axios';
 import {
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    // CartesianGrid,
-    Tooltip,
+    ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
     Legend,
-  } from "recharts";
+  } from 'recharts';
 
 class AdminTrafficView extends Component {
 
@@ -36,23 +31,22 @@ class AdminTrafficView extends Component {
         const {data} = this.state;
         return(
             <>
-                <BarChart
+                <ComposedChart
+                    layout="vertical"
                     width={360}
                     height={300}
                     data={data}
                     margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
+                    top: 20, right: 20, bottom: 20, left: 20,
                     }}
                 >
-                    <XAxis dataKey="stage" />
-                    <YAxis />
+                    <CartesianGrid stroke="#f5f5f5" />
+                    <XAxis type="number" />
+                    <YAxis dataKey="stage" type="category" />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="traffic" fill="#82ca9d" />
-                </BarChart>
+                    <Bar dataKey="traffic" barSize={20} fill="#413ea0" />
+                </ComposedChart>  
             </>
         );
     }
