@@ -38,6 +38,19 @@ class Quiz extends Component {
           stageAnswer: this.props.location.data.stageAnswer,
           stageProblem: this.props.location.data.stageProblem,
         });
+        if(localStorage.getItem('count') !== null){
+          var count = cookieTime - localStorage.getItem('count')
+          console.log(count)
+          var timer = setInterval(function(){
+            count--;
+            localStorage.setItem('count',cookieTime - count)
+            console.log(count,localStorage.getItem('count'))
+            if(count === 0){
+              localStorage.removeItem("count");
+              clearInterval(timer);
+            }
+          },1000);
+        }
       }
     } else {
       this._isMounted = false;
@@ -45,6 +58,7 @@ class Quiz extends Component {
         pathname: "/",
       });
     }
+    
   };
 
   onChange = (e) => {
@@ -82,42 +96,32 @@ class Quiz extends Component {
     this.setState({ bottom: open });
   };
   StageSuccess = (e) => {
-    if (this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g, "")) == -1 &&this.props.cookies.get("time") === undefined
-    ) {
-      alert("틀렸습니다!");
+    if(localStorage.getItem('count') !== null){
+      alert(String(cookieTime - localStorage.getItem('count'))+'초 남았습니다.')
+    }
+
+    else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) == -1 && localStorage.getItem('count') === null){
+      alert('틀렸습니다!');
       e.preventDefault();
-      document.getElementById("stageAnswerInput").disabled = true;
-      this.props.cookies.set("time", String(cookieTime), {
-        maxAge: cookieTime,
-      });
-      var a = Number(this.props.cookies.get("time"));
       var count = 0;
-      var timer = setInterval(function () {
-        a--;
+      var timer = setInterval(function(){
         count++;
-        localStorage.setItem("count", count);
-        if (count === cookieTime) {
+        localStorage.setItem('count',count)
+        if(count === cookieTime){
           localStorage.removeItem("count");
-          document.getElementById("stageAnswerInput").disabled = false;
           count = 0;
           clearInterval(timer);
         }
-      }, 1000);
-    } else if (
-      this.state.stageAnswer.indexOf(
-        this.state.FinalInput.replace(/(\s*)/g, "")
-      ) != -1
-    ) {
-      alert("맞았습니다.");
-      this.handleFormSubmit();
-    } else if (this.props.cookies.get("time") !== undefined) {
-      alert(
-        String(cookieTime - localStorage.getItem("count")) + "초 남았습니다."
-      );
-    } else {
-      alert("답을 입력하세요!");
+      },1000);
     }
-  };
+    else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) != -1){
+      alert('맞았습니다.');
+      this.handleFormSubmit();
+    }
+    else{
+      alert('답을 입력하세요!')
+    }
+  }
   render() {
     if (this._isMounted) {
       const { comment, area, hint, stageProblem } = this.state;
