@@ -15,7 +15,7 @@ import CheckIcon from '@material-ui/icons/Check';
 
 let time = new Date();
 
-var cookieTime = 100;
+var cookieTime = 10;
 var cookieTime2 = 30;
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -81,23 +81,21 @@ class main extends Component{
     });
     console.log("Main RandomNumber : ",this.state.randomNumber)
     console.log(this.props.cookies.get('time'))
-    if(this.props.cookies.get('time') !== undefined){
-      console.log(this.props.cookies.get('time'),localStorage.getItem('count'))
-      var count = this.props.cookies.get('time') - localStorage.getItem('count')
+    if(localStorage.getItem('count') !== null){
+      var count = cookieTime - localStorage.getItem('count')
       console.log(count)
       var timer = setInterval(function(){
         count--;
         localStorage.setItem('count',cookieTime - count)
         console.log(count,localStorage.getItem('count'))
         if(count === 0){
-          count = 0;
           localStorage.removeItem("count");
           clearInterval(timer);
         }
       },1000);
     }
     if(localStorage.getItem('count2') !== null){
-      console.log(this.props.cookies.get('time2'),localStorage.getItem('count2'))
+      console.log(localStorage.getItem('count2'))
       var count = cookieTime2 - localStorage.getItem('count2')
       var timer = setInterval(function(){
         count--;
@@ -185,7 +183,7 @@ class main extends Component{
         this.handleFormSubmit2();
       }
     }
-    else if(document.getElementById('Question').value === '객관식'&& this.props.cookies.get('time2') === undefined){
+    else if(document.getElementById('Question').value === '객관식'&& localStorage.getItem('count2') === null){
       console.log(this.props.cookies.get('time2'));
       for(var i = 0; i<document.getElementsByClassName('checking').length;i++){
         if(document.getElementsByClassName('checking')[i].checked){
@@ -217,37 +215,27 @@ class main extends Component{
   }
   
   StageSuccess = (e) => {
-    if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) == -1 && this.props.cookies.get('time') === undefined){
+    if(localStorage.getItem('count') !== null){
+      alert(String(cookieTime - localStorage.getItem('count'))+'초 남았습니다.')
+    }
+
+    else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) == -1 && localStorage.getItem('count') === null){
       alert('틀렸습니다!');
       e.preventDefault();
-      this.setState({
-        stageFail : true
-      })
-      this.props.cookies.set('time',String(cookieTime),{maxAge:cookieTime})
-      
-      var a = Number(this.props.cookies.get('time'));
       var count = 0;
       var timer = setInterval(function(){
-        a--;
         count++;
         localStorage.setItem('count',count)
         if(count === cookieTime){
           localStorage.removeItem("count");
-         
           count = 0;
           clearInterval(timer);
         }
       },1000);
-      this.setState({
-        stageFail : false
-      })
     }
     else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) != -1){
       alert('맞았습니다.');
       this.handleFormSubmit();
-    }
-    else if(this.props.cookies.get('time') !== undefined){
-      alert(String(cookieTime - localStorage.getItem('count'))+'초 남았습니다.')
     }
     else{
       alert('답을 입력하세요!')
@@ -323,11 +311,7 @@ class main extends Component{
               <br /> 구역 내 QR코드에 숨겨져 있는 퀴즈를 해결하고  
               <br /> 힌트를 찾아 암호를 완성해줘!!</strong>
               <br />
-              {
-                this.state.stageFail === false ? <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
-                : <input className="submit_input" type="text" id="aa" onChange={this.onChange} disabled/>
-              }
-              
+              <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
               <br />
               <Button startIcon={<CheckIcon />} variant="contained" color="secondary" id="mission_button" onClick={this.StageSuccess}>제출</Button>    
           </div>
