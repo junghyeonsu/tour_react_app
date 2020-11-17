@@ -16,7 +16,7 @@ import CheckIcon from '@material-ui/icons/Check';
 let time = new Date();
 
 var cookieTime = 100;
-var cookieTime2 = 10;
+var cookieTime2 = 30;
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -82,9 +82,6 @@ class main extends Component{
     console.log("Main RandomNumber : ",this.state.randomNumber)
     console.log(this.props.cookies.get('time'))
     if(this.props.cookies.get('time') !== undefined){
-      this.setState({
-        stageFail : true
-      })
       console.log(this.props.cookies.get('time'),localStorage.getItem('count'))
       var count = this.props.cookies.get('time') - localStorage.getItem('count')
       console.log(count)
@@ -93,25 +90,20 @@ class main extends Component{
         localStorage.setItem('count',cookieTime - count)
         console.log(count,localStorage.getItem('count'))
         if(count === 0){
-          this.setState({
-            stageFail : false
-          })
           count = 0;
           localStorage.removeItem("count");
           clearInterval(timer);
         }
       },1000);
     }
-    if(this.props.cookies.get('time2') !== undefined){
+    if(localStorage.getItem('count2') !== null){
       console.log(this.props.cookies.get('time2'),localStorage.getItem('count2'))
-      var count = this.props.cookies.get('time2') - localStorage.getItem('count2')
-      console.log(count)
+      var count = cookieTime2 - localStorage.getItem('count2')
       var timer = setInterval(function(){
         count--;
         localStorage.setItem('count2',cookieTime2 - count)
         console.log(count,localStorage.getItem('count2'))
         if(count === 0){
-          count = 0;
           localStorage.removeItem("count2");
           clearInterval(timer);
         }
@@ -165,25 +157,21 @@ class main extends Component{
     console.log("Main 입력받은 정답 : ",this.state.input.replace(/(\s*)/g,""));
     var quizAnswer = document.getElementById('correctAnswer').value.split(',');
     
-    if(this.props.cookies.get('time2') !== undefined){
+    if(localStorage.getItem('count2') !== null){
       alert(String(cookieTime2 - localStorage.getItem('count2'))+'초 남았습니다.')
     }
     else if(this.state.input == ''){
       alert('답을 입력하세요!');
     }
-    else if(document.getElementById('Question').value === '주관식' && this.props.cookies.get('time2') === undefined){
+    else if(document.getElementById('Question').value === '주관식' && localStorage.getItem('count2') === null){
       if(quizAnswer.indexOf(this.state.input.replace(/(\s*)/g,"")) == -1){
         alert('틀렸습니다!');
         e.preventDefault();
-        this.props.cookies.set('time2',String(cookieTime2),{maxAge:cookieTime2})
-        var a = Number(this.props.cookies.get('time2'));
         var count2 = 0;
-
         var timer = setInterval(function(){
-        a--;
         count2++;
-        console.log(a,count2);
         localStorage.setItem('count2',count2)
+        console.log(localStorage.getItem('count2'));
         if(count2 === cookieTime2){
           localStorage.removeItem("count2");
           count2 = 0;
@@ -198,6 +186,7 @@ class main extends Component{
       }
     }
     else if(document.getElementById('Question').value === '객관식'&& this.props.cookies.get('time2') === undefined){
+      console.log(this.props.cookies.get('time2'));
       for(var i = 0; i<document.getElementsByClassName('checking').length;i++){
         if(document.getElementsByClassName('checking')[i].checked){
           this.setState({
@@ -206,17 +195,13 @@ class main extends Component{
         } 
       }
       if(quizAnswer.indexOf(this.state.input) == -1){
-        console.log(document.getElementById('correctAnswer').value)
         alert('틀렸습니다!');
         e.preventDefault(); 
-        this.props.cookies.set('time2',String(cookieTime2),{maxAge:cookieTime2})
-        var a = Number(this.props.cookies.get('time2'));
         var count2 = 0;
         var timer = setInterval(function(){
-        a--;
         count2++;
-        console.log(a,count2);
         localStorage.setItem('count2',count2)
+        console.log(localStorage.getItem('count2'));
         if(count2 === cookieTime2){
           localStorage.removeItem("count2");
           count2 = 0;
@@ -239,6 +224,7 @@ class main extends Component{
         stageFail : true
       })
       this.props.cookies.set('time',String(cookieTime),{maxAge:cookieTime})
+      
       var a = Number(this.props.cookies.get('time'));
       var count = 0;
       var timer = setInterval(function(){
