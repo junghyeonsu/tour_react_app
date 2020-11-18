@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import CheckIcon from "@material-ui/icons/Check";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 var cookieTime = 100;
@@ -137,7 +138,7 @@ class Quiz extends Component {
             aria-label="add"
             onClick={this.toggleDrawer("bottom", true)}
           >
-            <EditIcon />
+            <LockOpenIcon/>
           </Fab>
           <SwipeableDrawer
             anchor={"bottom"}

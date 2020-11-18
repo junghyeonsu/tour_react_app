@@ -4,7 +4,6 @@ import TourIntroHeader from './tourIntroHeader';
 import Game from './Game';
 import ExplainModal from './Modal';
 import {post} from 'axios';
-import { instanceOf } from 'prop-types';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
@@ -14,7 +13,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 let time = new Date();
 
-var cookieTime = 10;
+var cookieTime = 100;
 var cookieTime2 = 30;
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
