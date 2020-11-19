@@ -17,8 +17,10 @@ var cookieTime = 100;
 var cookieTime2 = 30;
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-
+var timer1 = 0;
+var timer2 = 0; 
 class main extends Component{
+
   state = {
     input : '',
     FinalInput :  '',
@@ -79,29 +81,33 @@ class main extends Component{
     if(localStorage.getItem('count') !== null){
       var count = cookieTime - localStorage.getItem('count')
       console.log(count)
-      var timer = setInterval(function(){
+      // var timer = setInterval(function(){
+        timer1 = setInterval(function(){
         count--;
         localStorage.setItem('count',cookieTime - count)
-        console.log(count,localStorage.getItem('count'))
-        if(localStorage.getItem('count') == '100'){
+        console.log("Main stag:",count,localStorage.getItem('count'))
+        if(Number(localStorage.getItem('count')) >= 100){
           localStorage.removeItem("count");
-          clearInterval(timer);
+          clearInterval(timer1);
         }
       },1000);
     }
     if(localStorage.getItem('count2') !== null){
       console.log(localStorage.getItem('count2'))
       var count2 = cookieTime2 - localStorage.getItem('count2')
-      var timer = setInterval(function(){
+      timer2 = setInterval(function(){
         count2--;
         localStorage.setItem('count2',cookieTime2 - count2)
-        console.log(count2,localStorage.getItem('count2'))
-        if(count2 === 0){
+        console.log("Main quiz:",count2,localStorage.getItem('count2'))
+        if(count2 <= 0){
           localStorage.removeItem("count2");
-          clearInterval(timer);
+          clearInterval(timer2);
         }
       },1000);
     }
+  }
+  componentWillUnmount(){
+    clearInterval(timer1);
   }
   handleFormSubmit = async () => {
      this.goStage()
@@ -161,14 +167,14 @@ class main extends Component{
         alert('오답입니다!\n* 30초간 입력이 제한됩니다.');
         e.preventDefault();
         var count2 = 0;
-        var timer = setInterval(function(){
+        timer2 = setInterval(function(){
         count2++;
         localStorage.setItem('count2',count2)
         console.log(localStorage.getItem('count2'));
         if(count2 === cookieTime2){
           localStorage.removeItem("count2");
           count2 = 0;
-          clearInterval(timer);
+          clearInterval(timer2);
         }
       },1000);
 
@@ -190,14 +196,14 @@ class main extends Component{
         alert('오답입니다!\n* 30초간 입력이 제한됩니다.');
         e.preventDefault(); 
         var count2 = 0;
-        var timer = setInterval(function(){
+        timer2 = setInterval(function(){
         count2++;
         localStorage.setItem('count2',count2)
         console.log(localStorage.getItem('count2'));
         if(count2 === cookieTime2){
           localStorage.removeItem("count2");
           count2 = 0;
-          clearInterval(timer);
+          clearInterval(timer2);
         }
       },1000);
       }
@@ -217,13 +223,13 @@ class main extends Component{
       alert('오답입니다!\n* 100초간 입력이 제한됩니다.');
       e.preventDefault();
       var count = 0;
-      var timer = setInterval(function(){
+      timer1 = setInterval(function(){
         count++;
         localStorage.setItem('count',count)
         if(count >= cookieTime){
           localStorage.removeItem("count");
           count = 0;
-          clearInterval(timer);
+          clearInterval(timer1);
         }
       },1000);
     }

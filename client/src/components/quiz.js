@@ -41,8 +41,8 @@ class Quiz extends Component {
           var timer = setInterval(function(){
             count--;
             localStorage.setItem('count',cookieTime - count)
-            console.log(count,localStorage.getItem('count'))
-            if(localStorage.getItem('count') == '100'){
+            console.log("Quiz stag:",count,localStorage.getItem('count'))
+            if(Number(localStorage.getItem('count')) >= 100){
               localStorage.removeItem("count");
               clearInterval(timer);
             }
@@ -132,7 +132,7 @@ class Quiz extends Component {
             </div>
               <h2>{area}</h2> 
               <p>[힌트]</p>
-              <h4><span id="hintAnswer">{hint}</span></h4>입니다.
+              <h4><span id="hintAnswer">"{hint}"</span></h4>
             </div>
           </div>
           <Fab
