@@ -125,11 +125,11 @@ class Quiz extends Component {
       return (
         <div className="hint_container">
           <div id="explain">
+            <div id="content_quiz2" className="container">
+              <GifPlayer gif={require('../images/퀴즈 정답 루프이미지.gif')} autoplay={true} alt="GIF" />
             <div id="QuizExplain">
               {comment == "" ? "" : <div>해설: {comment}</div>}
             </div>
-            <div id="content_quiz2" className="container">
-              <GifPlayer gif={require('../images/퀴즈 정답 루프이미지.gif')} autoplay={true} alt="GIF" />
               <h2>{area}</h2> 
               <p>[힌트]</p>
               <h4><span id="hintAnswer">{hint}</span></h4>입니다.
