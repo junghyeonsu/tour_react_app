@@ -62,7 +62,7 @@ class Game extends Component {
                     })}
                     </div>  
                     <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
-                    <input type='hidden' id = "comment" value = "" />
+                    <input type='hidden' id = "comment" value = {gameList[randomNumber].comment} />
                 </div>
                     :
                 <div className="multiple_quiz_container">
@@ -76,7 +76,7 @@ class Game extends Component {
                         {gameList[randomNumber].question}
                     </p>
                     <input type='hidden' id = "correctAnswer" value = {gameList[randomNumber].answer} />
-                    <input type='hidden' id = "comment" value = "" />
+                    <input type='hidden' id = "comment" value = {gameList[randomNumber].comment} />
                 </div>
             }
 
