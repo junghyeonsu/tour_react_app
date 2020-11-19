@@ -37,9 +37,19 @@ body {
 }
 
 .reload_button_container {
+    display: flex;
     text-align: left;
+    align-items: center;
 }
 
 .reload_button_container > Button {
     margin: 10px;
+}
+
+.reload_button_container > span {
+    color : rgb(174, 174, 174);
+}
+
+.quiz_precaution_text { 
+    font-size: 3.5vw;
 }
