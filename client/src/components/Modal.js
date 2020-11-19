@@ -27,15 +27,14 @@ const customStyles = {
       bottom                : 'auto',
       marginRight           : '-50%',
       transform             : 'translate(-50%, -50%)',
-      width                 : '70%',
-      height                : '50%',
+      width                 : '100%',
+      height                : '60%',
     }
     };
 
 const Explain = {
-    explain1 : '게임설명',
-    explain2 : '퀴즈설명',
-    explain3 : '미션설명',
+    explain1 : '인트로무비',
+    explain2 : '게임방법',
     startPoint : 0,
 }
 
@@ -60,17 +59,12 @@ class ExplainModal extends Component{
     clickButton = (e) => {
         this.setState({NotButton : false});
         console.log(e.target.innerHTML)
-        if(e.target.innerHTML === '게임설명'){
+        if(e.target.innerHTML === '인트로무비'){
             console.log(1)
-            this.setState({explain : Explain.explain1,startPoint : 8});
+            this.setState({explain : Explain.explain1,startPoint : 0});
         }
-        else if(e.target.innerHTML === '퀴즈설명'){
+        else if(e.target.innerHTML === '게임방법'){
             console.log(2)
-            this.setState({explain : Explain.explain2,startPoint : 16});
-        }
-        else{
-            console.log(3)
-            this.setState({explain : Explain.explain3,startPoint : 24});
         }
     }
 
@@ -93,9 +87,8 @@ class ExplainModal extends Component{
               >
                 {NotButton === true ?
                 <div className="ButContainer">
-                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', marginTop:'15%',marginBottom : '15%',width:'70%'}} onClick={this.clickButton}>게임설명</Button>
-                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', marginBottom : '15%',width:'70%'}}className="buttonSt" onClick={this.clickButton}>퀴즈설명</Button> 
-                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', marginBottom : '15%',width:'70%'}}className="buttonSt" onClick={this.clickButton}>미션설명</Button>
+                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', marginTop:'15%',marginBottom : '15%',width:'70%'}} onClick={this.clickButton}>인트로무비</Button>
+                <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', marginBottom : '15%',width:'70%'}}className="buttonSt" onClick={this.clickButton}>게임방법</Button>
                 <Button variant="contained" color="primary" style={{marginLeft:'auto', marginRight:'auto', width:'70%'}}className="buttonSt" onClick={() => this.setState({modal : false})}>창 닫기</Button>
                 </div> 
 

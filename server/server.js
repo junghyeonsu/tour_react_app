@@ -205,7 +205,7 @@ getLessPeopleStageAndMission = function (database, stageInfo, visited, cb) {
         cb(null, {
           mission: mission[0],
           comment:comment,
-          stage: `다음 방문지는 ${candidate[idx].name}입니다.`,
+          stage: `다음의 추천장소는 ${candidate[idx].name}입니다.`,
         });
       }  
     })

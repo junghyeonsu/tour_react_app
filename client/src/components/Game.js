@@ -33,8 +33,9 @@ class Game extends Component {
         return(
            <div className="quiz_container">
                 <div className="reload_button_container">
-                    <ReloadButton onClickButton={this.onClickButton} />
+                    <ReloadButton onClickButton={this.onClickButton} /> 다른문제풀기
                 </div>
+                <p style={{color:'red'}}> * 오답입력시 30초간 재입력이 제한됩니다.</p>
             {gameList.length === 0 ? '' :
             <div>
 

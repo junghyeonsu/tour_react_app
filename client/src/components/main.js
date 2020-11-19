@@ -83,7 +83,7 @@ class main extends Component{
         count--;
         localStorage.setItem('count',cookieTime - count)
         console.log(count,localStorage.getItem('count'))
-        if(count === 0){
+        if(count <= 0){
           localStorage.removeItem("count");
           clearInterval(timer);
         }
@@ -96,7 +96,7 @@ class main extends Component{
         count--;
         localStorage.setItem('count2',cookieTime2 - count)
         console.log(count,localStorage.getItem('count2'))
-        if(count === 0){
+        if(count <= 0){
           localStorage.removeItem("count2");
           clearInterval(timer);
         }
@@ -158,7 +158,7 @@ class main extends Component{
     }
     else if(document.getElementById('Question').value === '주관식' && localStorage.getItem('count2') === null){
       if(quizAnswer.indexOf(this.state.input.replace(/(\s*)/g,"")) == -1){
-        alert('틀렸습니다!');
+        alert('오답입니다!\n* 30초간 입력이 제한됩니다.');
         e.preventDefault();
         var count2 = 0;
         var timer = setInterval(function(){
@@ -174,7 +174,7 @@ class main extends Component{
 
     }
       else {
-        alert('맞았습니다.');
+        alert('정답입니다.');
         this.handleFormSubmit2();
       }
     }
@@ -187,7 +187,7 @@ class main extends Component{
         } 
       }
       if(quizAnswer.indexOf(this.state.input) == -1){
-        alert('틀렸습니다!');
+        alert('오답입니다!\n* 30초간 입력이 제한됩니다.');
         e.preventDefault(); 
         var count2 = 0;
         var timer = setInterval(function(){
@@ -202,7 +202,7 @@ class main extends Component{
       },1000);
       }
       else {
-        alert('맞았습니다.');
+        alert('정답입니다.');
         this.handleFormSubmit2();
       }
     }
@@ -214,13 +214,13 @@ class main extends Component{
     }
 
     else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) == -1 && localStorage.getItem('count') === null){
-      alert('틀렸습니다!');
+      alert('오답입니다!\n* 100초간 입력이 제한됩니다.');
       e.preventDefault();
       var count = 0;
       var timer = setInterval(function(){
         count++;
         localStorage.setItem('count',count)
-        if(count === cookieTime){
+        if(count >= cookieTime){
           localStorage.removeItem("count");
           count = 0;
           clearInterval(timer);
@@ -228,7 +228,7 @@ class main extends Component{
       },1000);
     }
     else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) != -1){
-      alert('맞았습니다.');
+      alert('정답입니다.');
       this.handleFormSubmit();
     }
     else{
@@ -272,7 +272,7 @@ class main extends Component{
         <TourIntroHeader />
 
         {/* <!-- 퀴즈 정답 입력 --> */}
-        <div id="content_answer" className="container"> 
+        <div id="content_answer" className="container">   
           <div id="content_quiz">
             <div> {this.state.List.length == 0 ? '게임을 로딩중입니다' : 
               <Game 
@@ -313,7 +313,7 @@ class main extends Component{
                 {this.state.stageProblem == undefined ? this.state.area +"의 알맞은 데이터 암호를 구해라!": this.state.stageProblem}
               <br /> 구역 내 QR코드에 숨겨져 있는 퀴즈를 해결하고  
               <br /> 힌트를 찾아 암호를 완성해줘!!</strong>
-              <br />
+              <p>* 오답 입력시 100초간 입력이 제한됩니다.</p>
               <input className="submit_input" type="text" id="aa" onChange={this.onChange} />
               <br />
               <Button startIcon={<CheckIcon />} variant="contained" color="secondary" id="mission_button" onClick={this.StageSuccess}>제출</Button>    

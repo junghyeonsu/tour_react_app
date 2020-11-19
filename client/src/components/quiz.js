@@ -97,7 +97,7 @@ class Quiz extends Component {
     }
 
     else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) == -1 && localStorage.getItem('count') === null){
-      alert('틀렸습니다!');
+      alert('오답입니다!');
       e.preventDefault();
       var count = 0;
       var timer = setInterval(function(){
@@ -111,7 +111,7 @@ class Quiz extends Component {
       },1000);
     }
     else if(this.state.stageAnswer.indexOf(this.state.FinalInput.replace(/(\s*)/g,"")) != -1){
-      alert('맞았습니다.');
+      alert('정답입니다.');
       this.handleFormSubmit();
     }
     else{
@@ -154,9 +154,9 @@ class Quiz extends Component {
                 {this.state.stageProblem == undefined
                   ? area + "의 알맞은 데이터 암호를 구해라!"
                   : stageProblem}
-                <br /> 구역 내 QR코드에 숨겨져 있는 퀴즈를 해결하고
-                <br /> 힌트를 찾아 암호를 완성해줘!!
-              </strong>
+              <br /> 구역 내 QR코드에 숨겨져 있는 퀴즈를 해결하고  
+              <br /> 힌트를 찾아 암호를 완성해줘!!</strong>
+              <p>* 오답 입력시 100초간 입력이 제한됩니다.</p>
               <br />
               <input
                 className="submit_input" type="text" id="stageAnswerInput" onChange={this.onChange}/>

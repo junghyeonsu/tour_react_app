@@ -35,6 +35,7 @@ class YouTubeVideo extends React.PureComponent {
     // the Player object is created uniquely based on the id in props
     this.state.player = new window.YT.Player(`youtube-player-${id}`, {
       videoId: id,
+      playerVars:{'playsinline':1,},
       events: {
         onReady: this.onPlayerReady,
       },
@@ -44,7 +45,7 @@ class YouTubeVideo extends React.PureComponent {
 
   onPlayerReady = event => {
     event.target.seekTo(this.props.startTime);
-    event.target.playVideo(5);
+    event.target.playVideo();
   };
 
   

@@ -33,9 +33,12 @@ body {
 }
 
 #stage_answer > strong {
-    font-size: 3vw;
+    font-size: 3.5vw;
 }
-
+#stage_answer > p {
+    font-size: 3vw;
+    color:red;
+}
 
 #quiz_button {
     width: 20%;

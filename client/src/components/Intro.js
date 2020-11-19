@@ -36,9 +36,12 @@ class Intro extends Component{
         return (
           <div style={{textAlign:'center'}}>        
             <div>
-            <VideoPlay id={'9vkZVikwTAU'} startTime={0} seek= {{게임설명:16,퀴즈설명:32}} count = {2}/>     
+            <VideoPlay id={'9vkZVikwTAU'} startTime={0} seek= {{인트로무비:0,게임방법:32}} count = {2}/>     
             </div>
-            <Button variant="contained" color="primary" style={{width:'85%'}} onClick={this.IntroSuccess}>확인</Button>
+            {/* {this.state.stage!=null && this.state.quiz !=null ? 
+            :<div></div>} */}
+            <Button variant="contained" color="primary" style={{width:'85%'}} onClick={this.IntroSuccess}>게임 시작하기</Button>
+            
           </div>
           
         );
