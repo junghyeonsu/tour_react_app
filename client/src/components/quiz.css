@@ -44,9 +44,8 @@
 }
 
 #content_quiz2{
-    margin-top: 20%;
+    margin-top: 10%;
     font-size: 5.5vw;
-    margin-left: 10%;
 }
 
 #explain{
@@ -58,10 +57,18 @@
     display: flex;
     height: 70vh;
 }
+
 #hintAnswer{
     color: blue;
 }
 
 #QuizExplain{
     font-size: 4vw;
+}
+
+.hint_container > button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    transform:translate(-10px, -10px);
 }
