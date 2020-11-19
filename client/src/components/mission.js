@@ -70,22 +70,29 @@ class mission extends Component {
                 <div id="content">
                 {/* <!-- 스테이지 정답 확인 이미지 + message --> */}
                 <div id="success_container">
-                <h1>축하합니다!</h1>
-                <h3>{area} 스테이지를 해결하셨습니다.</h3>
-                <h3>{comment}</h3>
-                {this.state.gifTime == 0 ? 
-                <GifPlayer gif={require('../images/intro.gif')} autoplay={true} alt="GIF" /> :
-                <GifPlayer gif={require('../images/loop.gif')} autoplay={true} alt="GIF" onTogglePlay={this.touchGif} />
-                }
+                
+                <GifPlayer gif={require('../images/스테이지 완료 루프이미지.gif')} autoplay={true} alt="GIF" />
+                
+                <h1>성공이야!</h1>
+                <h4>네가 찾은 {area}의</h4>
+                <h4>{comment}</h4>
+                <h4>데이터 암호가 비트가디언즈에게 전달되었어</h4>
+                <h4>이제 데이터는 안전한 곳으로 이동될꺼야</h4>
                 </div>
 
                     <div id="mission_container">
-                        <h2>미션은 {mission} 입니다.</h2> 
+                        <div>
+                        <img src={require('../images/손가락하트.jpg')}></img>
+                        <h2>손하트와 함께 {area}을 촬영하여 SNS에 공유해주세요</h2>
+                        <h4>(추첨을 통해 소정의 상품을 드립니다.)</h4>
+                        </div>
+
                         <p className="mission_hashtag"><strong>주의사항</strong><br /> SNS에 올릴 때 해쉬태그를 추가해주세요.</p>
-                        <CopyToClipboard text={"#대전여행 #미션여행"} onCopy={this.copyHashtag}>
-                        <span>#대전여행 #미션여행</span>
+                        <CopyToClipboard text={"#스마티어링 대전"} onCopy={this.copyHashtag}>
+                        <span>#스마티어링 대전</span>
                         </CopyToClipboard>
-                        <p>(위 해쉬태그를 누르면 복사됩니다.)</p>
+                        <p className="mission_hashtag">* 아래의 해시태그를 포함해주세요</p>
+                        <p>(해시태그를 터치하시면 복사됩니다.)</p>
                         <div id="SNS-container">
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
                             <img id = "instagram-img" className = "sns_image" src={require('../images/instagram.jpeg')} alt = "instagram" /> 
@@ -100,11 +107,14 @@ class mission extends Component {
                     </div>
 
                     <div className="survey_container">
-                        <Button variant="contained" color="secondary" onClick={this.onClickSurveyButton} >설문 이동</Button>
+                        <h4>프로그램 개선을 위한 설문에 도움을 부탁드립니다.</h4>
+                        <Button variant="contained" color="secondary" onClick={this.onClickSurveyButton} >설문지 작성</Button>
                     </div>
 
                     <div id="button_container">
                         <h2>{stage}</h2> 
+                        <h4 className="mission_hashtag">{'* 추천장소는 데이터트래픽을 분석하여 관광객의 방문이 가장적은 \n 안전한 장소로 안내합니다.'}</h4>
+                        
                     </div>
                 </div>
         </div>

@@ -44,7 +44,7 @@ class YouTubeVideo extends React.PureComponent {
 
   onPlayerReady = event => {
     event.target.seekTo(this.props.startTime);
-    event.target.playVideo(5);
+    event.target.playVideo();
   };
 
   
