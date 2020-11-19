@@ -83,7 +83,7 @@ class main extends Component{
         count--;
         localStorage.setItem('count',cookieTime - count)
         console.log(count,localStorage.getItem('count'))
-        if(count <= 0){
+        if(localStorage.getItem('count') == '100'){
           localStorage.removeItem("count");
           clearInterval(timer);
         }
@@ -91,12 +91,12 @@ class main extends Component{
     }
     if(localStorage.getItem('count2') !== null){
       console.log(localStorage.getItem('count2'))
-      var count = cookieTime2 - localStorage.getItem('count2')
+      var count2 = cookieTime2 - localStorage.getItem('count2')
       var timer = setInterval(function(){
-        count--;
-        localStorage.setItem('count2',cookieTime2 - count)
-        console.log(count,localStorage.getItem('count2'))
-        if(count <= 0){
+        count2--;
+        localStorage.setItem('count2',cookieTime2 - count2)
+        console.log(count2,localStorage.getItem('count2'))
+        if(count2 === 0){
           localStorage.removeItem("count2");
           clearInterval(timer);
         }

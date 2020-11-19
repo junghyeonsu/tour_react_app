@@ -8,6 +8,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import GifPlayer from 'react-gif-player';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 var cookieTime = 100;
@@ -41,7 +42,7 @@ class Quiz extends Component {
             count--;
             localStorage.setItem('count',cookieTime - count)
             console.log(count,localStorage.getItem('count'))
-            if(count === 0){
+            if(localStorage.getItem('count') == '100'){
               localStorage.removeItem("count");
               clearInterval(timer);
             }
@@ -124,12 +125,14 @@ class Quiz extends Component {
       return (
         <div className="hint_container">
           <div id="explain">
+            <div id="content_quiz2" className="container">
+              <GifPlayer gif={require('../images/퀴즈 정답 루프이미지.gif')} autoplay={true} alt="GIF" />
             <div id="QuizExplain">
               {comment == "" ? "" : <div>해설: {comment}</div>}
             </div>
-            <div id="content_quiz2" className="container">
-              <p>{area} 구역의 힌트는</p>
-              <span id="hintAnswer">{hint}</span>입니다.
+              <h2>{area}</h2> 
+              <p>[힌트]</p>
+              <h4><span id="hintAnswer">{hint}</span></h4>입니다.
             </div>
           </div>
           <Fab
