@@ -135,7 +135,7 @@ class Quiz extends Component {
               </div>
                 <h2>{area}</h2> 
                 <p>[힌트]</p>
-                <h4><span id="hintAnswer">{hint}</span></h4>
+                <h4><span id="hintAnswer">"{hint}"</span></h4>
               </div>
             </div>
             <Fab
