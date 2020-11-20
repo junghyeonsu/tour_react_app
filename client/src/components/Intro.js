@@ -30,6 +30,8 @@ class Intro extends Component{
       this.props.history.push({
         pathname: `${this.state.stage}/${this.state.quiz}`
       });
+    }else{
+      alert('게임 QR 코드를 찍어주세요!')
     }
   }
     render(){
