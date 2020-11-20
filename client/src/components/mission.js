@@ -74,24 +74,24 @@ class mission extends Component {
                 <GifPlayer gif={require('../images/스테이지 완료 루프이미지.gif')} autoplay={true} alt="GIF" />
                 
                 <h1>성공이야!</h1>
-                <h4>네가 찾은 {area}의</h4>
                 <h4>{comment}</h4>
-                <h4>데이터 암호가 비트가디언즈에게 전달되었어</h4>
-                <h4>이제 데이터는 안전한 곳으로 이동될꺼야</h4>
+                
+                <p>네가 찾은 {area}의
+                <br/>데이터 암호가 비트가디언즈에게 전달되었어
+                <br/>이제 데이터는 안전한 곳으로 이동될꺼야</p>
                 </div>
 
                     <div id="mission_container">
                         <div>
                         <img src={require('../images/손가락하트.jpg')}></img>
-                        <h2>손하트와 함께 {area}을 촬영하여 SNS에 공유해주세요</h2>
-                        <h4>(추첨을 통해 소정의 상품을 드립니다.)</h4>
+                        <h2>손하트와 함께 {area}을 <br/>촬영하여 SNS에 공유해주세요</h2>
+                        <span>(추첨을 통해 소정의 상품을 드립니다.)</span>
                         </div>
 
-                        <p className="mission_hashtag"><strong>주의사항</strong><br /> SNS에 올릴 때 해쉬태그를 추가해주세요.</p>
+                        <span className="mission_hashtag"><strong>주의사항</strong><br /> * 아래의 해시태그를 포함해주세요.<br /> </span>
                         <CopyToClipboard text={"#스마티어링 대전"} onCopy={this.copyHashtag}>
                         <span>#스마티어링 대전</span>
                         </CopyToClipboard>
-                        <p className="mission_hashtag">* 아래의 해시태그를 포함해주세요</p>
                         <p>(해시태그를 터치하시면 복사됩니다.)</p>
                         <div id="SNS-container">
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
