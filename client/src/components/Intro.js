@@ -36,7 +36,7 @@ class Intro extends Component{
         return (
           <div style={{textAlign:'center'}}>        
             <div>
-            <VideoPlay id={'9vkZVikwTAU'} startTime={0} seek= {{인트로무비:0,게임방법:32}} count = {2}/>     
+            <VideoPlay id={'ANBPba55FcM'} startTime={0} seek= {{인트로무비:0,게임방법:145}} count = {2}/>     
             </div>
             {/* {this.state.stage!=null && this.state.quiz !=null ? 
             :<div></div>} */}

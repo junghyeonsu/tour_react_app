@@ -65,7 +65,8 @@ class ExplainModal extends Component{
         }
         else if(e.target.innerHTML === '게임방법'){
             console.log(2)
-        }
+            this.setState({explain : Explain.explain2,startPoint : 145});
+          }
     }
 
     goBack = () => {
@@ -94,7 +95,7 @@ class ExplainModal extends Component{
 
                 :
                 <div style={{width:'100%', height:'100%'}}> 
-                    <VideoPlayer id={'9vkZVikwTAU'} startTime={this.state.startPoint}/>
+                    <VideoPlayer id={'ANBPba55FcM'} startTime={this.state.startPoint}/>
                     <Button variant="contained" color="primary" className="buttonSt" onClick={this.goBack}>뒤로가기</Button>
                 </div>
                   }
