@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import VideoPlay from './VideoPlay';
 import ReloadButton from './reloadButton';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import './game.css';
 
 class Game extends Component {
@@ -33,9 +34,13 @@ class Game extends Component {
         return(
            <div className="quiz_container">
                 <div className="reload_button_container">
-                    <ReloadButton onClickButton={this.onClickButton} /> 다른문제풀기
+                    <ReloadButton onClickButton={this.onClickButton} /> 
+                    <ArrowLeftIcon color={"disabled"} />
+                    <span>
+                        다른 문제 풀기
+                    </span>
                 </div>
-                <p style={{color:'red'}}> * 오답입력시 30초간 재입력이 제한됩니다.</p>
+                <p className="quiz_precaution_text" style={{color:'red'}}> * 오답입력시 30초간 재입력이 제한됩니다.</p>
             {gameList.length === 0 ? '' :
             <div>
 

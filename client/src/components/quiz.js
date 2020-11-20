@@ -123,60 +123,61 @@ class Quiz extends Component {
     if (this._isMounted) {
       const { comment, area, hint, stageProblem } = this.state;
       return (
-        <div className="hint_container">
-          <div id="explain">
-            <div id="content_quiz2" className="container">
-              <GifPlayer gif={require('../images/퀴즈 정답 루프이미지.gif')} autoplay={true} alt="GIF" />
-            <div id="QuizExplain">
-              {comment == "" ? "" : <div>해설: {comment}</div>}
+        <div>
+
+          <TourIntroHeader />
+          <div className="hint_container">
+            <div id="explain">
+              <div id="content_quiz2" className="container">
+                <GifPlayer gif={require('../images/퀴즈 정답 루프이미지.gif')} autoplay={true} alt="GIF" />
+              <div id="QuizExplain">
+                {comment == "" ? "" : <div>해설: {comment}</div>}
+              </div>
+                <h2>{area}</h2> 
+                <p>[힌트]</p>
+                <h4><span id="hintAnswer">{hint}</span></h4>
+              </div>
             </div>
-              <h2>{area}</h2> 
-              <p>[힌트]</p>
-              <h4><span id="hintAnswer">"{hint}"</span></h4>
-            </div>
-          </div>
-          <Fab
-            size="small"
-            color="secondary"
-            aria-label="add"
-            onClick={this.toggleDrawer("bottom", true)}
-          >
-            <LockOpenIcon/>
-          </Fab>
-          <SwipeableDrawer
-            anchor={"bottom"}
-            open={this.state.bottom}
-            onClose={this.toggleDrawer("bottom", false)}
-            onOpen={this.toggleDrawer("bottom", true)}
-            disableBackdropTransition={!iOS}
-            disableDiscovery={iOS}
-          >
-            <div id="stage_answer" className="container">
-              {/* <strong>QR코드를 찾아 문제를 해결하고<br /> 힌트를 모아 4자리 비밀번호를 찾으세요. <br /> 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong> */}
-              <strong>
-                {this.state.stageProblem == undefined
-                  ? area + "의 알맞은 데이터 암호를 구해라!"
-                  : stageProblem}
-              <br /> 구역 내 QR코드에 숨겨져 있는 퀴즈를 해결하고  
-              <br /> 힌트를 찾아 암호를 완성해줘!!</strong>
-              <p>* 오답 입력시 100초간 입력이 제한됩니다.</p>
-              <br />
-              <input
-                className="submit_input" type="text" id="stageAnswerInput" onChange={this.onChange}/>
-              <br />
-              <Button
-                startIcon={<CheckIcon />}
-                variant="contained"
-                color="secondary"
-                id="mission_button"
-                onClick={this.StageSuccess}
-              >
-                제출
-              </Button>
-            </div>
-          </SwipeableDrawer>
-          <div id="bottom">
-            <TourIntroHeader />
+            <Fab
+              size="small"
+              color="secondary"
+              aria-label="add"
+              onClick={this.toggleDrawer("bottom", true)}
+            >
+              <LockOpenIcon/>
+            </Fab>
+            <SwipeableDrawer
+              anchor={"bottom"}
+              open={this.state.bottom}
+              onClose={this.toggleDrawer("bottom", false)}
+              onOpen={this.toggleDrawer("bottom", true)}
+              disableBackdropTransition={!iOS}
+              disableDiscovery={iOS}
+            >
+              <div id="stage_answer" className="container">
+                {/* <strong>QR코드를 찾아 문제를 해결하고<br /> 힌트를 모아 4자리 비밀번호를 찾으세요. <br /> 비밀번호를 찾으셨다면 아래 입력창에 입력하세요.</strong> */}
+                <strong>
+                  {this.state.stageProblem == undefined
+                    ? area + "의 알맞은 데이터 암호를 구해라!"
+                    : stageProblem}
+                <br /> 구역 내 QR코드에 숨겨져 있는 퀴즈를 해결하고  
+                <br /> 힌트를 찾아 암호를 완성해줘!!</strong>
+                <p>* 오답 입력시 100초간 입력이 제한됩니다.</p>
+                <br />
+                <input
+                  className="submit_input" type="text" id="stageAnswerInput" onChange={this.onChange}/>
+                <br />
+                <Button
+                  startIcon={<CheckIcon />}
+                  variant="contained"
+                  color="secondary"
+                  id="mission_button"
+                  onClick={this.StageSuccess}
+                >
+                  제출
+                </Button>
+              </div>
+            </SwipeableDrawer>
           </div>
         </div>
       );
